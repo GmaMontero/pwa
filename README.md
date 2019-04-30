@@ -32,5 +32,3 @@ git stash save "{descripcion}"
 git stash list
 git stash apply stash@{index_stash}
 ```
-
-If you are using WIndows or GIT GUI, sorry... But Monti not support this bad eleccion for your life.
