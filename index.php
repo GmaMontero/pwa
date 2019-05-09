@@ -6,39 +6,50 @@
     <meta name="description" content="The HTML5 Herald">
     <meta name="author" content="SitePoint">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/styles.css?v=1.0">
+    <link rel="stylesheet" href="css/main.css?v=1.0">
 </head>
 <body>
 
 <div class="container-fluid">
-    <div class="alert alert-primary" role="alert">
-        A simple primary alert—check it out!
-    </div>
-    <div class="alert alert-secondary" role="alert">
-        A simple secondary alert—check it out!
-    </div>
-    <div class="alert alert-success" role="alert">
-        A simple success alert—check it out!
-    </div>
-    <div class="alert alert-danger" role="alert">
-        A simple danger alert—check it out!
-    </div>
-    <div class="alert alert-warning" role="alert">
-        A simple warning alert—check it out!
-    </div>
-    <div class="alert alert-info" role="alert">
-        A simple info alert—check it out!
-    </div>
-    <div class="alert alert-light" role="alert">
-        A simple light alert—check it out!
-    </div>
-    <div class="alert alert-dark" role="alert">
-        A simple dark alert—check it out!
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">PWA</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">ABM Aulas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">ABM Cursadas</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <div class="row">
+        <div class="col">
+            <div class="alert alert-primary" role="alert">
+                A simple primary alert—check it out!
+            </div>
+        </div>
+        <div class="col">
+            <div class="alert alert-primary" role="alert">
+                A simple primary alert—check it out!
+            </div>
+        </div>
     </div>
 </div>
 
-
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="js/main.js"></script>
+<script src="js/main.js?v=1.0"></script>
 </body>
 </html>
