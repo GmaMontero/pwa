@@ -33,9 +33,6 @@
                     <a class="nav-link" href="#">ABM Aulas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">ABM BOKITA</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="#">ABM Cursadas</a>
                 </li>
             </ul>
