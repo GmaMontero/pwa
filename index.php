@@ -52,7 +52,28 @@
             </div>
         </div>
     </div>
+
+    <div class="row d-none" id="schedule">
+        <div class="col">
+            <h2>Cronograma de horarios</h2>
+        </div>  
+    </div>
+    
+    <div class="row d-none" id="abm_classroom">
+        <div class="col">
+            <h2>ABM Aulas</h2>
+        </div>  
+    </div>
+    
+    <div class="row d-none" id="abm_class">
+        <div class="col">
+            <h2>ABM Cursadas</h2>
+        </div>  
+    </div>
+
 </div>
+
+
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
