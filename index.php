@@ -53,7 +53,7 @@
         </div>
     </div>
     -->
-
+    <br />
     <div class="row containerModule" id="schedule">
         <div class="col">
             <h2>Cronograma de horarios</h2>
