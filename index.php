@@ -39,7 +39,7 @@
         </div>
     </nav>
 
-
+    <!--
     <div class="row">
         <div class="col">
             <div class="alert alert-primary" role="alert">
@@ -52,6 +52,7 @@
             </div>
         </div>
     </div>
+    -->
 
     <div class="row containerModule" id="schedule">
         <div class="col">
