@@ -2,10 +2,28 @@
 var MAIN = (function ($) {
     var containerSchedule = $("#schedule"),
         containerAbmClass = $("#abm_class"),
-        containerAbmClassroom = $("#abm_classroom")
+        containerAbmClassroom = $("#abm_classroom"),
+        formAbmClassroom = $("#form_abm_classroom"),
+        formAbmClass = $("#form_abm_class")
 
+    var materias = ["Programacion Web Avanzada",
+        "Metodologias III",
+        "Tecnologia de las Comunicaciones",
+        "Gestion de RRHH TI",
+        "Gestion y Costos",
+        "Programacion Estructurada",
+        "Matematica Discreta",
+        "Sistemas de Representacion",
+        "Etica y Deontologia Profesional",
+        "Introduccion a la Programacion Web"
+    ]
 
     var registerEvents = () => {
+
+        $( document ).ready(function() {
+            //Llamar a cargar combos de carreras y materias
+        });
+
         $(".nav-link").on("click", function(e){
             //Oculto todos
             $(".containerModule").addClass("d-none");
@@ -22,6 +40,13 @@ var MAIN = (function ($) {
                 containerAbmClass.removeClass("d-none");
             }
         });
+
+        formAbmClassroom.on("submit", function(e){
+            alert("hola");
+        });
+
+
+
     }
 
 

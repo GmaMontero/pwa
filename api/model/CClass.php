@@ -13,7 +13,6 @@ class CClass {
     public $career;
     public $capacity;
     public $turn;
-    public $hour;
     public $commission;
 
     public function __construct($json){
@@ -22,7 +21,6 @@ class CClass {
         $this->career = $json->career;
         $this->capacity = $json->capacity;
         $this->turn = $json->turn;
-        $this->hour = $json->hour;
         $this->commission= $json->commission;
     }
 }
