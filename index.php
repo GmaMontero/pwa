@@ -66,7 +66,7 @@
             
             <!-- Formulario de alta de aulas -->
             <br />
-            <form id="form_abm_classroom" action="api\controller\classRoom.php" method="post">
+            <form id="form_abm_classroom" action="api\controller\classRoom.php" method="post">            
                 <div class="form-group row">
                     <label for="id" class="col-sm-2 col-form-label">ID</label>
                     <div class="col-sm-10">
@@ -76,26 +76,24 @@
                 <div class="form-group row">
                     <label for="number" class="col-sm-2 col-form-label">Numero</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" name="number" id="number" placeholder="Ej. 123">
+                        <input type="number" class="form-control" name="number" id="number" placeholder="Ej. 123" required>
                     </div>                
                 </div>
                 <div class="form-group row">
                     <label for="floor" class="col-sm-2 col-form-label">Piso</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" name ="floor" id="floor" placeholder="Ej. 4">
+                        <input type="number" class="form-control" name ="floor" id="floor" placeholder="Ej. 4" required>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="capacity" class="col-sm-2 col-form-label">Capacidad</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" name="capacity" id="capacity" placeholder="Ej. 50">
+                        <input type="number" class="form-control" name="capacity" id="capacity" placeholder="Ej. 50" required>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Guardar</button>
                 <input type="reset" class="btn btn-primary" value="Limpiar">
             </form>
-
-
         </div>  
     </div>
     
@@ -105,41 +103,29 @@
 
             <!-- Formulario de alta de cursadas ACTION debe ser # y que atienda la funcion -->
             <br />
-            <form id="form_abm_class" action="api\controller\cclass.php" method="post">
+            <form id="form_abm_class" method="post">
                 <div class="form-group row">
                     <label for="id" class="col-sm-2 col-form-label">ID</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="id" id="id" placeholder="ID">
+                        <input type="text" class="form-control" name="id" id="id" placeholder="ID" required>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label for="nameSubject" class="col-sm-2 col-form-label">Materia</label>
-                    <div class="col-sm-10">
-                        <select class="custom-select" name="nameSubject" id="nameSubject">
-                            <option value="">Seleccione una materia</option>
-                            <option value="1">Programacion Web Avanzada</option>
-                            <option value="2">Metodologias III</option>
-                            <option value="3">Tecnologia de las Comunicaciones</option>
-                            <option value="4">Gestion de RRHH TI</option>
-                            <option value="5">Gestion y Costos</option>
-                            <option value="6">Programacion Estructurada</option>
-                            <option value="7">Matematica Discreta</option>
-                            <option value="8">Sistemas de Representacion</option>
-                            <option value="9">Etica y Deontologia Profesional</option>
-                            <option value="10">Introduccion a la Programacion Web</option>
-                        </select>
-                    </div>                
                 </div>
                 <div class="form-group row">
                     <label for="career" class="col-sm-2 col-form-label">Carrera</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name ="career" id="career" placeholder="Ej. Ing. Sistemas">
-                    </div>
+                        <select class="custom-select" name="career" id="career"></select>
+                    </div>   
+                </div>
+                <div class="form-group row">
+                    <label for="nameSubject" class="col-sm-2 col-form-label">Materia</label>
+                    <div class="col-sm-10">
+                        <select class="custom-select" name="nameSubject" id="nameSubject"></select>
+                    </div>                
                 </div>
                 <div class="form-group row">
                     <label for="capacity" class="col-sm-2 col-form-label">Capacidad</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" name="capacity" id="capacity" placeholder="Ej. 50">
+                        <input type="number" class="form-control" name="capacity" id="capacity" placeholder="Ej. 50" required>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -162,7 +148,7 @@
                 <div class="form-group row">
                     <label for="commission" class="col-sm-2 col-form-label">Comision</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name ="commission" id="commission" placeholder="Ej. A">
+                        <input type="text" class="form-control" name ="commission" id="commission" placeholder="Ej. A" required>
                     </div>
                 </div>
 

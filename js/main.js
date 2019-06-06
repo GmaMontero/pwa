@@ -4,25 +4,39 @@ var MAIN = (function ($) {
         containerAbmClass = $("#abm_class"),
         containerAbmClassroom = $("#abm_classroom"),
         formAbmClassroom = $("#form_abm_classroom"),
-        formAbmClass = $("#form_abm_class")
+        formAbmClass = $("#form_abm_class"),
+        selectNameSubject = $("#nameSubject"),
+        selectCareer = $("#career")
 
-    var materias = ["Programacion Web Avanzada",
-        "Metodologias III",
-        "Tecnologia de las Comunicaciones",
-        "Gestion de RRHH TI",
-        "Gestion y Costos",
-        "Programacion Estructurada",
-        "Matematica Discreta",
-        "Sistemas de Representacion",
-        "Etica y Deontologia Profesional",
-        "Introduccion a la Programacion Web"
-    ]
+    var carreras = new Map();
+    carreras.set(1, "Lic. en Gestion de Tecnologia Informatica");
+    carreras.set(2, "Ingenieria en Sistemas");
+
+    var materias = new Map();
+    materias.set(1, "Programacion Web Avanzada");
+    materias.set(2, "Metodologias III");
+    materias.set(3, "Tecnologia de las Comunicaciones");
+    materias.set(4, "Gestion de RRHH TI");
+    materias.set(5,  "Gestion y Costos");
+    materias.set(6,  "Programacion Estructurada");
+    materias.set(7, "Matematica Discreta");
+    materias.set(8, "Sistemas de Representacion");
+    materias.set(9, "Etica y Deontologia Profesional");
+    materias.set(10, "Introduccion a la Programacion Web");
+    
+    var cargarMaterias = () => {
+        for (let [id, name] of materias) {
+            selectNameSubject.append("<option value='"+id+"'>"+name+"</option>");
+        }
+    }
+
+    var cargarCarreras = () => {
+        for (let [id, name] of carreras) {
+            selectCareer.append("<option value='"+id+"'>"+name+"</option>");
+        }
+    }
 
     var registerEvents = () => {
-
-        $( document ).ready(function() {
-            //Llamar a cargar combos de carreras y materias
-        });
 
         $(".nav-link").on("click", function(e){
             //Oculto todos
@@ -41,15 +55,46 @@ var MAIN = (function ($) {
             }
         });
 
-        formAbmClassroom.on("submit", function(e){
-            alert("hola");
+        formAbmClass.on("submit", function(e){
+            event.preventDefault();
+            //Los datos llegan completos porque tienen el "required" en HTML
+            var o = {};
+            var formData = formAbmClass.serializeFormJSON();
+            //console.log(formData);
+            $.ajax({
+                data:  formData, //datos que se envian a traves de ajax
+                url:   'api/controller/cclass.php', //archivo que recibe la peticion
+                type:  'post', //método de envio
+                beforeSend: function () {
+                        $("#resultado").html("Procesando, espere por favor...");
+                },
+                success:  function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
+                        alert(response);
+                }
+           });
+
         });
 
-
+        $.fn.serializeFormJSON = function () {
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function () {
+                if (o[this.name]) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [o[this.name]];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        };
 
     }
 
-
     registerEvents();
+    cargarMaterias();
+    cargarCarreras();
 
 })(jQuery);
