@@ -27,13 +27,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
+                    <a class="nav-link schedule" href="#">Cronograma de horarios <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">ABM Aulas</a>
+                    <a class="nav-link abm_classroom" href="#">ABM Aulas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">ABM Cursadas</a>
+                    <a class="nav-link abm_class" href="#">ABM Cursadas</a>
                 </li>
             </ul>
         </div>
@@ -53,19 +53,19 @@
         </div>
     </div>
 
-    <div class="row d-none" id="schedule">
+    <div class="row d-none containerModule" id="schedule">
         <div class="col">
             <h2>Cronograma de horarios</h2>
         </div>  
     </div>
     
-    <div class="row d-none" id="abm_classroom">
+    <div class="row d-none containerModule" id="abm_classroom">
         <div class="col">
             <h2>ABM Aulas</h2>
         </div>  
     </div>
     
-    <div class="row d-none" id="abm_class">
+    <div class="row d-none containerModule" id="abm_class">
         <div class="col">
             <h2>ABM Cursadas</h2>
         </div>  
