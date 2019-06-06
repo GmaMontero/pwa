@@ -57,22 +57,58 @@ var MAIN = (function ($) {
 
         formAbmClass.on("submit", function(e){
             event.preventDefault();
-            //Los datos llegan completos porque tienen el "required" en HTML
-            var o = {};
+            //Serializo            
             var formData = formAbmClass.serializeFormJSON();
-            //console.log(formData);
+            //Lo hago JSON
+            formData = JSON.stringify(formData);
             $.ajax({
                 data:  formData, //datos que se envian a traves de ajax
+                dataType: 'json',
                 url:   'api/controller/cclass.php', //archivo que recibe la peticion
                 type:  'post', //método de envio
-                beforeSend: function () {
+                /*beforeSend: function () {
                         $("#resultado").html("Procesando, espere por favor...");
+                },*/
+                success: function (response) {
+                    //Mostrar mensaje de OK
+                    console.log("OK");
                 },
-                success:  function (response) { //una vez que el archivo recibe el request lo procesa y lo devuelve
-                        alert(response);
+                error: function (response) {
+                    //Mostrar mensaje de error
+                    console.log("ERROR");
+                },
+                complete:  function (xhr, statusText) {
+                    console.log("HTTP Status: " + xhr.status);
                 }
            });
+        });
 
+        formAbmClassroom.on("submit", function(e){
+            event.preventDefault();
+            //Serializo            
+            var formData = formAbmClassroom.serializeFormJSON();
+            //Lo hago JSON
+            formData = JSON.stringify(formData);
+            $.ajax({
+                data:  formData, //datos que se envian a traves de ajax
+                dataType: 'json',
+                url:   'api/controller/classRoom.php', //archivo que recibe la peticion
+                type:  'post', //método de envio
+                /*beforeSend: function () {
+                        $("#resultado").html("Procesando, espere por favor...");
+                },*/
+                success: function (response) {
+                    //Mostrar mensaje de OK
+                    console.log("OK");
+                },
+                error: function (response) {
+                    //Mostrar mensaje de error
+                    console.log("ERROR");
+                },
+                complete:  function (xhr, statusText) {
+                    console.log("HTTP Status: " + xhr.status);
+                }
+           });
         });
 
         $.fn.serializeFormJSON = function () {

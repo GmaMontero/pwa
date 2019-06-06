@@ -11,7 +11,6 @@ $METHOD = $_SERVER['REQUEST_METHOD'];
 switch ($METHOD) {
     case "POST":
         $body = file_get_contents('php://input');
-
         if($body !== false) {
             $jsonParsed = json_decode($body, false);
 
