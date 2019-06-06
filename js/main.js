@@ -7,13 +7,20 @@ var MAIN = (function ($) {
 
     var registerEvents = () => {
         $(".nav-link").on("click", function(e){
-
-            if(($this).hasClass("abm_classroom")){
-                $(".containerModule").hide();
-                containerAbmClassroom.remove;
-                //Hay que sacar y agregar la clase d-none
+            //Oculto todos
+            $(".containerModule").addClass("d-none");
+            //Si es Cronograma de Horarios
+            if($(this).hasClass("schedule")){
+                containerSchedule.removeClass("d-none");
             }
-
+            //Si es ABM Aulas
+            if($(this).hasClass("abm_classroom")){
+                containerAbmClassroom.removeClass("d-none");
+            }
+            //Si es ABM Cursadas
+            if($(this).hasClass("abm_class")){
+                containerAbmClass.removeClass("d-none");
+            }
         });
     }
 
