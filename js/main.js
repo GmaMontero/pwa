@@ -106,7 +106,7 @@ var MAIN = (function ($) {
                     console.log("ERROR");
                 },
                 complete:  function (xhr, statusText) {
-                    console.log("HTTP Status: " + xhr.status);
+                    console.log("HTTP Status Code: " + xhr.status);
                 }
            });
         });
