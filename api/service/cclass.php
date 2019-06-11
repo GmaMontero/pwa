@@ -12,7 +12,8 @@ class ClassService {
         $insertResult = $collection->insertOne($classObj->getAsMongoModel());
        
         if ($insertResult->getInsertedCount() == 1) {
-           #Obtener id y devolver instancia 
+            $classObj->id = $insertResult->getInsertedId();
+            return $classObj;
         } else {
             return null;   
         }
