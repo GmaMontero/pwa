@@ -23,4 +23,15 @@ class CClass {
         $this->turn = $json->turn;
         $this->commission= $json->commission;
     }
+    
+    public function getAsMongoModel(){
+        return [
+            'id' => $this->id,
+            'nameSubject' =>  $this->nameSubject,
+            'career' => $this->career,
+            'capacity' =>  $this->capacity,
+            'turn' =>  $this->turn,
+            'commission' =>  $this->commission,
+        ]
+    }    
 }
