@@ -3,7 +3,12 @@
 require_once('../model/CClass.php');
 require_once('../model/ApiErrorResponse.php');
 require_once('../model/ApiErrorResponse.php');
-$collection = (new MongoDB\Client)->pwa->cclass;
+
+$client = new MongoDB\Client(
+    'mongodb+srv://<username>:<password>@<cluster-address>/test?retryWrites=true&w=majority'
+);
+
+$collection = $client->pwa->cclass;
 
 class ClassService {
 
