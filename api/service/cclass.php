@@ -5,7 +5,7 @@ require_once('../model/ApiErrorResponse.php');
 require_once('../model/ApiErrorResponse.php');
 
 $client = new MongoDB\Client(
-    'mongodb+srv://<username>:<password>@<cluster-address>/test?retryWrites=true&w=majority'
+    'mongodb+srv://pwa:Trend123@localhost:27017/pwa'
 );
 
 $collection = $client->pwa->cclass;
