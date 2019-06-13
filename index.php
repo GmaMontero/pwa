@@ -1,5 +1,9 @@
 <?php
 
+$client = new MongoDB\Client(
+    'mongodb+srv://pwa:Trend123@localhost:27017/pwa'
+);
+$collection = $client->pwa->cclass;
 
 
 ?>
