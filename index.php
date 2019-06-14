@@ -4,7 +4,8 @@
 #    'mongodb+srv://pwa:Trend123@localhost:27017/pwa'
 #);
 #$collection = $client->pwa->cclass;
-$m = new MongoDB\Client("mongodb://pwa:Trend123@pwa-web.tk:27017/pwa");
+#$m = new MongoDB\Client("mongodb://pwa:Trend123@pwa-web.tk:27017/pwa");
+$manager = new MongoDB\Driver\Manager("mongodb://pwa:Trend123@pwa-web.tk:27017/pwa")
 
 ?>
 
