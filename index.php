@@ -5,10 +5,17 @@
 #);
 
 #$m = new MongoDB\Client("mongodb://pwa:Trend123@pwa-web.tk:27017/pwa");
+
+#Generamos controlador para nuestra DB
 $manager = new MongoDB\Driver\Manager("mongodb://pwa:Trend123@pwa-web.tk:27017/");
+
+#Comando para chequear conectividad a Mongo. Devuelve datos de la conexión y todo el contenido
+#var_dump($manager);
+
 $collection = $manager->pwa->cclass;
 
 ?>
+
 
 <!doctype html>
 <html lang="es">
