@@ -1,10 +1,10 @@
 <?php
 
-$client = new MongoDB\Client(
-    'mongodb+srv://pwa:Trend123@localhost:27017/pwa'
-);
-$collection = $client->pwa->cclass;
-
+#$client = new MongoDB\Client(
+#    'mongodb+srv://pwa:Trend123@localhost:27017/pwa'
+#);
+#$collection = $client->pwa->cclass;
+$m = new MongoDB\Client("mongodb://pwa:Trend123@pwa-web.tk:27017/pwa");
 
 ?>
 
