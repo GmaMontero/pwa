@@ -8,15 +8,6 @@
 $manager = new MongoDB\Driver\Manager("mongodb://pwa:Trend123@pwa-web.tk:27017/");
 $collection = $manager->pwa->cclass;
 
-$document = array( 
-      "title" => "MongoDB", 
-      "description" => "database", 
-      "likes" => 100,
-      "url" => "http://www.tutorialspoint.com/mongodb/",
-      "by" => "tutorials point"
-   );
-$collection->insert($document);
-
 ?>
 
 <!doctype html>
