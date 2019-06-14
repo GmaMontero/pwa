@@ -5,7 +5,7 @@
 #);
 #$collection = $client->pwa->cclass;
 #$m = new MongoDB\Client("mongodb://pwa:Trend123@pwa-web.tk:27017/pwa");
-$manager = new MongoDB\Driver\Manager("mongodb://pwa:Trend123@pwa-web.tk:27017/pwa")
+$manager = new MongoDB\Driver\Manager("mongodb://pwa:Trend123@pwa-web.tk:27017/")
 
 ?>
 
