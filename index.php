@@ -13,6 +13,8 @@ require 'vendor/autoload.php';
 #var_dump($manager);
 
 #$collection = $manager->pwa->cclass;
+
+
 $client = new MongoDB\Client("mongodb://pwa:Trend123@pwa-web.tk:27017/");
 $bd = $client->pwa;
 var_dump($bd);
@@ -111,6 +113,23 @@ var_dump($bd);
                 <input type="reset" class="btn btn-primary" value="Limpiar">
             </form>
         </div>  
+        <div class="col-1"></div>
+        <div class="col-6">
+            <h2>Tabla de Aulas</h2>
+            <br />
+            <table class="table" id="table_classroom">
+                <thead>
+                    <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Numero</th>
+                    <th scope="col">Piso</th>
+                    <th scope="col">Capacidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
     </div>
     
     <div class="row d-none containerModule" id="abm_class">
@@ -172,6 +191,25 @@ var_dump($bd);
                 <input type="reset" class="btn btn-primary" value="Limpiar">
             </form>
         </div>  
+        <div class="col-1"></div>
+        <div class="col-6">
+            <h2>Tabla de Cursadas</h2>
+            <br />
+            <table class="table" id="table_class">
+                <thead>
+                    <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Carrera</th>
+                    <th scope="col">Materia</th>
+                    <th scope="col">Capacidad</th>
+                    <th scope="col">Turno</th>
+                    <th scope="col">Comision</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
     </div>
 
 </div>
