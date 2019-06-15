@@ -1,5 +1,5 @@
 <?php
-
+require 'vendor/autoload.php';
 #$client = new MongoDB\Client(
 #    'mongodb+srv://pwa:Trend123@localhost:27017/pwa'
 #);
@@ -7,12 +7,15 @@
 #$m = new MongoDB\Client("mongodb://pwa:Trend123@pwa-web.tk:27017/pwa");
 
 #Generamos controlador para nuestra DB
-$manager = new MongoDB\Driver\Manager("mongodb://pwa:Trend123@pwa-web.tk:27017/");
+#$manager = new MongoDB\Driver\Manager("mongodb://pwa:Trend123@pwa-web.tk:27017/");
 
 #Comando para chequear conectividad a Mongo. Devuelve datos de la conexión y todo el contenido
 #var_dump($manager);
 
 #$collection = $manager->pwa->cclass;
+$client = new MongoDB\Client("mongodb://pwa:Trend123@pwa-web.tk:27017/");
+$bd = $client->pwa;
+var_dump($bd);
 
 ?>
 
