@@ -39,19 +39,30 @@ var MAIN = (function ($) {
     var registerEvents = () => {
 
         $(".nav-link").on("click", function(e){
+            //Le saco la clase active a todos los links del menú
+            $(".nav-link").removeClass("active");
             //Oculto todos
             $(".containerModule").addClass("d-none");
             //Si es Cronograma de Horarios
             if($(this).hasClass("schedule")){
+                //Muestro el container
                 containerSchedule.removeClass("d-none");
+                //Le agrego la clase active al link del menú
+                $(this).addClass("active");
             }
             //Si es ABM Aulas
             if($(this).hasClass("abm_classroom")){
+                //Muestro el container
                 containerAbmClassroom.removeClass("d-none");
+                //Le agrego la clase active al link del menú
+                $(this).addClass("active");
             }
             //Si es ABM Cursadas
             if($(this).hasClass("abm_class")){
+                //Muestro el container
                 containerAbmClass.removeClass("d-none");
+                //Le agrego la clase active al link del menú
+                $(this).addClass("active");
             }
         });
 

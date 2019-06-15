@@ -12,7 +12,7 @@ $manager = new MongoDB\Driver\Manager("mongodb://pwa:Trend123@pwa-web.tk:27017/"
 #Comando para chequear conectividad a Mongo. Devuelve datos de la conexión y todo el contenido
 #var_dump($manager);
 
-$collection = $manager->pwa->cclass;
+#$collection = $manager->pwa->cclass;
 
 ?>
 
@@ -39,8 +39,8 @@ $collection = $manager->pwa->cclass;
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link schedule" href="#">Cronograma de horarios <span class="sr-only">(current)</span></a>
+                <li class="nav-item">
+                    <a class="nav-link schedule active" href="#">Cronograma de horarios</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link abm_classroom" href="#">ABM Aulas</a>
