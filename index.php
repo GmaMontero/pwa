@@ -74,7 +74,7 @@ $manager = new MongoDB\Driver\Manager("mongodb://pwa:Trend123@pwa-web.tk:27017/"
     </div>
     
     <div class="row d-none containerModule" id="abm_classroom">
-        <div class="col-6">
+        <div class="col-5">
             <h2>ABM Aulas</h2>
             
             <!-- Formulario de alta de aulas -->
@@ -111,10 +111,10 @@ $manager = new MongoDB\Driver\Manager("mongodb://pwa:Trend123@pwa-web.tk:27017/"
     </div>
     
     <div class="row d-none containerModule" id="abm_class">
-        <div class="col-6">
+        <div class="col-5">
             <h2>ABM Cursadas</h2>
 
-            <!-- Formulario de alta de cursadas ACTION debe ser # y que atienda la funcion -->
+            <!-- Formulario de alta de cursadas  -->
             <br />
             <form id="form_abm_class" method="post">
                 <div class="form-group row">
