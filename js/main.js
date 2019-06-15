@@ -36,6 +36,10 @@ var MAIN = (function ($) {
         }
     }
 
+    //JSONs de ejemplo
+    var classes = '[{"id":"PWA","nameSubject":"Programacion","career":"sistemas","capacity":40,"turn":"N","commission":"B"},{"id":"IPW","nameSubject":"Intro Prog. Web","career":"sistemas","capacity":30,"turn":"N","commission":"A"}]';
+    var classrooms = '[{"id":"1","number":1520,"floor":5,"capacity":40},{"id":"2","number":1310,"floor":3,"capacity":20}]';
+    
     var registerEvents = () => {
 
         $(".nav-link").on("click", function(e){
