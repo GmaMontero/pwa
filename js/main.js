@@ -6,44 +6,66 @@ var MAIN = (function ($) {
         formAbmClassroom = $("#form_abm_classroom"),
         formAbmClass = $("#form_abm_class"),
         selectNameSubject = $("#nameSubject"),
-        selectCareer = $("#career")
-
-    var carreras = new Map();
-    carreras.set(1, "Lic. en Gestion de Tecnologia Informatica");
-    carreras.set(2, "Ingenieria en Sistemas");
-
-    var materias = new Map();
-    materias.set(1, "Programacion Web Avanzada");
-    materias.set(2, "Metodologias III");
-    materias.set(3, "Tecnologia de las Comunicaciones");
-    materias.set(4, "Gestion de RRHH TI");
-    materias.set(5,  "Gestion y Costos");
-    materias.set(6,  "Programacion Estructurada");
-    materias.set(7, "Matematica Discreta");
-    materias.set(8, "Sistemas de Representacion");
-    materias.set(9, "Etica y Deontologia Profesional");
-    materias.set(10, "Introduccion a la Programacion Web");
+        selectCareer = $("#career"),
+        tableClassroom = $("#table_classroom"),
+        tableClass = $("#table_class")
     
-    var cargarMaterias = () => {
-        for (let [id, name] of materias) {
-            selectNameSubject.append("<option value='"+id+"'>"+name+"</option>");
-        }
-    }
-
-    var cargarCarreras = () => {
-        for (let [id, name] of carreras) {
-            selectCareer.append("<option value='"+id+"'>"+name+"</option>");
-        }
-    }
-
     //JSONs de ejemplo
-    var classes = JSON.parse('[{"id":"PWA","nameSubject":"Programacion","career":"sistemas","capacity":40,"turn":"N","commission":"B"},{"id":"IPW","nameSubject":"Intro Prog. Web","career":"sistemas","capacity":30,"turn":"N","commission":"A"}]');
-    var classrooms = JSON.parse('[{"id":"1","number":1520,"floor":5,"capacity":40},{"id":"2","number":1310,"floor":3,"capacity":20}]');
+    var jsonSubjects = '[{"id": 1, "name":"Programacion Web Avanzada"},{"id": 2, "name":"Metodologias III"},{"id": 3, "name":"Tecnologia de las Comunicaciones"},{"id": 4, "name":"Gestion de RRHH TI"},{"id": 5,  "name":"Gestion y Costos"},{"id": 6,  "name":"Programacion Estructurada"},{"id": 7, "name":"Matematica Discreta"},{"id": 8, "name":"Sistemas de Representacion"},{"id": 9, "name":"Etica y Deontologia Profesional"},{"id": 10, "name":"Introduccion a la Programacion Web"}]'; 
+    var jsonCareers = '[{"id": 1, "name":"Lic. en Gestion de Tecnologia Informatica"},{"id": 2, "name":"Ingenieria en Sistemas"}]';
+    var jsonClasses = '[{"id":"PWA","nameSubject":"Programacion","career":"Sistemas","capacity":40,"turn":"N","comission":"B"},{"id":"IPW","nameSubject":"Intro Prog. Web","career":"Sistemas","capacity":30,"turn":"N","comission":"A"}]';
+    var jsonClassrooms = '[{"id":"1","number":1520,"floor":5,"capacity":40},{"id":"2","number":1310,"floor":3,"capacity":20}]';
     
-    //alert(classes[1].id);
+    var cargarMaterias = (subjects) => {
+        subjects = JSON.parse(subjects);
+        for (var i = 0; i < subjects.length; i++) {
+            selectNameSubject.append("<option value='"+subjects[i].id+"'>"+subjects[i].name+"</option>");
+        }
+    }
+
+    var cargarCarreras = (careers) => {
+        careers = JSON.parse(careers);
+        for (var i = 0; i < careers.length; i++) {
+            selectCareer.append("<option value='"+careers[i].id+"'>"+careers[i].name+"</option>");
+        }
+    }
+
+    var cargarTablaAulas = (classrooms) => {
+        classrooms = JSON.parse(classrooms);
+        var tr;
+        for (var i = 0; i < classrooms.length; i++) {
+            tr = $('<tr/>');
+            tr.append("<td>" + classrooms[i].id + "</td>");
+            tr.append("<td>" + classrooms[i].number + "</td>");
+            tr.append("<td>" + classrooms[i].floor + "</td>");
+            tr.append("<td>" + classrooms[i].capacity + "</td>");
+            tableClassroom.append(tr);
+        }
+    }
+    
+    var cargarTablaCursadas = (classes) => {
+        classes = JSON.parse(classes);
+        var tr;
+        for (var i = 0; i < classes.length; i++) {
+            tr = $('<tr/>');
+            tr.append("<td>" + classes[i].id + "</td>");
+            tr.append("<td>" + classes[i].career + "</td>");
+            tr.append("<td>" + classes[i].nameSubject + "</td>");
+            tr.append("<td>" + classes[i].capacity + "</td>");
+            tr.append("<td>" + classes[i].turn + "</td>");
+            tr.append("<td>" + classes[i].comission + "</td>");
+            tableClass.append(tr);
+        }
+    }
+    var cargarSchedulePorAula = () => {
+        //TO DO: Llenar una tabla de Schedule por aula. Cada fila un aula, cada columna un día de la semana
+    }
+
+    var cargarSchedulePorTurno = () => {
+        //TO DO: Llenar una tabla de Schedule por turno. Cada fila un turno, cada columna un día de la semana
+    }   
 
     var registerEvents = () => {
-
         $(".nav-link").on("click", function(e){
             //Le saco la clase active a todos los links del menú
             $(".nav-link").removeClass("active");
@@ -147,7 +169,9 @@ var MAIN = (function ($) {
     }
 
     registerEvents();
-    cargarMaterias();
-    cargarCarreras();
+    cargarMaterias(jsonSubjects);
+    cargarCarreras(jsonCareers);
+    cargarTablaAulas(jsonClassrooms);
+    cargarTablaCursadas(jsonClasses);
 
 })(jQuery);
