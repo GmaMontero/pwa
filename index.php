@@ -1,13 +1,12 @@
 <?php
+
 //By default, we assume that PHP is NOT running on windows.
 $isWindows = false;
- 
 //If the first three characters PHP_OS are equal to "WIN",
 //then PHP is running on a Windows operating system.
 if(strcasecmp(substr(PHP_OS, 0, 3), 'WIN') == 0){
     $isWindows = true;
 }
- 
 //If $isWindows is TRUE, then print out a message saying so.
 if($isWindows){
     require 'vendorwin/autoload.php';
@@ -15,24 +14,10 @@ if($isWindows){
     require 'vendor/autoload.php';
 }
 
-#$client = new MongoDB\Client(
-#    'mongodb+srv://pwa:Trend123@localhost:27017/pwa'
-#);
-
-#$m = new MongoDB\Client("mongodb://pwa:Trend123@pwa-web.tk:27017/pwa");
-
-#Generamos controlador para nuestra DB
-#$manager = new MongoDB\Driver\Manager("mongodb://pwa:Trend123@pwa-web.tk:27017/");
-
-#Comando para chequear conectividad a Mongo. Devuelve datos de la conexión y todo el contenido
-#var_dump($manager);
-
 #$collection = $manager->pwa->cclass;
-
-
 $client = new MongoDB\Client("mongodb://pwa:Trend123@pwa-web.tk:27017/");
 $bd = $client->pwa;
-var_dump($bd);
+#var_dump($bd);
 
 ?>
 
