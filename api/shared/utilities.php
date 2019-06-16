@@ -13,7 +13,7 @@ function getDbConnection(){
     }
 
     if($isWindows){
-        require_once('vendorwin/autoload.php');
+        require_once('../../vendorwin/autoload.php');
     } else {
         $server_software = strtolower($_SERVER['SERVER_SOFTWARE']);
         if (strpos($server_software, "ubuntu") === false){
