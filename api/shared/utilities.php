@@ -5,7 +5,7 @@
  * Date: 19/05/19
  * Time: 18:46
  */
-
+echo PHP_OS;
 function getDbConnection(){
     $isWindows = false;
 
@@ -14,7 +14,7 @@ function getDbConnection(){
     }
 
     if($isWindows){
-        require_once('vendorwin/autoload.php');
+        require_once 'vendorwin/autoload.php';
     } else {
         $server_software = strtolower($_SERVER['SERVER_SOFTWARE']);
         if (strpos($server_software, "ubuntu") === false){
@@ -26,5 +26,7 @@ function getDbConnection(){
 
     $client = new MongoDB\Client("mongodb://pwa:Trend123@pwa-web.tk:27017/pwa");
     $db = $client->pwa;
+    
+    var_dump($db);
     return $db;
 }
