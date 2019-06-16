@@ -4,7 +4,7 @@
 #require_once('../model/ApiErrorResponse.php');
 #require_once('../model/ApiErrorResponse.php');
 
-require_once('api/shared/utilities.php');
+require_once('../shared/utilities.php');
 
 class ClassService {
 
