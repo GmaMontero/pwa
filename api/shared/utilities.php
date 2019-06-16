@@ -13,7 +13,7 @@ function getDbConnection(){
     }
 
     if($isWindows){
-        require_once 'vendorwin/autoload.php';
+        require_once('vendorwin/autoload.php');
     } else {
         $server_software = strtolower($_SERVER['SERVER_SOFTWARE']);
         if (strpos($server_software, "ubuntu") === false){
@@ -24,8 +24,5 @@ function getDbConnection(){
     }
 
     $client = new MongoDB\Client("mongodb://pwa:Trend123@pwa-web.tk:27017/pwa");
-    $db = $client->pwa;
-    
-    var_dump($db);
-    return $db;
+    return $client->pwa;
 }
