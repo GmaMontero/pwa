@@ -17,7 +17,7 @@ function getDbConnection(){
     } else {
         $server_software = strtolower($_SERVER['SERVER_SOFTWARE']);
         if (strpos($server_software, "ubuntu") === false){
-            require_once('/home/admin/phpmongodb/vendor/autoload.php');
+            require_once('/home/admin/mongodbphp/vendor/autoload.php');
         } else {
             require_once('/home/gmontero/vendor/autoload.php');
         }
