@@ -25,6 +25,5 @@ function getDbConnection(){
     }
 
     $client = new MongoDB\Client("mongodb://pwa:Trend123@pwa-web.tk:27017/pwa");
-    $db = $client->pwa;
-    return $db;
+    return $client->pwa;
 }

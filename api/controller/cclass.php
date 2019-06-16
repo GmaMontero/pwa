@@ -1,6 +1,10 @@
 <?php
 
+require_once('../model/CClass.php');
+require_once('../model/ApiErrorResponse.php');
+require_once('../model/ApiErrorResponse.php');
 require_once('../service/cclass.php');
+
 $classService = new ClassService;
 
 header("Content-Type: application/json; charset=UTF-8");
