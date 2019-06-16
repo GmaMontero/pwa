@@ -5,7 +5,6 @@
  * Date: 19/05/19
  * Time: 18:46
  */
-echo PHP_OS;
 function getDbConnection(){
     $isWindows = false;
 
