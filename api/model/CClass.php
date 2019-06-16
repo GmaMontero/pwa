@@ -32,6 +32,6 @@ class CClass {
             'capacity' =>  $this->capacity,
             'turn' =>  $this->turn,
             'commission' =>  $this->commission,
-        ]
+        ];
     }    
 }
