@@ -1,6 +1,16 @@
 # Advanced Web Programming
 Repository for advanced web programming
 
+Log directory: 
+```
+/var/log/apache2
+```
+
+Restart service:
+```
+sudo service apache2 restart
+```
+
 ## Application Architecture
 
 1) Frontend envia los datos desde un 'form' serializados en formato JSON.
