@@ -10,7 +10,7 @@ class ClassService {
 
     public function create($classObj){
         $db = getDbConnection();
-        $insertResult = $db->class->insertOne($classObj->getAsMongoModel());
+        $insertResult = $db->cclass->insertOne($classObj->getAsMongoModel());
        
         if ($insertResult->getInsertedCount() == 1) {
             $classObj->id = $insertResult->getInsertedId();
