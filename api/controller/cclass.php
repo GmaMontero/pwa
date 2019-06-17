@@ -3,8 +3,7 @@
 require_once(dirname(__FILE__).'/../model/CClass.php');
 require_once(dirname(__FILE__).'/../model/ApiErrorResponse.php');
 require_once(dirname(__FILE__).'/../service/cclass.php');
-
-$classService = new ClassService();
+require_once(dirname(__FILE__).'/../shared/utilities.php');
 
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST, PUT, DELETE");
@@ -13,55 +12,33 @@ $METHOD = $_SERVER['REQUEST_METHOD'];
 
 switch ($METHOD) {
     case "GET":
+        $classService = new ClassService();
         echo json_encode($classService->getAll([]));
         http_response_code(200);
         break;
     case "POST":
-        $body = file_get_contents('php://input');
-        if($body !== false) {
-            $jsonParsed = json_decode($body, false);
-
-            if(is_null($jsonParsed)){
-                http_response_code(400);
-                echo new ApiResponse(null, "Request body cant parse as JSON");
-            } else {
-                $classObj = new Cclass($jsonParsed);
-                $result = $classService->create($classObj);
-                http_response_code(201);
-                echo new ApiResponse($result, null);
-            }
-        } else {
-            http_response_code(400);
-            echo new ApiResponse(null, "Request body is not present");
-        }
+        echo validatePostData(function($jsonParsed){
+            $classService = new ClassService();
+            $classObj = new Cclass($jsonParsed);
+            $result = $classService->create($classObj);
+            http_response_code(201);
+            return new ApiResponse($result, null);
+        });
         break;
     case "PUT":
         break;
     case "DELETE":
-        $body = file_get_contents('php://input');
-        if($body !== false) {
-            $jsonParsed = json_decode($body, false);
-
-            if(is_null($jsonParsed)){
-                http_response_code(400);
-                echo new ApiResponse(null, "Request body cant parse as JSON");
+        echo validatePostData(function($jsonParsed){
+            $classService = new ClassService();
+            $deleteCount = $classService->delete($jsonParsed->id);
+            if($deleteCount === 1){
+                http_response_code(200);
             } else {
-                $deleteCount = $classService->delete($jsonParsed->id);
-
-                if($deleteCount === 1){
-                    http_response_code(200);
-                } else {
-                    http_response_code(400);
-                }
+                http_response_code(400);
             }
-        } else {
-            http_response_code(400);
-            echo new ApiResponse(null, "Request body is not present");
-        }
+        });
         break;
     default:
         http_response_code(405);
         break;
 }
-
-?>
