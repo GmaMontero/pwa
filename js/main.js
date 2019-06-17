@@ -42,21 +42,61 @@ var MAIN = (function ($) {
             tableClassroom.append(tr);
         }
     }
+
+    var loadClassrooms = () => {
+        $("#table_classsroom tbody").empty();
+        $.get( "api/controller/classRoom.php")
+          .done(function( data ) {
+            classrooms = data;
+            var tr;
+            for (var i = 0; i < classrooms.length; i++) {
+                tr = $('<tr/>');
+                tr.append("<td>" + classrooms[i].id + "</td>");
+                tr.append("<td>" + classrooms[i].number + "</td>");
+                tr.append("<td>" + classrooms[i].floor + "</td>");
+                tr.append("<td>" + classrooms[i].capacity + "</td>");
+                tableClassroom.append(tr);
+            }
+        });
     
-    var cargarTablaCursadas = (classes) => {
-        classes = JSON.parse(classes);
-        var tr;
-        for (var i = 0; i < classes.length; i++) {
-            tr = $('<tr/>');
-            tr.append("<td>" + classes[i].id + "</td>");
-            tr.append("<td>" + classes[i].career + "</td>");
-            tr.append("<td>" + classes[i].nameSubject + "</td>");
-            tr.append("<td>" + classes[i].capacity + "</td>");
-            tr.append("<td>" + classes[i].turn + "</td>");
-            tr.append("<td>" + classes[i].comission + "</td>");
-            tableClass.append(tr);
-        }
     }
+    
+    function deleteClass (id) {
+        var _data = "{\"id\":\"" + id + "\"}";
+        $.ajax({
+            url: 'api/controller/cclass.php',
+            data: _data,
+            type: 'DELETE',
+            complete: function(result) {
+                console.log(result.status);
+                loadClasses();
+            }
+        });
+
+        
+    }
+
+    var loadClasses = () => {
+        $("#table_class tbody").empty();
+        $.get( "api/controller/cclass.php")
+          .done(function( data ) {
+            classes = data;
+            var tr;
+            for (var i = 0; i < classes.length; i++) {
+                tr = $('<tr/>');
+                tr.append("<td>" + classes[i].id + "</td>");
+                tr.append("<td>" + classes[i].career + "</td>");
+                tr.append("<td>" + classes[i].nameSubject + "</td>");
+                tr.append("<td>" + classes[i].capacity + "</td>");
+                tr.append("<td>" + classes[i].turn + "</td>");
+                tr.append("<td>" + classes[i].commission + "</td>");
+                tr.append("<td><button id=\"" + classes[i].id + "\" class=\"deleteClass btn-info btn-sm\">X</span></button></td>");
+                tableClass.append(tr);
+            }
+        });
+    }
+
+
     var cargarSchedulePorAula = () => {
         //TO DO: Llenar una tabla de Schedule por aula. Cada fila un aula, cada columna un día de la semana
     }
@@ -66,6 +106,7 @@ var MAIN = (function ($) {
     }   
 
     var registerEvents = () => {
+        
         $(".nav-link").on("click", function(e){
             //Le saco la clase active a todos los links del menú
             $(".nav-link").removeClass("active");
@@ -118,6 +159,7 @@ var MAIN = (function ($) {
                 },
                 complete:  function (xhr, statusText) {
                     console.log("HTTP Status: " + xhr.status);
+                    loadClasses();
                 }
            });
         });
@@ -150,6 +192,12 @@ var MAIN = (function ($) {
            });
         });
 
+        tableClass.on("click", "button.deleteClass", function(e){
+            event.preventDefault();
+            var _id = $(this)[0].id;
+            deleteClass(_id);
+        });
+
         $.fn.serializeFormJSON = function () {
             var o = {};
             var a = this.serializeArray();
@@ -166,12 +214,17 @@ var MAIN = (function ($) {
             return o;
         };
 
+        
     }
 
+
     registerEvents();
+    loadClasses();
+    loadClassrooms();
     cargarMaterias(jsonSubjects);
     cargarCarreras(jsonCareers);
-    cargarTablaAulas(jsonClassrooms);
-    cargarTablaCursadas(jsonClasses);
-
+    //cargarTablaAulas(jsonClassrooms);
+    //cargarTablaCursadas(getClasses);
+    //cargarTablaCursadas(jsonClasses);
+    
 })(jQuery);
