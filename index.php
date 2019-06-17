@@ -104,6 +104,7 @@
                     <th scope="col">Numero</th>
                     <th scope="col">Piso</th>
                     <th scope="col">Capacidad</th>
+                    <th scope="col">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -184,6 +185,7 @@
                     <th scope="col">Capacidad</th>
                     <th scope="col">Turno</th>
                     <th scope="col">Comision</th>
+                    <th scope="col">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
