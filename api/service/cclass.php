@@ -1,20 +1,17 @@
 <?php
 
-require_once('../shared/utilities.php');
+require_once(dirname(__FILE__).'/../shared/utilities.php');
+require_once(dirname(__FILE__).'/../shared/database.php');
 
 class ClassService {
+    private $db;
+
+    public function __construct(){
+        $this->db = new Database();
+    }
 
     public function create($classObj){
-        $conn = getDbConnection();
-        $collection = $conn->cclass;
-        $insertResult = $collection->insertOne($classObj->getAsMongoModel());
-
-        if ($insertResult->getInsertedCount() == 1) {
-            $classObj->id = $insertResult->getInsertedId();
-            return $classObj;
-        } else {
-            return null;
-        }
+        return $this->db->insert($classObj, "cclass");
     }
 
     public function update($classObj){

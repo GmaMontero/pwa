@@ -1,9 +1,8 @@
 <?php
 
-require_once('../model/CClass.php');
-require_once('../model/ApiErrorResponse.php');
-require_once('../model/ApiErrorResponse.php');
-require_once('../service/cclass.php');
+require_once(dirname(__FILE__).'/../model/CClass.php');
+require_once(dirname(__FILE__).'/../model/ApiErrorResponse.php');
+require_once(dirname(__FILE__).'/../service/cclass.php');
 
 $classService = new ClassService;
 

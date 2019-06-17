@@ -1,6 +1,5 @@
 <?php
-    #require_once('api/shared/utilities.php');
-    #getDbConnection();
+    require_once(dirname(__FILE__).'/api/shared/utilities.php');
 ?>
 
 <!doctype html>
