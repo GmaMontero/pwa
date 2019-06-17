@@ -62,7 +62,7 @@ class Database {
         if(method_exists($obj, "getAsMongoModel")){
             $modelToUpdate = $obj->getAsMongoModel();
             $updateResult = $this->conn->$collection->replaceOne(['id' => $modelToUpdate["id"]], $modelToUpdate);
-            return $updateResult->getModifiedCount();
+            return $updateResult;
         } else {
             throw new Exception('Please, implement method getAsMongoModel');
         }

@@ -21,20 +21,28 @@ switch ($METHOD) {
             $classService = new ClassService();
             $classObj = new Cclass($jsonParsed);
             $result = $classService->create($classObj);
-            http_response_code(201);
-            return new ApiResponse($result, null);
+
+            if($result["ERROR"] === null){
+                http_response_code(201);
+                return new ApiResponse($result, null);
+            } else {
+                http_response_code(500);
+                return new ApiResponse(null, $result["ERROR"]);
+            }
         });
         break;
     case "PUT":
         echo validatePostData(function($jsonParsed){
             $classService = new ClassService();
             $classObj = new Cclass($jsonParsed);
-            $updateCount = $classService->update($classObj);
-            if($updateCount === 1){
-                http_response_code(200);
-                return new ApiResponse($classObj, null);
+            $result = $classService->update($classObj);
+
+            if(method_exists($result, "getModifiedCount")){
+                http_response_code(201);
+                return new ApiResponse($result->getModifiedCount(), null);
             } else {
-                http_response_code(400);
+                http_response_code(500);
+                return new ApiResponse(null, $result["ERROR"]);
             }
         });
         break;

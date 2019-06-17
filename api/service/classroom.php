@@ -17,11 +17,19 @@ class ClassroomService {
     }
 
     public function create($classroomObj){
-        return $this->db->insert($classroomObj, $this->collection);
+        try {
+            return $this->db->insert($classroomObj, $this->collection);
+        } catch (Exception $e){
+            return ['ERROR' => $e->getMessage()];
+        }
     }
 
     public function update($classroomObj){
-        return $this->db->replaceOne($classroomObj, $this->collection);
+        try {
+            return $this->db->replaceOne($classroomObj, $this->collection);
+        } catch (Exception $e){
+            return ['ERROR' => $e->getMessage()];
+        }
     }
 
     public function delete($id){
