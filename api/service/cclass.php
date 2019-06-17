@@ -21,7 +21,7 @@ class ClassService {
     }
 
     public function update($classObj){
-        return $classObj;
+        return $this->db->replaceOne($classObj, $this->collection);
     }
 
     public function delete($id){

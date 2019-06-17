@@ -31,6 +31,16 @@ switch ($METHOD) {
         });
         break;
     case "PUT":
+        echo validatePostData(function($jsonParsed){
+            $classroomService = new ClassroomService();
+            $classroomObj = new ClassRoom($jsonParsed);
+            $updateCount = $classroomService->update($classroomObj);
+            if($updateCount === 1){
+                http_response_code(200);
+            } else {
+                http_response_code(400);
+            }
+        });
         break;
     case "DELETE":
         echo validatePostData(function($jsonParsed){
