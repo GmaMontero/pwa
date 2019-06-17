@@ -44,6 +44,7 @@ switch ($METHOD) {
     case "PUT":
         break;
     case "DELETE":
+        $result = $classroomService->delete($classroomObj);
         break;
     default:
         http_response_code(405);
