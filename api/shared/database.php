@@ -58,6 +58,16 @@ class Database {
         return ($deleteResult->getDeletedCount());
     }
 
+    public function replaceOne($obj, $collection) {
+        if(method_exists($obj, "getAsMongoModel")){
+            $modelToUpdate = $obj->getAsMongoModel();
+            $updateResult = $this->conn->$collection->replaceOne(['id' => $modelToUpdate["id"]], $modelToUpdate);
+            return $updateResult->getModifiedCount();
+        } else {
+            throw new Exception('Please, implement method getAsMongoModel');
+        }
+    }
+
     public function getAll($collection, $filter) {
         $result = $this->conn->$collection->find($filter)->toArray();
         $resultMapped = array_map(function($obj){

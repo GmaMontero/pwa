@@ -26,6 +26,17 @@ switch ($METHOD) {
         });
         break;
     case "PUT":
+        echo validatePostData(function($jsonParsed){
+            $classService = new ClassService();
+            $classObj = new Cclass($jsonParsed);
+            $updateCount = $classService->update($classObj);
+            if($updateCount === 1){
+                http_response_code(200);
+                return new ApiResponse($classObj, null);
+            } else {
+                http_response_code(400);
+            }
+        });
         break;
     case "DELETE":
         echo validatePostData(function($jsonParsed){
