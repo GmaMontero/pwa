@@ -10,7 +10,7 @@ require_once(dirname(__FILE__).'/../model/Classroom.php');
 require_once(dirname(__FILE__).'/../model/ApiErrorResponse.php');
 require_once(dirname(__FILE__).'/../service/classroom.php');
 
-$classService = new ClassroomService();
+$classroomService = new ClassroomService();
 
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST, PUT, DELETE");
@@ -19,7 +19,7 @@ $METHOD = $_SERVER['REQUEST_METHOD'];
 
 switch ($METHOD) {
     case "GET":
-        echo json_encode($classService->getAll([]));
+        echo json_encode($classroomService->getAll([]));
         http_response_code(200);
         break;
     case "POST":
@@ -31,8 +31,8 @@ switch ($METHOD) {
                 http_response_code(400);
                 echo new ApiResponse(null, "Request body cant parse as JSON");
             } else {
-                $classObj = new Cclass($jsonParsed);
-                $result = $classService->create($classObj);
+                $classroomObj = new ClassRoom($jsonParsed);
+                $result = $classroomService->create($classroomObj);
                 http_response_code(201);
                 echo new ApiResponse($result, null);
             }
