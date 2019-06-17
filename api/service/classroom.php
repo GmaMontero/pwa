@@ -3,9 +3,9 @@
 require_once(dirname(__FILE__).'/../shared/utilities.php');
 require_once(dirname(__FILE__).'/../shared/database.php');
 
-class ClassService {
+class ClassroomService {
     private $db;
-    private $collection = "class";
+    private $collection = "classroom";
 
     public function __construct(){
         $this->db = new Database();

@@ -4,7 +4,7 @@ require_once(dirname(__FILE__).'/../model/CClass.php');
 require_once(dirname(__FILE__).'/../model/ApiErrorResponse.php');
 require_once(dirname(__FILE__).'/../service/cclass.php');
 
-$classService = new ClassService;
+$classService = new ClassService();
 
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST, PUT, DELETE");
@@ -43,8 +43,5 @@ switch ($METHOD) {
         http_response_code(405);
         break;
 }
-
-
-
 
 ?>
