@@ -17,11 +17,19 @@ class ClassService {
     }
 
     public function create($classObj){
-        return $this->db->insert($classObj, $this->collection);
+        try{
+            return $this->db->insert($classObj, $this->collection);
+        } catch (Exception $e){
+            return ['ERROR' => $e->getMessage()];
+        }
     }
 
     public function update($classObj){
-        return $this->db->replaceOne($classObj, $this->collection);
+        try{
+            return $this->db->replaceOne($classObj, $this->collection);
+        } catch (Exception $e){
+            return ['ERROR' => $e->getMessage()];
+        }
     }
 
     public function delete($id){

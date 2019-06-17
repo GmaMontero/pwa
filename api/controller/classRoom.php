@@ -26,19 +26,28 @@ switch ($METHOD) {
             $classroomService = new ClassroomService();
             $classroomObj = new ClassRoom($jsonParsed);
             $result = $classroomService->create($classroomObj);
-            http_response_code(201);
-            return new ApiResponse($result, null);
+
+            if($result["ERROR"] === null){
+                http_response_code(201);
+                return new ApiResponse($result, null);
+            } else {
+                http_response_code(500);
+                return new ApiResponse(null, $result["ERROR"]);
+            }
         });
         break;
     case "PUT":
         echo validatePostData(function($jsonParsed){
             $classroomService = new ClassroomService();
             $classroomObj = new ClassRoom($jsonParsed);
-            $updateCount = $classroomService->update($classroomObj);
-            if($updateCount === 1){
-                http_response_code(200);
+            $result = $classroomService->update($classroomObj);
+
+            if(method_exists($result, "getModifiedCount")){
+                http_response_code(201);
+                return new ApiResponse($result->getModifiedCount(), null);
             } else {
-                http_response_code(400);
+                http_response_code(500);
+                return new ApiResponse(null, $result["ERROR"]);
             }
         });
         break;
