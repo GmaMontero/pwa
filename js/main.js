@@ -30,21 +30,8 @@ var MAIN = (function ($) {
         }
     }
 
-    var cargarTablaAulas = (classrooms) => {
-        classrooms = JSON.parse(classrooms);
-        var tr;
-        for (var i = 0; i < classrooms.length; i++) {
-            tr = $('<tr/>');
-            tr.append("<td>" + classrooms[i].id + "</td>");
-            tr.append("<td>" + classrooms[i].number + "</td>");
-            tr.append("<td>" + classrooms[i].floor + "</td>");
-            tr.append("<td>" + classrooms[i].capacity + "</td>");
-            tableClassroom.append(tr);
-        }
-    }
-
     var loadClassrooms = () => {
-        $("#table_classsroom tbody").empty();
+        $("#table_classroom tbody").empty();
         $.get( "api/controller/classRoom.php")
           .done(function( data ) {
             classrooms = data;
@@ -55,6 +42,7 @@ var MAIN = (function ($) {
                 tr.append("<td>" + classrooms[i].number + "</td>");
                 tr.append("<td>" + classrooms[i].floor + "</td>");
                 tr.append("<td>" + classrooms[i].capacity + "</td>");
+                tr.append("<td><button id=\"" + classrooms[i].id + "\" class=\"deleteClassroom btn-info btn-sm\">X</span></button></td>");
                 tableClassroom.append(tr);
             }
         });
@@ -71,9 +59,20 @@ var MAIN = (function ($) {
                 console.log(result.status);
                 loadClasses();
             }
-        });
+        });        
+    }
 
-        
+    function deleteClassroom (id) {
+        var _data = "{\"id\":\"" + id + "\"}";
+        $.ajax({
+            url: 'api/controller/classRoom.php',
+            data: _data,
+            type: 'DELETE',
+            complete: function(result) {
+                console.log(result.status);
+                loadClassrooms();
+            }
+        }); 
     }
 
     var loadClasses = () => {
@@ -188,6 +187,7 @@ var MAIN = (function ($) {
                 },
                 complete:  function (xhr, statusText) {
                     console.log("HTTP Status Code: " + xhr.status);
+                    loadClassrooms();
                 }
            });
         });
@@ -196,6 +196,12 @@ var MAIN = (function ($) {
             event.preventDefault();
             var _id = $(this)[0].id;
             deleteClass(_id);
+        });
+
+        tableClassroom.on("click", "button.deleteClassroom", function(e){
+            event.preventDefault();
+            var _id = $(this)[0].id;
+            deleteClassroom(_id);
         });
 
         $.fn.serializeFormJSON = function () {
@@ -223,8 +229,5 @@ var MAIN = (function ($) {
     loadClassrooms();
     cargarMaterias(jsonSubjects);
     cargarCarreras(jsonCareers);
-    //cargarTablaAulas(jsonClassrooms);
-    //cargarTablaCursadas(getClasses);
-    //cargarTablaCursadas(jsonClasses);
     
 })(jQuery);
