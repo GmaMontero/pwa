@@ -53,6 +53,11 @@ class Database {
         }
     }
 
+    public function deleteOne($criteria, $collection) {
+        $deleteResult = $this->conn->$collection->deleteOne($criteria);
+        return ($deleteResult->getDeletedCount());
+    }
+
     public function getAll($collection, $filter) {
         $result = $this->conn->$collection->find($filter)->toArray();
         $resultMapped = array_map(function($obj){

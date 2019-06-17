@@ -44,6 +44,26 @@ switch ($METHOD) {
     case "PUT":
         break;
     case "DELETE":
+        $body = file_get_contents('php://input');
+        if($body !== false) {
+            $jsonParsed = json_decode($body, false);
+
+            if(is_null($jsonParsed)){
+                http_response_code(400);
+                echo new ApiResponse(null, "Request body cant parse as JSON");
+            } else {
+                $deleteCount = $classroomService->delete($jsonParsed->id);
+
+                if($deleteCount === 1){
+                    http_response_code(200);
+                } else {
+                    http_response_code(400);
+                }
+            }
+        } else {
+            http_response_code(400);
+            echo new ApiResponse(null, "Request body is not present");
+        }
         break;
     default:
         http_response_code(405);

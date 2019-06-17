@@ -24,9 +24,7 @@ class ClassService {
         return $classObj;
     }
 
-    public function delete($classObj){
-        return $classObj;
+    public function delete($id){
+        return $this->db->deleteOne(['id' => $id], $this->collection);
     }
 }
-
-?>

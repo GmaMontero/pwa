@@ -16,17 +16,15 @@ class ClassroomService {
         return $result;
     }
 
-    public function create($classObj){
-        return $this->db->insert($classObj, $this->collection);
+    public function create($classroomObj){
+        return $this->db->insert($classroomObj, $this->collection);
     }
 
-    public function update($classObj){
-        return $classObj;
+    public function update($classroomObj){
+        return $classroomObj;
     }
 
-    public function delete($classObj){
-        return $classObj;
+    public function delete($id){
+        return $this->db->deleteOne(['id' => $id], $this->collection);
     }
 }
-
-?>
