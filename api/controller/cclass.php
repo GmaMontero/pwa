@@ -12,6 +12,10 @@ header("Access-Control-Allow-Methods: POST, PUT, DELETE");
 $METHOD = $_SERVER['REQUEST_METHOD'];
 
 switch ($METHOD) {
+    case "GET":
+        echo json_encode($classService->getAll([]));
+        http_response_code(200);
+        break;
     case "POST":
         $body = file_get_contents('php://input');
         if($body !== false) {

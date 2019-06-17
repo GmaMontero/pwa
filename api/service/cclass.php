@@ -10,6 +10,11 @@ class ClassService {
         $this->db = new Database();
     }
 
+    public function getAll($filter){
+        $result = $this->db->getAll("cclass", $filter);
+        return $result;
+    }
+
     public function create($classObj){
         return $this->db->insert($classObj, "cclass");
     }

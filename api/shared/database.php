@@ -53,6 +53,15 @@ class Database {
         }
     }
 
+    public function getAll($collection, $filter) {
+        $result = $this->conn->$collection->find($filter)->toArray();
+        $resultMapped = array_map(function($obj){
+            $obj["_id"] = ((string) new MongoDB\BSON\ObjectId($obj["_id"]));
+            return $obj;
+        }, $result);
+        return $resultMapped;
+    }
+
     private function processInsert($insertResult){
         if ($insertResult->getInsertedCount() === 1) {
             return ((string) $insertResult->getInsertedId());
