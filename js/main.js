@@ -16,6 +16,9 @@ var MAIN = (function ($) {
     var jsonClasses = '[{"id":"PWA","nameSubject":"Programacion","career":"Sistemas","capacity":40,"turn":"N","comission":"B"},{"id":"IPW","nameSubject":"Intro Prog. Web","career":"Sistemas","capacity":30,"turn":"N","comission":"A"}]';
     var jsonClassrooms = '[{"id":"1","number":1520,"floor":5,"capacity":40},{"id":"2","number":1310,"floor":3,"capacity":20}]';
     
+    /**
+     * Función para cargar materias en combo
+     */
     var cargarMaterias = (subjects) => {
         subjects = JSON.parse(subjects);
         for (var i = 0; i < subjects.length; i++) {
@@ -23,6 +26,9 @@ var MAIN = (function ($) {
         }
     }
 
+    /**
+     * Función para cargar carreras en combo
+     */
     var cargarCarreras = (careers) => {
         careers = JSON.parse(careers);
         for (var i = 0; i < careers.length; i++) {
@@ -30,6 +36,9 @@ var MAIN = (function ($) {
         }
     }
 
+    /**
+     * Función para cargar Aulas desde DB
+     */
     var loadClassrooms = () => {
         $("#table_classroom tbody").empty();
         $.get( "api/controller/classRoom.php")
@@ -46,22 +55,11 @@ var MAIN = (function ($) {
                 tableClassroom.append(tr);
             }
         });
-    
     }
     
-    function deleteClass (id) {
-        var _data = "{\"id\":\"" + id + "\"}";
-        $.ajax({
-            url: 'api/controller/cclass.php',
-            data: _data,
-            type: 'DELETE',
-            complete: function(result) {
-                console.log(result.status);
-                loadClasses();
-            }
-        });        
-    }
-
+    /**
+     * Función para borrar Aulas desde DB
+     */
     function deleteClassroom (id) {
         var _data = "{\"id\":\"" + id + "\"}";
         $.ajax({
@@ -75,6 +73,9 @@ var MAIN = (function ($) {
         }); 
     }
 
+     /**
+     * Función para cargar Cursadas desde DB
+     */
     var loadClasses = () => {
         $("#table_class tbody").empty();
         $.get( "api/controller/cclass.php")
@@ -95,6 +96,21 @@ var MAIN = (function ($) {
         });
     }
 
+    /**
+     * Función para borrar cursadas en DBW
+     */
+    function deleteClass (id) {
+        var _data = "{\"id\":\"" + id + "\"}";
+        $.ajax({
+            url: 'api/controller/cclass.php',
+            data: _data,
+            type: 'DELETE',
+            complete: function(result) {
+                console.log(result.status);
+                loadClasses();
+            }
+        });        
+    }
 
     var cargarSchedulePorAula = () => {
         //TO DO: Llenar una tabla de Schedule por aula. Cada fila un aula, cada columna un día de la semana
@@ -105,7 +121,10 @@ var MAIN = (function ($) {
     }   
 
     var registerEvents = () => {
-        
+
+        /**
+         * Handler para evento click en opciones del menú
+         */
         $(".nav-link").on("click", function(e){
             //Le saco la clase active a todos los links del menú
             $(".nav-link").removeClass("active");
@@ -134,7 +153,11 @@ var MAIN = (function ($) {
             }
         });
 
+        /**
+         * Handler para evento Submit del formulario de Aulas
+         */
         formAbmClass.on("submit", function(e){
+            //Evito el comportamiento default del formulario
             event.preventDefault();
             //Serializo            
             var formData = formAbmClass.serializeFormJSON();
@@ -163,7 +186,11 @@ var MAIN = (function ($) {
            });
         });
 
+        /**
+         * Handler para evento Submit del formulario de Aulas
+         */
         formAbmClassroom.on("submit", function(e){
+            //Evito el comportamiento default del formulario
             event.preventDefault();
             //Serializo            
             var formData = formAbmClassroom.serializeFormJSON();
@@ -192,18 +219,27 @@ var MAIN = (function ($) {
            });
         });
 
+        /**
+         * Handler para click en borrado de cada fila de tabla Cursadas
+         */
         tableClass.on("click", "button.deleteClass", function(e){
             event.preventDefault();
             var _id = $(this)[0].id;
             deleteClass(_id);
         });
 
+        /**
+         * Handler para click en borrado de cada fila de tabla Aulas
+         */
         tableClassroom.on("click", "button.deleteClassroom", function(e){
             event.preventDefault();
             var _id = $(this)[0].id;
             deleteClassroom(_id);
         });
 
+        /**
+         * Función para serializar un formulario a JSON
+         */
         $.fn.serializeFormJSON = function () {
             var o = {};
             var a = this.serializeArray();
@@ -219,11 +255,12 @@ var MAIN = (function ($) {
             });
             return o;
         };
-
-        
+      
     }
 
-
+    /**
+     * Llamada a funciones al inicio
+     */
     registerEvents();
     loadClasses();
     loadClassrooms();
