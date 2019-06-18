@@ -101,15 +101,19 @@ var MAIN = (function ($) {
      */
     function deleteClass (id) {
         var _data = "{\"id\":\"" + id + "\"}";
-        $.ajax({
-            url: 'api/controller/cclass.php',
-            data: _data,
-            type: 'DELETE',
-            complete: function(result) {
-                console.log(result.status);
-                loadClasses();
-            }
-        });        
+        var rta = confirm("¿Esta seguro que desea eliminar?");
+        if (rta == true) {
+            $.ajax({
+                url: 'api/controller/cclass.php',
+                data: _data,
+                type: 'DELETE',
+                complete: function(result) {
+                    console.log(result.status);
+                    loadClasses();
+                }
+            }); 
+        }
+       
     }
 
     var cargarSchedulePorAula = () => {
