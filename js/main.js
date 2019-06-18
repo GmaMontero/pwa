@@ -96,7 +96,7 @@ var MAIN = (function ($) {
                 tr.append("<td>" + classes[i].capacity + "</td>");
                 tr.append("<td>" + classes[i].turn + "</td>");
                 tr.append("<td>" + classes[i].commission + "</td>");
-                tr.append("<td><button id=\"" + classes[i].id + "\" class=\"deleteClass btn-info btn-sm\">X</button><button id=\"edit" + classes[i].id + "\" class=\"editClass btn-info btn-sm\">E</button></td>");
+                tr.append("<td><button id=\"edit" + classes[i].id + "\" class=\"editClass btn-success btn-sm\">M</button><button id=\"" + classes[i].id + "\" class=\"deleteClass btn-sm btn-danger\">X</button></td>");
                 tableClass.append(tr);
                 $("#table_class tr:last-child").attr("rowData", JSON.stringify(classes[i]));
             }
@@ -108,7 +108,7 @@ var MAIN = (function ($) {
      */
     function deleteClass (id) {
         var _data = "{\"id\":\"" + id + "\"}";
-        var rta = confirm("¿Esta seguro que desea eliminar?");
+        var rta = confirm("¿Esta seguro que desea eliminar elemento con ID " + id + "?");
         if (rta == true) {
             $.ajax({
                 url: 'api/controller/cclass.php',
