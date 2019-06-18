@@ -62,15 +62,18 @@ var MAIN = (function ($) {
      */
     function deleteClassroom (id) {
         var _data = "{\"id\":\"" + id + "\"}";
-        $.ajax({
-            url: 'api/controller/classRoom.php',
-            data: _data,
-            type: 'DELETE',
-            complete: function(result) {
-                console.log(result.status);
-                loadClassrooms();
-            }
-        }); 
+        var rta = confirm("¿Esta seguro que desea eliminar?");
+        if (rta == true) {
+            $.ajax({
+                url: 'api/controller/classRoom.php',
+                data: _data,
+                type: 'DELETE',
+                complete: function(result) {
+                    console.log(result.status);
+                    loadClassrooms();
+                }
+            }); 
+        }
     }
 
      /**
