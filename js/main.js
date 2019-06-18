@@ -51,7 +51,7 @@ var MAIN = (function ($) {
                 tr.append("<td>" + classrooms[i].number + "</td>");
                 tr.append("<td>" + classrooms[i].floor + "</td>");
                 tr.append("<td>" + classrooms[i].capacity + "</td>");
-                tr.append("<td><button id=\"" + classrooms[i].id + "\" class=\"deleteClassroom btn-info btn-sm\">X</span></button></td>");
+                tr.append("<td><button id=\"" + classrooms[i].id + "\" class=\"deleteClassroom btn-info btn-sm\">X</button> </td>");
                 tableClassroom.append(tr);
             }
         });
@@ -93,11 +93,13 @@ var MAIN = (function ($) {
                 tr.append("<td>" + classes[i].capacity + "</td>");
                 tr.append("<td>" + classes[i].turn + "</td>");
                 tr.append("<td>" + classes[i].commission + "</td>");
-                tr.append("<td><button id=\"" + classes[i].id + "\" class=\"deleteClass btn-info btn-sm\">X</span></button></td>");
+                tr.append("<td><button id=\"" + classes[i].id + "\" class=\"deleteClass btn-info btn-sm\">X</button></td>");
                 tableClass.append(tr);
+                $("#table_class tr:last-child").attr("rowData", JSON.stringify(classes[i]));
             }
         });
     }
+
 
     /**
      * Función para borrar cursadas en DBW
@@ -226,6 +228,16 @@ var MAIN = (function ($) {
            });
         });
 
+        /**
+         * Handler para click en boton Modificar
+         */
+        tableClass.on("click",  "button.editClass", function(e) 
+        {
+            event.preventDefault();
+            alert( "adentro de click " + $(this).closest("tr").attr("rowData")); 
+            alert( "adentro de click " + $(this).parent("td").parent("tr").attr("rowData")); 
+ 
+        });
         /**
          * Handler para click en borrado de cada fila de tabla Cursadas
          */
