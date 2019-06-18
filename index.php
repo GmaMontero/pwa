@@ -90,7 +90,7 @@
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Guardar</button>
-                <input type="reset" class="btn btn-primary" value="Limpiar">
+                <input type="reset" class="btn btn-primary" value="Limpiar" id="resetForm">
             </form>
         </div>  
         <div class="col-1"></div>
@@ -169,7 +169,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary">Guardar</button>
-                <input type="reset" class="btn btn-primary" value="Limpiar">
+                <input type="reset" class="btn btn-primary" value="Limpiar" id="resetForm">
             </form>
         </div>  
         <div class="col-1"></div>
