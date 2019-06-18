@@ -8,7 +8,10 @@ var MAIN = (function ($) {
         selectNameSubject = $("#nameSubject"),
         selectCareer = $("#career"),
         tableClassroom = $("#table_classroom"),
-        tableClass = $("#table_class")
+        tableClass = $("#table_class"),
+        btnResetFormClass = $("#form_abm_class #resetForm"),
+        btnResetFormClassroom = $("#form_abm_classroom #resetForm")
+
     
     //JSONs de ejemplo
     var jsonSubjects = '[{"id": 1, "name":"Programacion Web Avanzada"},{"id": 2, "name":"Metodologias III"},{"id": 3, "name":"Tecnologia de las Comunicaciones"},{"id": 4, "name":"Gestion de RRHH TI"},{"id": 5,  "name":"Gestion y Costos"},{"id": 6,  "name":"Programacion Estructurada"},{"id": 7, "name":"Matematica Discreta"},{"id": 8, "name":"Sistemas de Representacion"},{"id": 9, "name":"Etica y Deontologia Profesional"},{"id": 10, "name":"Introduccion a la Programacion Web"}]'; 
@@ -93,16 +96,15 @@ var MAIN = (function ($) {
                 tr.append("<td>" + classes[i].capacity + "</td>");
                 tr.append("<td>" + classes[i].turn + "</td>");
                 tr.append("<td>" + classes[i].commission + "</td>");
-                tr.append("<td><button id=\"" + classes[i].id + "\" class=\"deleteClass btn-info btn-sm\">X</button></td>");
+                tr.append("<td><button id=\"" + classes[i].id + "\" class=\"deleteClass btn-info btn-sm\">X</button><button id=\"edit" + classes[i].id + "\" class=\"editClass btn-info btn-sm\">E</button></td>");
                 tableClass.append(tr);
                 $("#table_class tr:last-child").attr("rowData", JSON.stringify(classes[i]));
             }
         });
     }
 
-
     /**
-     * Función para borrar cursadas en DBW
+     * Función para borrar cursadas en DB
      */
     function deleteClass (id) {
         var _data = "{\"id\":\"" + id + "\"}";
@@ -118,7 +120,6 @@ var MAIN = (function ($) {
                 }
             }); 
         }
-       
     }
 
     var cargarSchedulePorAula = () => {
@@ -163,23 +164,32 @@ var MAIN = (function ($) {
         });
 
         /**
-         * Handler para evento Submit del formulario de Aulas
+         * Handler para evento Submit del formulario de Cursadas
          */
         formAbmClass.on("submit", function(e){
             //Evito el comportamiento default del formulario
             event.preventDefault();
+            //Declaro la variable para el método
+            var formMethod;
+            //Si el ID está habilitado, es una alta
+            if($("#form_abm_class #id").is(":disabled")==false){
+                formMethod = 'POST';
+            } else {
+                //Si el ID no está habilitado, es una modificación
+                formMethod = 'PUT';
+            }
+            //Habilito todo antes de obtener los datos, sino no envía lo disabled en el form        
+            $("#form_abm_class #id").prop("disabled",false);
             //Serializo            
             var formData = formAbmClass.serializeFormJSON();
             //Lo hago JSON
             formData = JSON.stringify(formData);
+            //Armo la petición
             $.ajax({
                 data:  formData, //datos que se envian a traves de ajax
                 dataType: 'json',
                 url:   'api/controller/cclass.php', //archivo que recibe la peticion
-                type:  'post', //método de envio
-                /*beforeSend: function () {
-                        $("#resultado").html("Procesando, espere por favor...");
-                },*/
+                type:  formMethod, //método de envio
                 success: function (response) {
                     //Mostrar mensaje de OK
                     console.log("OK");
@@ -190,9 +200,10 @@ var MAIN = (function ($) {
                 },
                 complete:  function (xhr, statusText) {
                     console.log("HTTP Status: " + xhr.status);
+                    btnResetFormClass.click();
                     loadClasses();
                 }
-           });
+            });
         });
 
         /**
@@ -205,6 +216,7 @@ var MAIN = (function ($) {
             var formData = formAbmClassroom.serializeFormJSON();
             //Lo hago JSON
             formData = JSON.stringify(formData);
+            //Armo la petición
             $.ajax({
                 data:  formData, //datos que se envian a traves de ajax
                 dataType: 'json',
@@ -225,21 +237,42 @@ var MAIN = (function ($) {
                     console.log("HTTP Status Code: " + xhr.status);
                     loadClassrooms();
                 }
-           });
+            });
         });
 
         /**
-         * Handler para click en boton Modificar
+         * Handler para click en modificar fila de tabla Cursadas
          */
         tableClass.on("click",  "button.editClass", function(e) 
         {
+            //Completo el formulario con los datos de jsonRow
             event.preventDefault();
-            alert( "adentro de click " + $(this).closest("tr").attr("rowData")); 
-            alert( "adentro de click " + $(this).parent("td").parent("tr").attr("rowData")); 
- 
+            var jsonRow = JSON.parse($(this).closest("tr").attr("rowData"));
+            $("#form_abm_class #id").val(jsonRow.id);
+            $("#form_abm_class #career").val(jsonRow.career);
+            $("#form_abm_class #nameSubject").val(jsonRow.nameSubject);
+            $("#form_abm_class #capacity").val(jsonRow.capacity);
+            $("#form_abm_class #turn").val(jsonRow.turn);
+            $("#form_abm_class .form-check-input").prop("checked",false);
+            if (jsonRow.turn == "M") {$("#form_abm_class #turn1").prop("checked",true)};
+            if (jsonRow.turn == "T") {$("#form_abm_class #turn2").prop("checked",true)};
+            if (jsonRow.turn == "N") {$("#form_abm_class #turn3").prop("checked",true)};
+            $("#form_abm_class #commission").val(jsonRow.commission);
+            //Deshabilito el ID
+            $("#form_abm_class #id").prop("disabled",true);
         });
+
         /**
-         * Handler para click en borrado de cada fila de tabla Cursadas
+         * Handler para click en modificar fila de tabla Aulas
+         */
+        tableClassroom.on("click",  "button.editClassroom", function(e) 
+        {
+            event.preventDefault();
+            alert( "adentro de click \n" + $(this).closest("tr").attr("rowData")); 
+        });
+
+        /**
+         * Handler para click en borrar fila de tabla Cursadas
          */
         tableClass.on("click", "button.deleteClass", function(e){
             event.preventDefault();
@@ -255,6 +288,11 @@ var MAIN = (function ($) {
             var _id = $(this)[0].id;
             deleteClassroom(_id);
         });
+
+        $("#form_abm_class #resetForm").on("click", function(e){
+            $("#form_abm_class #id").prop("disabled", false);
+            formAbmClass.trigger("reset");
+        })
 
         /**
          * Función para serializar un formulario a JSON
