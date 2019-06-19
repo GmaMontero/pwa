@@ -52,23 +52,25 @@ switch ($METHOD) {
         ];
         $turns = array_keys($classesByTurn);
 
-        // Reemplazar luego por un for adentro para iterar todos los turnos
-        $classes = $classService->getAll(['turn'=>$turns[1]]);
+        foreach ($turns as $currentTurn){
+            // Reemplazar luego por un for adentro para iterar todos los turnos
+            $classes = $classService->getAll(['turn'=>$currentTurn]);
 
-        foreach ($classes as $class){
-            $bestClassroom = getBestClassRoomForCapacity($classRooms, $class["capacity"]);
-            if($bestClassroom !== null){
-                // Elimino del array de las aulas, a la elegida
-                unset($classRooms[intval($bestClassroom["index"])]);
+            foreach ($classes as $class){
+                $bestClassroom = getBestClassRoomForCapacity($classRooms, $class["capacity"]);
+                if($bestClassroom !== null){
+                    // Elimino del array de las aulas, a la elegida
+                    unset($classRooms[intval($bestClassroom["index"])]);
 
-                // Le asigno a la clase, el numero de aula
-                $class["classRoom"] = $bestClassroom["classroom"]["number"];
+                    // Le asigno a la clase, el numero de aula
+                    $class["classRoom"] = $bestClassroom["classroom"]["number"];
 
-                // Pusheo al array del turno, la clase
-                array_push($classesByTurn[$class["turn"]], $class);
-            } else {
-                // Pusheo al array la clase que no encontro aula
-                array_push($classesWithoutRooms, $class);
+                    // Pusheo al array del turno, la clase
+                    array_push($classesByTurn[$class["turn"]], $class);
+                } else {
+                    // Pusheo al array la clase que no encontro aula
+                    array_push($classesWithoutRooms, $class);
+                }
             }
         }
 
