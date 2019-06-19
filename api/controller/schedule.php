@@ -62,7 +62,7 @@ switch ($METHOD) {
                 unset($classRooms[intval($bestClassroom["index"])]);
 
                 // Le asigno a la clase, el numero de aula
-                $class["classRoom"] = $bestClassroom["number"];
+                $class["classRoom"] = $bestClassroom["classroom"]["number"];
 
                 // Pusheo al array del turno, la clase
                 array_push($classesByTurn[$class["turn"]], $class);

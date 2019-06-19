@@ -44,7 +44,7 @@ var MAIN = (function ($) {
      */
     var loadClassrooms = () => {
         $("#table_classroom tbody").empty();
-        $.get( "api/controller/classRoom.php")
+        $.get( "api/controller/classroom.php")
           .done(function( data ) {
             classrooms = data;
             var tr;
@@ -220,7 +220,7 @@ var MAIN = (function ($) {
             $.ajax({
                 data:  formData, //datos que se envian a traves de ajax
                 dataType: 'json',
-                url:   'api/controller/classRoom.php', //archivo que recibe la peticion
+                url:   'api/controller/classroom.php', //archivo que recibe la peticion
                 type:  'post', //método de envio
                 /*beforeSend: function () {
                         $("#resultado").html("Procesando, espere por favor...");
