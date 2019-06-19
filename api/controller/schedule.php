@@ -15,9 +15,6 @@ header("Access-Control-Allow-Methods: GET");
 
 $METHOD = $_SERVER['REQUEST_METHOD'];
 
-
-echo "ESTO ES UN TEST";
-
 function getBestClassRoomForCapacity($classRooms,$capacity){
     $classRoomCandidate = null;
     $classRoomCandidateIndex = null;
@@ -46,27 +43,39 @@ switch ($METHOD) {
     case "GET":
         $classService = new ClassService();
         $classroomService = new ClassroomService();
-        $turns = ["M","T","N"];
         $classRooms = $classroomService->getAll([]);
+        $classesWithoutRooms = [];
+        $classesByTurn = [
+            "M" => [],
+            "T" => [],
+            "N" => []
+        ];
+        $turns = array_keys($classesByTurn);
 
         // Reemplazar luego por un for adentro para iterar todos los turnos
         $classes = $classService->getAll(['turn'=>$turns[1]]);
 
         foreach ($classes as $class){
-            echo "Cursada: ";
-            echo json_encode($class);
+            $bestClassroom = getBestClassRoomForCapacity($classRooms, $class["capacity"]);
+            if($bestClassroom !== null){
+                // Elimino del array de las aulas, a la elegida
+                unset($classRooms[intval($bestClassroom["index"])]);
 
-            $bestAula = getBestClassRoomForCapacity($classRooms, $class["capacity"]);
-            if($bestAula !== null){
-                echo "\nMejor aula encontrada: ";
-                unset($classRooms[intval($bestAula["index"])]);
-                echo json_encode($bestAula);
+                // Le asigno a la clase, el numero de aula
+                $class["classRoom"] = $bestClassroom["number"];
+
+                // Pusheo al array del turno, la clase
+                array_push($classesByTurn[$class["turn"]], $class);
             } else {
-                echo "No hay aula para esa capacidad.";
+                // Pusheo al array la clase que no encontro aula
+                array_push($classesWithoutRooms, $class);
             }
-
-            echo "\n\n";
         }
+
+        echo json_encode([
+            "classesByTurn" => $classesByTurn,
+           "classesWithoutRooms" => $classesWithoutRooms
+        ]);
 
         http_response_code(200);
     break;
