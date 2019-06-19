@@ -53,10 +53,40 @@
     -->
     <br />
     <div class="row containerModule" id="schedule">
-        <div class="col">
+        <div class="col-12">
             <h2>Cronograma de horarios</h2>
+            <br />
+            <form id="form_cons_cronograma" method="post">
+                <div class="form-group row">
+                    <label for="criterio" class="col-sm-1 col-form-label">Criterio:</label>
+                    <div class="col-sm-2">
+                    <select class="custom-select" name="criterio" id="criterio" onchange="myFunction()">
+                        <option value="Turno">Turno</option>
+                        <option value="Aula">Aula</option>
+                    </select>
+                    </div>
+                </div>
+            </form>
         </div>  
+        <br />
+        <div class="col-1"></div>
+            <table class="table col-10" id="table_cronograma">
+                <thead>
+                    <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Lunes</th>
+                    <th scope="col">Martes</th>
+                    <th scope="col">Miercoles</th>
+                    <th scope="col">Jueves</th>
+                    <th scope="col">Viernes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
     </div>
+
+    <br />
     
     <div class="row d-none containerModule" id="abm_classroom">
         <div class="col-5">
@@ -66,7 +96,7 @@
             <br />
             <form id="form_abm_classroom" action="api\controller\classRoom.php" method="post">            
                 <div class="form-group row">
-                    <label for="id" class="col-sm-2 col-form-label">ID</label>
+                    <label for="id" class="col-sm-2 col-form-label">Cod. Aula</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" name="id" id="id" placeholder="ID">
                     </div>
@@ -90,7 +120,7 @@
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Guardar</button>
-                <input type="reset" class="btn btn-primary" value="Limpiar" id="resetForm">
+                <input type="reset" class="btn btn-primary" value="Limpiar">
             </form>
         </div>  
         <div class="col-1"></div>
@@ -121,7 +151,7 @@
             <br />
             <form id="form_abm_class" method="post">
                 <div class="form-group row">
-                    <label for="id" class="col-sm-2 col-form-label">ID</label>
+                    <label for="id" class="col-sm-2 col-form-label">Cod. Cursada</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" name="id" id="id" placeholder="ID" required>
                     </div>
@@ -169,7 +199,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary">Guardar</button>
-                <input type="reset" class="btn btn-primary" value="Limpiar" id="resetForm">
+                <input type="reset" class="btn btn-primary" value="Limpiar">
             </form>
         </div>  
         <div class="col-1"></div>
