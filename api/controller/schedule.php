@@ -17,20 +17,26 @@ $METHOD = $_SERVER['REQUEST_METHOD'];
 
 function getBestClassRoomForCapacity($classRooms,$capacity){
     $classRoomCandidate = null;
+    $classRoomCandidateIndex = null;
     $classRoomCandidateDiff = null;
 
-    foreach ($classRooms as $classRoom){
+    foreach ($classRooms as $index=>$classRoom){
         $crCapacity = intval($classRoom["capacity"]);
         $cCapacity = intval($capacity);
 
         // Si la capacidad del aula es mayor a la de la cursada y la diferencia es menor a la mejor hasta el momento
         if($crCapacity >= $cCapacity && ($classRoomCandidateDiff > $crCapacity-$cCapacity || $classRoomCandidateDiff === null)){
             $classRoomCandidate = $classRoom;
+            $classRoomCandidateIndex = $index;
             $classRoomCandidateDiff = $crCapacity-$cCapacity;
         }
     }
 
-    return $classRoomCandidate;
+    if($classRoomCandidate !== null){
+        return ["classroom"=>$classRoomCandidate, "index"=>$classRoomCandidateIndex, "difference"=>$classRoomCandidateDiff];
+    } else {
+        return null;
+    }
 }
 
 switch ($METHOD) {
@@ -46,8 +52,16 @@ switch ($METHOD) {
         foreach ($classes as $class){
             echo "Cursada: ";
             echo json_encode($class);
-            echo "\nMejor aula encontrada: ";
-            echo json_encode(getBestClassRoomForCapacity($classRooms, $class["capacity"]));
+
+            $bestAula = getBestClassRoomForCapacity($classRooms, $class["capacity"]);
+            if($bestAula !== null){
+                echo "\nMejor aula encontrada: ";
+                unset($classRooms[intval($bestAula["index"])]);
+                echo json_encode($bestAula);
+            } else {
+                echo "No hay aula para esa capacidad.";
+            }
+
             echo "\n\n";
         }
 
