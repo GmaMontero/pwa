@@ -84,7 +84,7 @@ var MAIN = (function ($) {
      */
     var loadClasses = () => {
         $("#table_class tbody").empty();
-        $.get( "api/controller/cclass.php")
+        $.get( "api/controller/class.php")
           .done(function( data ) {
             classes = data;
             var tr;
@@ -111,7 +111,7 @@ var MAIN = (function ($) {
         var rta = confirm("¿Esta seguro que desea eliminar elemento con ID " + id + "?");
         if (rta == true) {
             $.ajax({
-                url: 'api/controller/cclass.php',
+                url: 'api/controller/class.php',
                 data: _data,
                 type: 'DELETE',
                 complete: function(result) {
@@ -188,7 +188,7 @@ var MAIN = (function ($) {
             $.ajax({
                 data:  formData, //datos que se envian a traves de ajax
                 dataType: 'json',
-                url:   'api/controller/cclass.php', //archivo que recibe la peticion
+                url:   'api/controller/class.php', //archivo que recibe la peticion
                 type:  formMethod, //método de envio
                 success: function (response) {
                     //Mostrar mensaje de OK
