@@ -6,7 +6,7 @@ require_once(dirname(__FILE__).'/../service/cclass.php');
 require_once(dirname(__FILE__).'/../shared/utilities.php');
 
 header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: POST, PUT, DELETE");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 
 $METHOD = $_SERVER['REQUEST_METHOD'];
 
