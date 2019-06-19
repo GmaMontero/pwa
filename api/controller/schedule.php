@@ -15,6 +15,9 @@ header("Access-Control-Allow-Methods: GET");
 
 $METHOD = $_SERVER['REQUEST_METHOD'];
 
+
+echo "ESTO ES UN TEST";
+
 function getBestClassRoomForCapacity($classRooms,$capacity){
     $classRoomCandidate = null;
     $classRoomCandidateIndex = null;
