@@ -65,7 +65,7 @@ switch ($METHOD) {
                     $classWithRoom = [
                         "classRoom" => [
                             "classroomNumber" => $bestClassroom["classroom"]["number"],
-                            "classroomDelta" => $bestClassroom["classroom"]["difference"]
+                            "classroomDelta" => $bestClassroom["difference"]
                         ],
                         "class" => [
                             "career" => $class["career"],
