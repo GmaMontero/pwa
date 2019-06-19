@@ -62,11 +62,20 @@ switch ($METHOD) {
                     // Elimino del array de las aulas, a la elegida
                     unset($classRooms[intval($bestClassroom["index"])]);
 
-                    // Le asigno a la clase, el numero de aula
-                    $class["classRoom"] = $bestClassroom["classroom"]["number"];
+                    $classWithRoom = [
+                        "classRoom" => [
+                            "classroomNumber" => $bestClassroom["classroom"]["number"],
+                            "classroomDelta" => $bestClassroom["classroom"]["difference"]
+                        ],
+                        "class" => [
+                            "career" => $class["career"],
+                            "commission" => $class["commission"],
+                            "nameSubject" => $class["nameSubject"]
+                        ]
+                    ];
 
                     // Pusheo al array del turno, la clase
-                    array_push($classesByTurn[$class["turn"]], $class);
+                    array_push($classesByTurn[$class["turn"]], $classWithRoom);
                 } else {
                     // Pusheo al array la clase que no encontro aula
                     array_push($classesWithoutRooms, $class);
