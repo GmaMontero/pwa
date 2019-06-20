@@ -54,8 +54,9 @@ var MAIN = (function ($) {
                 tr.append("<td>" + classrooms[i].number + "</td>");
                 tr.append("<td>" + classrooms[i].floor + "</td>");
                 tr.append("<td>" + classrooms[i].capacity + "</td>");
-                tr.append("<td><button id=\"" + classrooms[i].id + "\" class=\"deleteClassroom btn-info btn-sm\">X</button> </td>");
+                tr.append("<td><button id=\"edit" + classrooms[i].id + "\" class=\"editClassroom btn-success btn-sm\">M</button><button id=\"" + classrooms[i].id + "\" class=\"deleteClassroom btn-sm btn-danger\">X</button></td>");
                 tableClassroom.append(tr);
+                $("#table_classroom tr:last-child").attr("rowData", JSON.stringify(classrooms[i]));
             }
         });
     }
@@ -212,6 +213,17 @@ var MAIN = (function ($) {
         formAbmClassroom.on("submit", function(e){
             //Evito el comportamiento default del formulario
             event.preventDefault();
+            //Declaro la variable para el método
+            var formMethod;
+            //Si el ID está habilitado, es una alta
+            if($("#form_abm_classroom #id").is(":disabled")==false){
+                formMethod = 'POST';
+            } else {
+            //Si el ID no está habilitado, es una modificación
+                formMethod = 'PUT';
+            }
+            //Habilito todo antes de obtener los datos, sino no envía lo disabled en el form        
+            $("#form_abm_classroom #id").prop("disabled",false);
             //Serializo            
             var formData = formAbmClassroom.serializeFormJSON();
             //Lo hago JSON
@@ -221,7 +233,7 @@ var MAIN = (function ($) {
                 data:  formData, //datos que se envian a traves de ajax
                 dataType: 'json',
                 url:   'api/controller/classroom.php', //archivo que recibe la peticion
-                type:  'post', //método de envio
+                type:  formMethod, //método de envio
                 /*beforeSend: function () {
                         $("#resultado").html("Procesando, espere por favor...");
                 },*/
@@ -234,7 +246,8 @@ var MAIN = (function ($) {
                     console.log("ERROR");
                 },
                 complete:  function (xhr, statusText) {
-                    console.log("HTTP Status Code: " + xhr.status);
+                    console.log("HTTP Status: " + xhr.status);
+                    btnResetFormClassroom.click();
                     loadClassrooms();
                 }
             });
@@ -268,7 +281,14 @@ var MAIN = (function ($) {
         tableClassroom.on("click",  "button.editClassroom", function(e) 
         {
             event.preventDefault();
-            alert( "adentro de click \n" + $(this).closest("tr").attr("rowData")); 
+            //Completo el formulario con los datos de jsonRow
+            var jsonRow = JSON.parse($(this).closest("tr").attr("rowData"));
+            $("#form_abm_classroom #id").val(jsonRow.id);
+            $("#form_abm_classroom #number").val(jsonRow.number);
+            $("#form_abm_classroom #floor").val(jsonRow.floor);
+            $("#form_abm_classroom #capacity").val(jsonRow.capacity);
+            //Deshabilito el ID
+            $("#form_abm_classroom #id").prop("disabled",true);
         });
 
         /**
