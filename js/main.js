@@ -125,10 +125,38 @@ var MAIN = (function ($) {
 
     var cargarSchedulePorAula = () => {
         //TO DO: Llenar una tabla de Schedule por aula. Cada fila un aula, cada columna un día de la semana
+        var $tbody = $("#table_cronograma tbody");
+        $tbody.empty();
+        $.get( "api/controller/schedule.php?type=room")
+          .done(function( data ) {
+            var classes = data.classes,
+                classesWithoutRooms = data.classesWithoutRooms;
+
+                var template = function(model){
+                    return `<tr><td>${model.class.nameSubject}</td><td>${model.class.nameSubject}</td><td>${model.class.nameSubject}</td><td>${model.class.nameSubject}</td><td>${model.class.nameSubject}</td></tr>`;
+                };
+
+                Object.entries(classes).forEach(([roomNumber, classesAndRoomsData]) => {
+                    console.log(roomNumber);
+
+                    classesAndRoomsData.forEach((classAndRoomData) => {
+
+                        $tbody.append(template(classAndRoomData));
+
+                        console.log(classAndRoomData)
+                        console.log(classAndRoomData.classRoom.classroomDelta)
+                    });
+                });
+
+          });
     }
 
     var cargarSchedulePorTurno = () => {
         //TO DO: Llenar una tabla de Schedule por turno. Cada fila un turno, cada columna un día de la semana
+        $.get( "api/controller/schedule.php?type=turn")
+          .done(function( data ) {
+            // console.log(data)
+          });
     }   
 
     var registerEvents = () => {
@@ -343,5 +371,7 @@ var MAIN = (function ($) {
     loadClassrooms();
     cargarMaterias(jsonSubjects);
     cargarCarreras(jsonCareers);
+    cargarSchedulePorAula();
+    cargarSchedulePorTurno();
     
 })(jQuery);
