@@ -2,7 +2,7 @@
 
 require_once(dirname(__FILE__).'/../model/CClass.php');
 require_once(dirname(__FILE__).'/../model/ApiErrorResponse.php');
-require_once(dirname(__FILE__).'/../service/cclass.php');
+require_once(dirname(__FILE__).'/../service/class.php');
 require_once(dirname(__FILE__).'/../shared/utilities.php');
 
 header("Content-Type: application/json; charset=UTF-8");

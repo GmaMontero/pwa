@@ -6,88 +6,17 @@
  * Time: 23:43
  */
 
-require_once(dirname(__FILE__).'/../model/ApiErrorResponse.php');
-require_once(dirname(__FILE__).'/../service/classroom.php');
-require_once(dirname(__FILE__).'/../service/cclass.php');
+require_once(dirname(__FILE__).'/../service/schedule.php');
 
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: GET");
 
 $METHOD = $_SERVER['REQUEST_METHOD'];
 
-function getBestClassRoomForCapacity($classRooms,$capacity){
-    $classRoomCandidate = null;
-    $classRoomCandidateIndex = null;
-    $classRoomCandidateDiff = null;
-
-    foreach ($classRooms as $index=>$classRoom){
-        $crCapacity = intval($classRoom["capacity"]);
-        $cCapacity = intval($capacity);
-
-        // Si la capacidad del aula es mayor a la de la cursada y la diferencia es menor a la mejor hasta el momento
-        if($crCapacity >= $cCapacity && ($classRoomCandidateDiff > $crCapacity-$cCapacity || $classRoomCandidateDiff === null)){
-            $classRoomCandidate = $classRoom;
-            $classRoomCandidateIndex = $index;
-            $classRoomCandidateDiff = $crCapacity-$cCapacity;
-        }
-    }
-
-    if($classRoomCandidate !== null){
-        return ["classroom"=>$classRoomCandidate, "index"=>$classRoomCandidateIndex, "difference"=>$classRoomCandidateDiff];
-    } else {
-        return null;
-    }
-}
-
 switch ($METHOD) {
     case "GET":
-        $classService = new ClassService();
-        $classroomService = new ClassroomService();
-        $classRooms = $classroomService->getAll([]);
-        $classesWithoutRooms = [];
-        $classesByTurn = [
-            "M" => [],
-            "T" => [],
-            "N" => []
-        ];
-        $turns = array_keys($classesByTurn);
-
-        foreach ($turns as $currentTurn){
-            // Reemplazar luego por un for adentro para iterar todos los turnos
-            $classes = $classService->getAll(['turn'=>$currentTurn]);
-
-            foreach ($classes as $class){
-                $bestClassroom = getBestClassRoomForCapacity($classRooms, $class["capacity"]);
-                if($bestClassroom !== null){
-                    // Elimino del array de las aulas, a la elegida
-                    unset($classRooms[intval($bestClassroom["index"])]);
-
-                    $classWithRoom = [
-                        "classRoom" => [
-                            "classroomNumber" => $bestClassroom["classroom"]["number"],
-                            "classroomDelta" => $bestClassroom["difference"]
-                        ],
-                        "class" => [
-                            "career" => $class["career"],
-                            "commission" => $class["commission"],
-                            "nameSubject" => $class["nameSubject"]
-                        ]
-                    ];
-
-                    // Pusheo al array del turno, la clase
-                    array_push($classesByTurn[$class["turn"]], $classWithRoom);
-                } else {
-                    // Pusheo al array la clase que no encontro aula
-                    array_push($classesWithoutRooms, $class);
-                }
-            }
-        }
-
-        echo json_encode([
-            "classesByTurn" => $classesByTurn,
-           "classesWithoutRooms" => $classesWithoutRooms
-        ]);
-
+        $scheduleService = new ScheduleService();
+        echo json_encode($scheduleService->getSchedule());
         http_response_code(200);
     break;
     default:
