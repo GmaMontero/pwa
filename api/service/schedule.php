@@ -27,7 +27,8 @@ class ScheduleService {
         return [
             "career" => $class["career"],
             "commission" => $class["commission"],
-            "nameSubject" => $class["nameSubject"]
+            "nameSubject" => $class["nameSubject"],
+            "turn" => $class["turn"]
         ];
     }
 
@@ -88,7 +89,7 @@ class ScheduleService {
                         $keyForType = $bestClassroom["classroom"]["number"];
                     }
 
-                    if($classesByType[$keyForType] === null){
+                    if(!array_key_exists($keyForType, $classesByType)){
                         $classesByType[$keyForType] = [];
                     }
 
@@ -101,7 +102,7 @@ class ScheduleService {
         }
 
         return [
-            "classesByTurn" => $classesByType,
+            "classes" => $classesByType,
             "classesWithoutRooms" => $classesWithoutRooms
         ];
     }
