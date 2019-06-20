@@ -16,7 +16,14 @@ $METHOD = $_SERVER['REQUEST_METHOD'];
 switch ($METHOD) {
     case "GET":
         $scheduleService = new ScheduleService();
-        echo json_encode($scheduleService->getSchedule());
+
+        if(isset($_GET["type"]) && in_array($_GET["type"], ['turn','room'])){
+            $resultService = $scheduleService->getSchedule($_GET["type"]);
+        } else {
+            $resultService = $scheduleService->getSchedule();
+        }
+
+        echo json_encode($resultService);
         http_response_code(200);
     break;
     default:

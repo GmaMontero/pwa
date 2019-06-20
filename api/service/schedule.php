@@ -31,7 +31,7 @@ class ScheduleService {
         ];
     }
 
-    private function getBestclassroomModel($bestClassroom){
+    private function getBestClassroomModel($bestClassroom){
         return [
             "classroomNumber" => $bestClassroom["classroom"]["number"],
             "classroomDelta" => $bestClassroom["difference"]
@@ -62,13 +62,9 @@ class ScheduleService {
         }
     }
 
-    public function getSchedule(){
+    public function getSchedule($type="turn"){
         $classesWithoutRooms = [];
-        $classesByTurn = [
-            "M" => [],
-            "T" => [],
-            "N" => []
-        ];
+        $classesByType = [];
 
         foreach ($this->turns as $currentTurn){
             // Reemplazar luego por un for adentro para iterar todos los turnos
@@ -82,12 +78,21 @@ class ScheduleService {
                     unset($this->classRooms[intval($bestClassroom["index"])]);
 
                     $classWithRoom = [
-                        "classRoom" => $this->getBestclassroomModel($bestClassroom),
+                        "classRoom" => $this->getBestClassroomModel($bestClassroom),
                         "class" => $this->getClassModel($class)
                     ];
 
-                    // Pusheo al array del turno, la clase
-                    array_push($classesByTurn[$class["turn"]], $classWithRoom);
+                    if($type === "turn"){
+                        $keyForType = $class["turn"];
+                    } else {
+                        $keyForType = $bestClassroom["classroom"]["number"];
+                    }
+
+                    if($classesByType[$keyForType] === null){
+                        $classesByType[$keyForType] = [];
+                    }
+
+                    array_push($classesByType[$keyForType], $classWithRoom);
                 } else {
                     // Pusheo al array la clase que no encontro aula
                     array_push($classesWithoutRooms, $this->getClassModel($class));
@@ -96,7 +101,7 @@ class ScheduleService {
         }
 
         return [
-            "classesByTurn" => $classesByTurn,
+            "classesByTurn" => $classesByType,
             "classesWithoutRooms" => $classesWithoutRooms
         ];
     }
