@@ -14,7 +14,7 @@ var MAIN = (function ($) {
 
     
     //JSONs de ejemplo
-    var jsonSubjects = '[{"id": 1, "name":"Programacion Web Avanzada"},{"id": 2, "name":"Metodologias III"},{"id": 3, "name":"Tecnologia de las Comunicaciones"},{"id": 4, "name":"Gestion de RRHH TI"},{"id": 5,  "name":"Gestion y Costos"},{"id": 6,  "name":"Programacion Estructurada"},{"id": 7, "name":"Matematica Discreta"},{"id": 8, "name":"Sistemas de Representacion"},{"id": 9, "name":"Etica y Deontologia Profesional"},{"id": 10, "name":"Introduccion a la Programacion Web"}]'; 
+    var jsonSubjects = '[{"id": 1, "name":"Programacion Web Avanzada"},{"id": 2, "name":"MetodologiasIII"},{"id": 3, "name":"Tecnologia de las Comunicaciones"},{"id": 4, "name":"Gestion de RRHH TI"},{"id": 5,  "name":"Gestion y Costos"},{"id": 6,  "name":"Programacion Estructurada"},{"id": 7, "name":"Matematica Discreta"},{"id": 8, "name":"Sistemas de Representacion"},{"id": 9, "name":"Etica y Deontologia Profesional"},{"id": 10, "name":"Introduccion a la Programacion Web"}]'; 
     var jsonCareers = '[{"id": 1, "name":"Lic. en Gestion de Tecnologia Informatica"},{"id": 2, "name":"Ingenieria en Sistemas"}]';
     var jsonClasses = '[{"id":"PWA","nameSubject":"Programacion","career":"Sistemas","capacity":40,"turn":"N","comission":"B"},{"id":"IPW","nameSubject":"Intro Prog. Web","career":"Sistemas","capacity":30,"turn":"N","comission":"A"}]';
     var jsonClassrooms = '[{"id":"1","number":1520,"floor":5,"capacity":40},{"id":"2","number":1310,"floor":3,"capacity":20}]';
@@ -23,10 +23,19 @@ var MAIN = (function ($) {
      * Función para cargar materias en combo
      */
     var cargarMaterias = (subjects) => {
-        subjects = JSON.parse(subjects);
-        for (var i = 0; i < subjects.length; i++) {
-            selectNameSubject.append("<option value='"+subjects[i].id+"'>"+subjects[i].name+"</option>");
-        }
+        $.get( "api/controller/subject.php")
+          .done(function( data ) {
+            subjects = data;
+          })
+          .fail(function() {
+            subjects = JSON.parse(subjects);
+          })
+          .always(function() {
+            for (var i = 0; i < subjects.length; i++) {
+                selectNameSubject.append("<option value='"+subjects[i].id+"'>"+subjects[i].name+"</option>");
+            }
+          });
+
     }
 
     /**
@@ -373,5 +382,5 @@ var MAIN = (function ($) {
     cargarCarreras(jsonCareers);
     cargarSchedulePorAula();
     cargarSchedulePorTurno();
-    
+
 })(jQuery);
