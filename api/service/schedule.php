@@ -52,7 +52,6 @@ class ScheduleService {
             $crCapacity = intval($classRoom["capacity"]);
             $cCapacity = intval($capacity);
 
-            // Si la capacidad del aula es mayor a la de la cursada y la diferencia es menor a la mejor hasta el momento
             if($crCapacity >= $cCapacity && ($classRoomCandidateDiff > $crCapacity-$cCapacity || $classRoomCandidateDiff === null)){
                 $classRoomCandidate = $classRoom;
                 $classRoomCandidateIndex = $index;
@@ -65,6 +64,18 @@ class ScheduleService {
         } else {
             return null;
         }
+    }
+
+    private function getClassWithCommissionCareerAndTurn($classesDay, $class){
+        foreach ($classesDay as $currentClass){
+            if($currentClass["class"]["commission"] === $class->commission &&
+                $currentClass["class"]["career"] === $class->career &&
+                $currentClass["class"]["turn"] === $class->turn){
+                return $currentClass;
+            }
+        }
+
+        return null;
     }
 
     public function getSchedule($type="turn"){
@@ -87,17 +98,6 @@ class ScheduleService {
                     $bestClassroom = $this->getBestClassRoomForCapacity($classRoomsByDay, $class["capacity"]);
 
                     if($bestClassroom !== null) {
-                        // Sacar la materia de la lista porque ya tiene aula
-                        unset($classes[intval($indexClass)]);
-
-                        // Eliminar la room para ese turno
-                        unset($classRoomsByDay[intval($bestClassroom["index"])]);
-
-                        $classWithRoom = [
-                            "classRoom" => $this->getBestClassroomModel($bestClassroom),
-                            "class" => $this->getClassModel($class)
-                        ];
-
                         if($type === "turn"){
                             $keyForType = $class["turn"];
                         } else {
@@ -108,7 +108,19 @@ class ScheduleService {
                             $classesByType[$dayOfWeek][$keyForType] = [];
                         }
 
-                        array_push($classesByType[$dayOfWeek][$keyForType], $classWithRoom);
+                        $alreadyAssigned = $this->getClassWithCommissionCareerAndTurn($classesByType[$dayOfWeek][$keyForType], $class);
+
+                        if($alreadyAssigned === null){
+                            unset($classes[intval($indexClass)]);
+                            unset($classRoomsByDay[intval($bestClassroom["index"])]);
+
+                            $classWithRoom = [
+                                "classRoom" => $this->getBestClassroomModel($bestClassroom),
+                                "class" => $this->getClassModel($class)
+                            ];
+
+                            array_push($classesByType[$dayOfWeek][$keyForType], $classWithRoom);
+                        }
                     }
                 }
             }
