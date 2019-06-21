@@ -75,15 +75,19 @@ var MAIN = (function ($) {
      */
     function deleteClassroom (id) {
         var _data = "{\"id\":\"" + id + "\"}";
-        var rta = confirm("¿Esta seguro que desea eliminar?");
+        var rta = confirm("¿Esta seguro que desea eliminar elemento con ID " + id + "?");
         if (rta == true) {
             $.ajax({
                 url: 'api/controller/classRoom.php',
                 data: _data,
                 type: 'DELETE',
                 complete: function(result) {
-                    console.log(result.status);
-                    loadClassrooms();
+                    if (result.status==200) { 
+                        console.log("Aula borrada correctamente");
+                        loadClassrooms();
+                    } else {
+                        console.log("Error en el borrado de aula");
+                    }
                 }
             }); 
         }
@@ -125,8 +129,12 @@ var MAIN = (function ($) {
                 data: _data,
                 type: 'DELETE',
                 complete: function(result) {
-                    console.log(result.status);
-                    loadClasses();
+                    if (result.status==200) { 
+                        console.log("Cursada borrada correctamente");
+                        loadClasses();
+                    } else {
+                        console.log("Error en el borrado de cursada");
+                    }
                 }
             }); 
         }
@@ -228,13 +236,9 @@ var MAIN = (function ($) {
                 dataType: 'json',
                 url:   'api/controller/class.php', //archivo que recibe la peticion
                 type:  formMethod, //método de envio
-                success: function (response) {
-                    //Mostrar mensaje de OK
-                    console.log("OK");
-                },
                 error: function (response) {
                     //Mostrar mensaje de error
-                    console.log("ERROR");
+                    console.log("ERROR en la llamada");
                 },
                 complete:  function (xhr, statusText) {
                     console.log("HTTP Status: " + xhr.status);
