@@ -125,6 +125,16 @@ var MAIN = (function ($) {
                 "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, 'Todos']],
                 "bFilter": false,
                 "searching": false,
+                "language": {
+                    "paginate": {
+                        "first": "Primera",
+                        "previous": "Anterior",
+                        "next":  "Siguiente",
+                        "last": "Ultima",
+                    },
+                    "info": "Mostrando entradas _START_ a _END_ de _TOTAL_",
+                    "lengthMenu":     "Mostrar _MENU_ entradas",
+                }
             });
               $('.dataTables_length').addClass('bs-select');
         });
