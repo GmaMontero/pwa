@@ -48,6 +48,7 @@ var CLASS = (function ($) {
             $("#table_class").dataTable().fnDestroy();
             $('#table_class tbody').empty();
         }
+        //Hago la llamada
         $.get( "api/controller/class.php")
           .done(function( data ) {
             classes = data;
@@ -114,7 +115,6 @@ var CLASS = (function ($) {
     }
 
     var registerEvents = () => {
-
         /**
          * Handler para evento click en opciones del menú
          */

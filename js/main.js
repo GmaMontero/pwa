@@ -1,4 +1,3 @@
-
 var MAIN = (function ($) {
     var containerSchedule = $("#schedule")
 
@@ -25,7 +24,6 @@ var MAIN = (function ($) {
                         console.log(classAndRoomData.classRoom.classroomDelta)
                     });
                 });
-
           });
     }
 
@@ -72,7 +70,6 @@ var MAIN = (function ($) {
             });
             return o;
         };
-      
     }
 
     /**

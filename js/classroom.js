@@ -14,7 +14,7 @@ var CLASSROOM = (function ($) {
             $("#table_classroom").dataTable().fnDestroy();
             $('#table_classroom tbody').empty(); //esta línea queda igual
         }
-
+        //Hago la llamada
         $.get( "api/controller/classroom.php")
           .done(function( data ) {
             classrooms = data;
@@ -77,7 +77,6 @@ var CLASSROOM = (function ($) {
     }
 
     var registerEvents = () => {
-
         /**
          * Handler para evento click en opciones del menú
          */
@@ -137,9 +136,7 @@ var CLASSROOM = (function ($) {
                     loadClassrooms();
                 }
             });
-        });
-
-        
+        });        
 
         /**
          * Handler para click en modificar fila de tabla Aulas
