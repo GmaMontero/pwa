@@ -241,6 +241,8 @@ var MAIN = (function ($) {
             $(".nav-link").removeClass("active");
             //Oculto todos
             $(".containerModule").addClass("d-none");
+            btnResetFormClassroom.click();
+            btnResetFormClass.click();
             //Si es Cronograma de Horarios
             if($(this).hasClass("schedule")){
                 //Muestro el container
