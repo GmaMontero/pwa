@@ -125,6 +125,7 @@ var MAIN = (function ($) {
                 "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, 'Todos']],
                 "bFilter": false,
                 "searching": false,
+                "ordering": false,
                 "language": {
                     "paginate": {
                         "first": "Primera",
@@ -133,7 +134,10 @@ var MAIN = (function ($) {
                         "last": "Ultima",
                     },
                     "info": "Mostrando entradas _START_ a _END_ de _TOTAL_",
-                    "lengthMenu":     "Mostrar _MENU_ entradas",
+                    "lengthMenu": "Mostrar _MENU_ entradas",
+                    "emptyTable": "No hay datos en la tabla",
+                    "loadingRecords": "Cargando...",
+                    "processing":     "Procesando...",
                 }
             });
               $('.dataTables_length').addClass('bs-select');
