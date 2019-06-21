@@ -97,7 +97,11 @@ var MAIN = (function ($) {
      * Función para cargar Cursadas desde DB
      */
     var loadClasses = () => {
-        $("#table_class tbody").empty();
+        if ($.fn.DataTable.isDataTable("#table_class")) {
+            $("#table_class").DataTable().clear().draw();
+            $("#table_class").dataTable().fnDestroy();
+            $('#table_class tbody').empty(); //esta línea queda igual
+        }
         $.get( "api/controller/class.php")
           .done(function( data ) {
             classes = data;
@@ -114,6 +118,15 @@ var MAIN = (function ($) {
                 tableClass.append(tr);
                 $("#table_class tr:last-child").attr("rowData", JSON.stringify(classes[i]));
             }
+            
+            $('#table_class').DataTable({
+                "pagingType": "simple_numbers", // "simple" option for 'Previous' and 'Next' buttons only
+                "pageLength" : 5,
+                "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, 'Todos']],
+                "bFilter": false,
+                "searching": false,
+            });
+              $('.dataTables_length').addClass('bs-select');
         });
     }
 
