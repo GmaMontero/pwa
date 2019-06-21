@@ -194,7 +194,12 @@
                 <div class="form-group row">
                     <label for="commission" class="col-sm-2 col-form-label">Comision</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name ="commission" id="commission" placeholder="Ej. A" required>
+                        <!-- <input type="text" class="form-control" name ="commission" id="commission" placeholder="Ej. A" required> -->
+                        <select class="custom-select" name="commission" id="commission" required>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                        </select>
                     </div>
                 </div>
 
