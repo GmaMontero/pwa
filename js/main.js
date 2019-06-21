@@ -346,9 +346,16 @@ var MAIN = (function ($) {
             deleteClassroom(_id);
         });
 
-        $("#form_abm_class #resetForm").on("click", function(e){
+        $("#resetFormClass").on("click", function(e){
+            event.preventDefault();
             $("#form_abm_class #id").prop("disabled", false);
             formAbmClass.trigger("reset");
+        })
+
+        $("#resetFormClassroom").on("click", function(e){
+            event.preventDefault();
+            $("#form_abm_classroom #id").prop("disabled", false);
+            formAbmClassroom.trigger("reset");
         })
 
         /**
