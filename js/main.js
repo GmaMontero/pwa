@@ -52,7 +52,12 @@ var MAIN = (function ($) {
      * Función para cargar Aulas desde DB
      */
     var loadClassrooms = () => {
-        $("#table_classroom tbody").empty();
+        if ($.fn.DataTable.isDataTable("#table_classroom")) {
+            $("#table_classroom").DataTable().clear().draw();
+            $("#table_classroom").dataTable().fnDestroy();
+            $('#table_classroom tbody').empty(); //esta línea queda igual
+        }
+
         $.get( "api/controller/classroom.php")
           .done(function( data ) {
             classrooms = data;
@@ -67,7 +72,30 @@ var MAIN = (function ($) {
                 tableClassroom.append(tr);
                 $("#table_classroom tr:last-child").attr("rowData", JSON.stringify(classrooms[i]));
             }
+            $('#table_classroom').DataTable({
+                "pagingType": "simple_numbers", // "simple" option for 'Previous' and 'Next' buttons only
+                "pageLength" : 5,
+                "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, 'Todos']],
+                "bFilter": false,
+                "searching": false,
+                "ordering": false,
+                "language": {
+                    "paginate": {
+                        "first": "Primera",
+                        "previous": "Anterior",
+                        "next":  "Siguiente",
+                        "last": "Ultima",
+                    },
+                    "info": "Mostrando entradas _START_ a _END_ de _TOTAL_",
+                    "lengthMenu": "Mostrar _MENU_ entradas",
+                    "emptyTable": "No hay datos en la tabla",
+                    "loadingRecords": "Cargando...",
+                    "processing":     "Procesando...",
+                }
+            });
         });
+
+
     }
     
     /**
@@ -414,8 +442,9 @@ var MAIN = (function ($) {
      * Llamada a funciones al inicio
      */
     registerEvents();
-    loadClasses();
     loadClassrooms();
+    loadClasses();
+    
     cargarMaterias(jsonSubjects);
     cargarCarreras(jsonCareers);
     cargarSchedulePorAula();
