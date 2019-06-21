@@ -8,12 +8,12 @@
 
 class ApiResponse
 {
-    public $description;
+    public $error;
     public $content;
 
     public function __construct($content, $errorDescription){
         if(is_null($content)){
-            $this->description = $errorDescription;
+            $this->error = $errorDescription;
         } else {
             $this->content = $content;
         }

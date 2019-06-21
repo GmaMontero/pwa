@@ -32,13 +32,13 @@ class ClassService {
     public function create($classObj){
         try{
             if($classObj->id === null){
-                throw new Exception("ID is mandatory.");
+                throw new Exception("ID_NOT_FOUND");
             } else if($this->existsId($classObj->id)){
-                throw new Exception("$classObj->id already exist in database.");
+                throw new Exception("ID_DUPLICATED");
             } else if ($this->getCountForCombination($classObj->career, $classObj->commission, $classObj->turn, $classObj->nameSubject) >= 1){
-                throw new Exception("There subject was posted in the past.");
+                throw new Exception("CLASS_DUPLICATED");
             } else if ($this->getCountForCombination($classObj->career, $classObj->commission, $classObj->turn, null) >= $this->maxClasses){
-                throw new Exception("Max $this->maxClasses class for the same combination career, commission and turn.");
+                throw new Exception("MAX_CLASS");
             } else {
                 return $this->db->insert($classObj, $this->collection);
             }

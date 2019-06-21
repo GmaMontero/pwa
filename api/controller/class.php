@@ -26,7 +26,14 @@ switch ($METHOD) {
                 http_response_code(201);
                 return new ApiResponse($result, null);
             } else {
-                http_response_code(500);
+
+                if($result["ERROR"] === "ID_NOT_FOUND"){
+                    http_response_code(400);
+                } else if ($result["ERROR"] === "ID_DUPLICATED" || $result["ERROR"] === "CLASS_DUPLICATED" || $result["ERROR"] === "MAX_CLASS"){
+                    http_response_code(409);
+                } else {
+                    http_response_code(500);
+                }
                 return new ApiResponse(null, $result["ERROR"]);
             }
         });

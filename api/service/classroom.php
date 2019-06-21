@@ -16,9 +16,19 @@ class ClassroomService {
         return $result;
     }
 
+    public function existsId($id){
+        return count($this->getAll(['id' => $id])) === 1;
+    }
+
     public function create($classroomObj){
         try {
-            return $this->db->insert($classroomObj, $this->collection);
+            if($classroomObj->id === null) {
+                throw new Exception("ID_NOT_FOUND");
+            } else if($this->existsId($classroomObj->id)){
+                throw new Exception("ID_DUPLICATED");
+            } else {
+                return $this->db->insert($classroomObj, $this->collection);
+            }
         } catch (Exception $e){
             return ['ERROR' => $e->getMessage()];
         }
