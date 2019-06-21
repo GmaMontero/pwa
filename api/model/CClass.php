@@ -10,7 +10,7 @@ class CClass {
     public $commission;
 
     public function __construct($json){
-        $this->id = $json->id;
+        $this->id = (string) $json->id;
         $this->nameSubject = $json->nameSubject;
         $this->career = $json->career;
         $this->capacity = $json->capacity;
