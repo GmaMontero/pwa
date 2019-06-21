@@ -63,7 +63,7 @@ var MAIN = (function ($) {
                 tr.append("<td>" + classrooms[i].number + "</td>");
                 tr.append("<td>" + classrooms[i].floor + "</td>");
                 tr.append("<td>" + classrooms[i].capacity + "</td>");
-                tr.append("<td><button id=\"edit" + classrooms[i].id + "\" class=\"editClassroom btn-success btn-sm\">M</button><button id=\"" + classrooms[i].id + "\" class=\"deleteClassroom btn-sm btn-danger\">X</button></td>");
+                tr.append("<td><button id=\"edit" + classrooms[i].id + "\" class=\"editClassroom btn-success btn-sm fa fa-pencil\"></button><button id=\"" + classrooms[i].id + "\" class=\"deleteClassroom btn-sm btn-danger fa fa-trash\"></button></td>");
                 tableClassroom.append(tr);
                 $("#table_classroom tr:last-child").attr("rowData", JSON.stringify(classrooms[i]));
             }
@@ -106,7 +106,7 @@ var MAIN = (function ($) {
                 tr.append("<td>" + classes[i].capacity + "</td>");
                 tr.append("<td>" + classes[i].turn + "</td>");
                 tr.append("<td>" + classes[i].commission + "</td>");
-                tr.append("<td><button id=\"edit" + classes[i].id + "\" class=\"editClass btn-success btn-sm\">M</button><button id=\"" + classes[i].id + "\" class=\"deleteClass btn-sm btn-danger\">X</button></td>");
+                tr.append("<td><button id=\"edit" + classes[i].id + "\" class=\"editClass btn-success btn-sm fa fa-pencil\"></button><button id=\"" + classes[i].id + "\" class=\"deleteClass btn-sm btn-danger fa fa-trash\"></button></td>");
                 tableClass.append(tr);
                 $("#table_class tr:last-child").attr("rowData", JSON.stringify(classes[i]));
             }
