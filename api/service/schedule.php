@@ -12,6 +12,7 @@ require_once(dirname(__FILE__).'/class.php');
 
 class ScheduleService {
     private $turns;
+    private $days;
     private $classService;
     private $classroomService;
     private $classRooms;
@@ -21,14 +22,17 @@ class ScheduleService {
         $this->classroomService = new ClassroomService();
         $this->classRooms = $this->classroomService->getAll([]);
         $this->turns = ["M", "T", "N"];
+        $this->days = ["Lunes","Martes","Miercoles","Jueves","Viernes"];
     }
 
     private function getClassModel($class){
         return [
+            "id" => $class["id"],
             "career" => $class["career"],
             "commission" => $class["commission"],
             "nameSubject" => $class["nameSubject"],
-            "turn" => $class["turn"]
+            "turn" => $class["turn"],
+            "capacity" => $class["capacity"]
         ];
     }
 
@@ -39,12 +43,12 @@ class ScheduleService {
         ];
     }
 
-    private function getBestClassRoomForCapacity($capacity){
+    private function getBestClassRoomForCapacity($classRooms, $capacity){
         $classRoomCandidate = null;
         $classRoomCandidateIndex = null;
         $classRoomCandidateDiff = null;
 
-        foreach ($this->classRooms as $index=>$classRoom){
+        foreach ($classRooms as $index=>$classRoom){
             $crCapacity = intval($classRoom["capacity"]);
             $cCapacity = intval($capacity);
 
@@ -67,37 +71,51 @@ class ScheduleService {
         $classesWithoutRooms = [];
         $classesByType = [];
 
+        // BY TURN
         foreach ($this->turns as $currentTurn){
-            // Reemplazar luego por un for adentro para iterar todos los turnos
             $classes = $this->classService->getAll(['turn'=>$currentTurn]);
 
-            foreach ($classes as $class){
-                $bestClassroom = $this->getBestClassRoomForCapacity($class["capacity"]);
-
-                if($bestClassroom !== null){
-                    // Elimino del array de las aulas, a la elegida
-                    unset($this->classRooms[intval($bestClassroom["index"])]);
-
-                    $classWithRoom = [
-                        "classRoom" => $this->getBestClassroomModel($bestClassroom),
-                        "class" => $this->getClassModel($class)
-                    ];
-
-                    if($type === "turn"){
-                        $keyForType = $class["turn"];
-                    } else {
-                        $keyForType = $bestClassroom["classroom"]["number"];
-                    }
-
-                    if(!array_key_exists($keyForType, $classesByType)){
-                        $classesByType[$keyForType] = [];
-                    }
-
-                    array_push($classesByType[$keyForType], $classWithRoom);
-                } else {
-                    // Pusheo al array la clase que no encontro aula
-                    array_push($classesWithoutRooms, $this->getClassModel($class));
+            // BY DAY
+            foreach ($this->days as $dayOfWeek){
+                $classRoomsByDay = $this->classRooms;
+                if(!array_key_exists($dayOfWeek, $classesByType)){
+                    $classesByType[$dayOfWeek] = [];
                 }
+
+                // BY CLASS
+                foreach ($classes as $indexClass=>$class){
+                    $bestClassroom = $this->getBestClassRoomForCapacity($classRoomsByDay, $class["capacity"]);
+
+                    if($bestClassroom !== null) {
+                        // Sacar la materia de la lista porque ya tiene aula
+                        unset($classes[intval($indexClass)]);
+
+                        // Eliminar la room para ese turno
+                        unset($classRoomsByDay[intval($bestClassroom["index"])]);
+
+                        $classWithRoom = [
+                            "classRoom" => $this->getBestClassroomModel($bestClassroom),
+                            "class" => $this->getClassModel($class)
+                        ];
+
+                        if($type === "turn"){
+                            $keyForType = $class["turn"];
+                        } else {
+                            $keyForType = $bestClassroom["classroom"]["number"];
+                        }
+
+                        if(!array_key_exists($keyForType, $classesByType[$dayOfWeek])){
+                            $classesByType[$dayOfWeek][$keyForType] = [];
+                        }
+
+                        array_push($classesByType[$dayOfWeek][$keyForType], $classWithRoom);
+                    }
+                }
+            }
+
+            // Despues de haber iterado los 5 dias, las clases que no fueron asignadas es porque no entran
+            foreach ($classes as $iClassWithoutRoom=>$classWithoutRoom){
+                array_push($classesWithoutRooms, $this->getClassModel($classWithoutRoom));
             }
         }
 
