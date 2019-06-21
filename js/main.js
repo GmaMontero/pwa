@@ -9,8 +9,8 @@ var MAIN = (function ($) {
         selectCareer = $("#career"),
         tableClassroom = $("#table_classroom"),
         tableClass = $("#table_class"),
-        btnResetFormClass = $("#form_abm_class #resetForm"),
-        btnResetFormClassroom = $("#form_abm_classroom #resetForm")
+        btnResetFormClass = $("#form_abm_class #resetFormClass"),
+        btnResetFormClassroom = $("#form_abm_classroom #resetFormClassroom")
 
     
     //JSONs de ejemplo
