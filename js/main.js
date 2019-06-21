@@ -79,11 +79,6 @@ var MAIN = (function ($) {
      * Llamada a funciones al inicio
      */
     registerEvents();
-    //loadClassrooms();
-    //loadClasses();
-    
-    //cargarMaterias(jsonSubjects);
-    //cargarCarreras(jsonCareers);
     cargarSchedulePorAula();
     cargarSchedulePorTurno();
 
