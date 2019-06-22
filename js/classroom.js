@@ -3,7 +3,9 @@ var CLASSROOM = (function ($) {
     var containerAbmClassroom = $("#abm_classroom"),
         formAbmClassroom = $("#form_abm_classroom"),
         tableClassroom = $("#table_classroom"),
-        btnResetFormClassroom = $("#form_abm_classroom #resetFormClassroom")
+        btnResetFormClassroom = $("#form_abm_classroom #resetFormClassroom"),
+        containerAlert = $(".alert_classroom"),
+        spanAlert = $(".alert_classroom #classroomAlertText")
 
     /**
      * Función para cargar Aulas desde DB
@@ -66,14 +68,28 @@ var CLASSROOM = (function ($) {
                 type: 'DELETE',
                 complete: function(result) {
                     if (result.status==200) { 
-                        console.log("Aula borrada correctamente");
+                        showAlert("success","Aula borrada correctamente");
                         loadClassrooms();
                     } else {
-                        console.log("Error en el borrado de aula");
+                        showAlert("error", "Error en el borrado de aula");
                     }
                 }
             }); 
         }
+    }
+
+    var showAlert = (type, text) => {
+        containerAlert.fadeOut();
+        if(type=='success'){
+            containerAlert.removeClass("alert-danger");
+            containerAlert.addClass("alert-success");
+        }
+        if(type=='error'){
+            containerAlert.removeClass("alert-success");
+            containerAlert.addClass("alert-danger");
+        }
+        spanAlert.text(text);
+        containerAlert.fadeIn();
     }
 
     var registerEvents = () => {
@@ -124,24 +140,24 @@ var CLASSROOM = (function ($) {
                 type:  formMethod, //método de envio
                 success: function (response) {
                     if (formMethod=='POST'){
-                        console.log("Aula creada correctamente");
+                        showAlert("success", "Aula creada correctamente");
                     } else {
-                        console.log("Aula modificada correctamente");
+                        showAlert("success", "Aula modificada correctamente");
                     }
                 },
                 error: function (response) {
                     switch (response.status) {
                         case 400: 
-                            console.log("Error: Se debe enviar el ID de aula");
+                            showAlert("error", "Error: Se debe enviar el ID de aula");
                             break;
                         case 409: 
-                            console.log("Error: ID de aula duplicado");
+                            showAlert("error", "Error: ID de aula duplicado");
                             break;
                         case 500: 
-                            console.log("Error en el servidor");
+                            showAlert("error", "Error en el servidor");
                             break;
                         default: 
-                            console.log("Error inesperado");
+                            showAlert("error", "Error inesperado");
                     } 
                 },
                 complete:  function (xhr, statusText) {
@@ -182,6 +198,10 @@ var CLASSROOM = (function ($) {
             event.preventDefault();
             $("#form_abm_classroom #id").prop("disabled", false);
             formAbmClassroom.trigger("reset");
+        })
+
+        $(".alert_classroom button").on("click", function(e){
+            containerAlert.fadeOut();
         })
 
         /**

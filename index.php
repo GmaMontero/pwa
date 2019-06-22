@@ -124,6 +124,15 @@
                 <button type="submit" class="btn btn-primary">Guardar</button>
                 <input type="reset" id="resetFormClassroom" class="btn btn-primary" value="Limpiar">
             </form>
+            <br />
+            <div class="alert alert-success alert-dismissable alert_classroom" style="display: none;" role="alert">
+
+                <span id="classroomAlertText">A simple primary alert—check it out!</span>
+                <button type="button" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
         </div>  
         <div class="col-1"></div>
         <div class="col-6">
