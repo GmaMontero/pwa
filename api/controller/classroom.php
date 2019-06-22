@@ -27,7 +27,7 @@ switch ($METHOD) {
             $classroomObj = new ClassRoom($jsonParsed);
             $result = $classroomService->create($classroomObj);
 
-            if($result["ERROR"] === null){
+            if(!array_key_exists("ERROR", $result)){
                 http_response_code(201);
                 return new ApiResponse($result, null);
             } else {

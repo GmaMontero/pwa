@@ -22,7 +22,7 @@ switch ($METHOD) {
             $classObj = new Cclass($jsonParsed);
             $result = $classService->create($classObj);
 
-            if($result["ERROR"] === null){
+            if(!array_key_exists("ERROR", $result)){
                 http_response_code(201);
                 return new ApiResponse($result, null);
             } else {
