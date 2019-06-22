@@ -243,6 +243,10 @@ var CLASS = (function ($) {
             formAbmClass.trigger("reset");
         })
 
+        $(".alert_class button").on("click", function(e){
+            containerAlert.fadeOut();
+        })
+
         /**
          * Función para serializar un formulario a JSON
          */
