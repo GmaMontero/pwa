@@ -61,7 +61,7 @@ var CLASSROOM = (function ($) {
         var rta = confirm("¿Esta seguro que desea eliminar elemento con ID " + id + "?");
         if (rta == true) {
             $.ajax({
-                url: 'api/controller/classRoom.php',
+                url: 'api/controller/classroom.php',
                 data: _data,
                 type: 'DELETE',
                 complete: function(result) {
