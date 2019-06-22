@@ -123,15 +123,28 @@ var CLASSROOM = (function ($) {
                 url:   'api/controller/classroom.php', //archivo que recibe la peticion
                 type:  formMethod, //método de envio
                 success: function (response) {
-                    //Mostrar mensaje de OK
-                    console.log("OK");
+                    if (formMethod=='POST'){
+                        console.log("Aula creada correctamente");
+                    } else {
+                        console.log("Aula modificada correctamente");
+                    }
                 },
                 error: function (response) {
-                    //Mostrar mensaje de error
-                    console.log("ERROR");
+                    switch (response.status) {
+                        case 400: 
+                            console.log("Error: Se debe enviar el ID de aula");
+                            break;
+                        case 409: 
+                            console.log("Error: ID de aula duplicado");
+                            break;
+                        case 500: 
+                            console.log("Error en el servidor");
+                            break;
+                        default: 
+                            console.log("Error inesperado");
+                    } 
                 },
                 complete:  function (xhr, statusText) {
-                    console.log("HTTP Status: " + xhr.status);
                     btnResetFormClassroom.click();
                     loadClassrooms();
                 }

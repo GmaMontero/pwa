@@ -160,12 +160,29 @@ var CLASS = (function ($) {
                 dataType: 'json',
                 url:   'api/controller/class.php', //archivo que recibe la peticion
                 type:  formMethod, //método de envio
-                error: function (response) {
-                    //Mostrar mensaje de error
-                    console.log("ERROR en la llamada");
+                success: function (response) {
+                    if (formMethod=='POST'){
+                        console.log("Cursada creada correctamente");
+                    } else {
+                        console.log("Cursada modificada correctamente");
+                    }
                 },
-                complete:  function (xhr, statusText) {
-                    console.log("HTTP Status: " + xhr.status);
+                error: function (response) {
+                    switch (response.status) {
+                        case 400: 
+                            console.log("Error: Se debe enviar el ID de cursada"); 
+                            break;
+                        case 409: 
+                            console.log("Error: ID de cursada duplicado"); 
+                            break;
+                        case 500: 
+                            console.log("Error en el servidor"); 
+                            break;
+                        default: 
+                            console.log("Error inesperado");
+                    } 
+                },
+                complete:  function (xhr, statusText) {       
                     btnResetFormClass.click();
                     loadClasses();
                 }
