@@ -58,10 +58,9 @@
         </div>  
         <br />
         <div class="col-1"></div>
-            <table class="table col-10" id="table_cronograma">
+            <table class="table table-striped table-bordered col-10" id="table_cronograma_mañana">
                 <thead>
                     <tr>
-                    <th scope="col"></th>
                     <th scope="col">Lunes</th>
                     <th scope="col">Martes</th>
                     <th scope="col">Miercoles</th>
@@ -72,7 +71,40 @@
                 <tbody>
                 </tbody>
             </table>
-    </div>
+        </div>
+        <br />
+        <div class="col-1"></div>
+            <table class="table table-striped table-bordered col-10" id="table_cronograma_tarde">
+                <thead>
+                    <tr>
+                    <th scope="col">Lunes</th>
+                    <th scope="col">Martes</th>
+                    <th scope="col">Miercoles</th>
+                    <th scope="col">Jueves</th>
+                    <th scope="col">Viernes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <br />
+        <div class="col-1"></div>
+            <table class="table table-striped table-bordered col-10" id="table_cronograma_noche">
+                <thead>
+                    <tr>
+                    <th scope="col">Lunes</th>
+                    <th scope="col">Martes</th>
+                    <th scope="col">Miercoles</th>
+                    <th scope="col">Jueves</th>
+                    <th scope="col">Viernes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <br />
 
     <br />
     
@@ -239,5 +271,6 @@
 <script src="js/main.js?v=1.0"></script>
 <script src="js/class.js?v=1.0"></script>
 <script src="js/classroom.js?v=1.0"></script>
+<script src="js/schedule.js?v=1.0"></script>
 </body>
 </html>
