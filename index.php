@@ -72,11 +72,7 @@
                 <tbody>
                 </tbody>
             </table>
-        </div>
-        <br />
-    </div> 
-    <div class="row containerModule" id="schedule2"> 
-    <div class="col-12"><center><h2>Turno Tarde</h2><center></div>
+        <div class="col-12"><center><h2>Turno Tarde</h2><center></div>
         <div class="col-1"></div>
             <table class="table table-striped table-bordered col-10" id="table_cronograma_tarde">
                 <thead>
@@ -91,10 +87,6 @@
                 <tbody>
                 </tbody>
             </table>
-        </div>
-    </div>
-        <br />
-        <div class="row containerModule" id="schedule3"> 
         <div class="col-12"><center><h2>Turno Noche</h2><center></div>
         <div class="col-1"></div>
             <table class="table table-striped table-bordered col-10" id="table_cronograma_noche">
@@ -111,9 +103,6 @@
                 </tbody>
             </table>
         </div>
-        <br /> 
-    </div>
-  
     <br />
     
     <div class="row d-none containerModule" id="abm_classroom">
