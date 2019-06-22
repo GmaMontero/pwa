@@ -189,7 +189,6 @@
                 <div class="form-group row">
                     <label for="commission" class="col-sm-2 col-form-label">Comision</label>
                     <div class="col-sm-10">
-                        <!-- <input type="text" class="form-control" name ="commission" id="commission" placeholder="Ej. A" required> -->
                         <select class="custom-select" name="commission" id="commission" required>
                             <option value="A">A</option>
                             <option value="B">B</option>
@@ -201,18 +200,9 @@
                 <button type="submit" class="btn btn-primary">Guardar</button>
                 <input type="reset" id="resetFormClass" class="btn btn-primary" value="Limpiar">
             </form>
-            <br />
-            <div class="alert alert-success alert-dismissable alert_class" style="display: none;" role="alert">
-                <span id="classAlertText">...</span>
-                <button type="button" class="close" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
         </div>  
         <div class="col-1"></div>
         <div class="col-6">
-            <h2>Tabla de Cursadas</h2>
-            <br />
             <table class="table table-striped table-bordered" id="table_class">
                 <thead>
                     <tr>
@@ -228,6 +218,13 @@
                 <tbody>
                 </tbody>
             </table>
+            <br />
+            <div class="alert alert-success alert-dismissable alert_class" style="display: none;" role="alert">
+                <span id="classAlertText">...</span>
+                <button type="button" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
         </div>
     </div>
 
