@@ -39,20 +39,6 @@
 </nav>
 
 <div class="container-fluid">
-    <!--
-    <div class="row">
-        <div class="col">
-            <div class="alert alert-primary" role="alert">
-                A simple primary alert—check it out!
-            </div>
-        </div>
-        <div class="col">
-            <div class="alert alert-primary" role="alert">
-                A simple primary alert—check it out!
-            </div>
-        </div>
-    </div>
-    -->
     <br />
     <div class="row containerModule" id="schedule">
         <div class="col-12">
@@ -93,7 +79,6 @@
     <div class="row d-none containerModule" id="abm_classroom">
         <div class="col-5">
             <h2>ABM Aulas</h2>
-            
             <!-- Formulario de alta de aulas -->
             <br />
             <form id="form_abm_classroom" action="api\controller\classRoom.php" method="post">            
@@ -126,8 +111,7 @@
             </form>
             <br />
             <div class="alert alert-success alert-dismissable alert_classroom" style="display: none;" role="alert">
-
-                <span id="classroomAlertText">A simple primary alert—check it out!</span>
+                <span id="classroomAlertText">...</span>
                 <button type="button" class="close" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -217,6 +201,13 @@
                 <button type="submit" class="btn btn-primary">Guardar</button>
                 <input type="reset" id="resetFormClass" class="btn btn-primary" value="Limpiar">
             </form>
+            <br />
+            <div class="alert alert-success alert-dismissable alert_class" style="display: none;" role="alert">
+                <span id="classAlertText">...</span>
+                <button type="button" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
         </div>  
         <div class="col-1"></div>
         <div class="col-6">

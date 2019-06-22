@@ -5,7 +5,9 @@ var CLASS = (function ($) {
         selectNameSubject = $("#nameSubject"),
         selectCareer = $("#career"),
         tableClass = $("#table_class"),
-        btnResetFormClass = $("#form_abm_class #resetFormClass")
+        btnResetFormClass = $("#form_abm_class #resetFormClass"),
+        containerAlert = $(".alert_class"),
+        spanAlert = $(".alert_class #classAlertText")
 
     //JSONs de ejemplo
     var jsonSubjects = '[{"id": 1, "name":"Programacion Web Avanzada"},{"id": 2, "name":"MetodologiasIII"},{"id": 3, "name":"Tecnologia de las Comunicaciones"},{"id": 4, "name":"Gestion de RRHH TI"},{"id": 5,  "name":"Gestion y Costos"},{"id": 6,  "name":"Programacion Estructurada"},{"id": 7, "name":"Matematica Discreta"},{"id": 8, "name":"Sistemas de Representacion"},{"id": 9, "name":"Etica y Deontologia Profesional"},{"id": 10, "name":"Introduccion a la Programacion Web"}]'; 
@@ -104,14 +106,28 @@ var CLASS = (function ($) {
                 type: 'DELETE',
                 complete: function(result) {
                     if (result.status==200) { 
-                        console.log("Cursada borrada correctamente");
+                        showAlert("success", "Cursada borrada correctamente");
                         loadClasses();
                     } else {
-                        console.log("Error en el borrado de cursada");
+                        showAlert("success", "Error en el borrado de cursada");
                     }
                 }
             }); 
         }
+    }
+
+    var showAlert = (type, text) => {
+        containerAlert.fadeOut();
+        if(type=='success'){
+            containerAlert.removeClass("alert-danger");
+            containerAlert.addClass("alert-success");
+        }
+        if(type=='error'){
+            containerAlert.removeClass("alert-success");
+            containerAlert.addClass("alert-danger");
+        }
+        spanAlert.text(text);
+        containerAlert.fadeIn();
     }
 
     var registerEvents = () => {
@@ -162,24 +178,24 @@ var CLASS = (function ($) {
                 type:  formMethod, //método de envio
                 success: function (response) {
                     if (formMethod=='POST'){
-                        console.log("Cursada creada correctamente");
+                        showAlert("success", "Cursada creada correctamente");
                     } else {
-                        console.log("Cursada modificada correctamente");
+                        showAlert("success", "Cursada modificada correctamente");
                     }
                 },
                 error: function (response) {
                     switch (response.status) {
                         case 400: 
-                            console.log("Error: Se debe enviar el ID de cursada"); 
+                            showAlert("error", "Error: Se debe enviar el ID de cursada"); 
                             break;
                         case 409: 
-                            console.log("Error: ID de cursada duplicado"); 
+                            showAlert("error", "Error: ID de cursada duplicado"); 
                             break;
                         case 500: 
-                            console.log("Error en el servidor"); 
+                            showAlert("error", "Error en el servidor"); 
                             break;
                         default: 
-                            console.log("Error inesperado");
+                            showAlert("error", "Error inesperado");
                     } 
                 },
                 complete:  function (xhr, statusText) {       
