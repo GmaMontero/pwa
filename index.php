@@ -147,11 +147,8 @@
             </div>
 
         </div>  
-        <div class="col-1"></div>
-        <div class="col-6">
-            <h2>Tabla de Aulas</h2>
-            <br />
-            <table class="table" id="table_classroom">
+        <div class="col-7">
+            <table class="table table-striped table-bordered" id="table_classroom">
                 <thead>
                     <tr>
                     <th scope="col">ID</th>
@@ -230,8 +227,7 @@
                 <input type="reset" id="resetFormClass" class="btn btn-primary" value="Limpiar">
             </form>
         </div>  
-        <div class="col-1"></div>
-        <div class="col-6">
+        <div class="col-7">
             <table class="table table-striped table-bordered" id="table_class">
                 <thead>
                     <tr>
