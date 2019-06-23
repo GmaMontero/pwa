@@ -1,15 +1,87 @@
 var SCHEDULE = (function ($) {
-    tableManana= $("#table_cronograma_mañana tbody");
-    tableTarde = $("#table_cronograma_tarde tbody");
-    tableNoche = $("#table_cronograma_noche tbody");
-       
+    var tableManana= $("#table_cronograma_mañana tbody"),
+        tableTarde = $("#table_cronograma_tarde tbody"),
+        tableNoche = $("#table_cronograma_noche tbody"),
+        serviceResponse = null;
+
+    var drawResponse = function(){
+        $.get( "api/controller/schedule.php").done(function(data){
+            serviceResponse = data;
+            loadTables(serviceResponse);
+        });
+    };
+
+    var getTemplateWithClass = (objClass) => {
+        return `${objClass.class.descriptionSubject}<br />
+                    Comision: ${objClass.class.commission}<br />
+                    Aula: ${objClass.classRoom.classroomNumber}`;
+    };
+
+    var drawTrForQuantity = (elementToAppend, quantity) => {
+        if(elementToAppend.find("tr").length === 0){
+            for(var i=1;i<=quantity;i++){
+                elementToAppend.append(`<tr><td></td><td></td><td></td><td></td><td></td></tr>`);
+            }
+        }
+    };
+
+    var loadTables = function (serviceResponse) {
+        if(!serviceResponse || !serviceResponse.classes || !serviceResponse.classes.byTurn || !serviceResponse.classesWithoutRooms){
+            throw new Error("Response is not OK. Check server.")
+        }
+
+        var scheduleByTurn = serviceResponse.classes.byTurn,
+            scheduleByRoomNumber = serviceResponse.classes.byTurn,
+            classesWithoutRooms = serviceResponse.classesWithoutRooms,
+            appendElement = null,
+            lengthTrByTurn = {};
+
+        tableManana.empty();
+        tableTarde.empty();
+        tableNoche.empty();
+
+        Object.entries(scheduleByTurn).forEach(([day, classesByDay]) => {
+            Object.entries(classesByDay).forEach(([turn, classesByTurn]) => {
+                if(!lengthTrByTurn[turn]){
+                    lengthTrByTurn[turn] = classesByTurn.length;
+                } else if (classesByTurn.length > lengthTrByTurn[turn]) {
+                    lengthTrByTurn[turn] = classesByTurn.length;
+                }
+            });
+        });
+
+        Object.entries(scheduleByTurn).forEach(([day, classesByDay]) => {
+            var indexTdOfDay = Object.keys(scheduleByTurn).indexOf(day);
+
+            Object.entries(classesByDay).forEach(([turn, classesByTurn]) => {
+                if (turn === "M"){
+                    appendElement = tableManana;
+                } else if (turn === "T"){
+                    appendElement = tableTarde;
+                } else {
+                    appendElement = tableNoche;
+                }
+
+                drawTrForQuantity(appendElement, lengthTrByTurn[turn]);
+
+                classesByTurn.forEach((classTurn, indexClass) => {
+                    var $trByIndex = $(appendElement.find("tr").get(indexClass)),
+                        $tdByDay = $($trByIndex.find("td").get(indexTdOfDay));
+
+                    $tdByDay.html(getTemplateWithClass(classTurn));
+                });
+            });
+
+        });
+
+    };
+
     var loadTablaManana = () => {
-        
         var tr; 
         tableManana.empty();
-        $.get( "api/controller/schedule.php?type=turn")
+        $.get( "api/controller/schedule.php")
           .done(function( data ) {
-            schedule =  data.classes.byTurn;
+            var schedule =  data.classes.byTurn;
             var arrayLength = [];
 
             if(schedule.Lunes.hasOwnProperty('M')==true){arrayLength[0]=schedule.Lunes.M.length;}else{arrayLength[0]=0;}
@@ -39,10 +111,8 @@ var SCHEDULE = (function ($) {
                 tableManana.append(tr);
             } 
         });     
-    }
-    
-    
-    
+    };
+
     var loadTablaTarde = () => {
         
         var tr; 
@@ -214,14 +284,12 @@ var SCHEDULE = (function ($) {
                 });
                   $('.dataTables_length').addClass('bs-select');
           });
-    }
-
+    };
 
     var registerEvents = () => {
         /**
          * Handler para evento click en opciones del menú
          */
-
 
         $("#criterio").on("change", function(e){
             switch($(this).find(":checked").val()){
@@ -242,25 +310,24 @@ var SCHEDULE = (function ($) {
                     break;
             }
         });
-
-    }
+    };
 
     var RecargarTablas = () => {
-        loadTablaManana();
-        loadTablaTarde();
-        loadTablaNoche();
-        
-    }
+        // loadTablaManana();
+        // loadTablaTarde();
+        // loadTablaNoche();
+    };
 
-    
     registerEvents();
-    loadTablaManana();
-    loadTablaTarde();
-    loadTablaNoche();
-    loadListadoMaterias();
-    loadListadoMNI();
+    // loadTablaManana();
+    // loadTablaTarde();
+    // loadTablaNoche();
+    // loadListadoMaterias();
+    // loadListadoMNI();
+
+    drawResponse();
 
     return {
-        reload: RecargarTablas
+        reload: loadTables
     }
 })(jQuery);
