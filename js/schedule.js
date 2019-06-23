@@ -166,8 +166,56 @@ var SCHEDULE = (function ($) {
           });
     }
 
+    var loadListadoMNI = () => {
+
+        var $tbody = $("#table_listadoMNI tbody");
+
+        $tbody.empty();
+        $.get( "api/controller/schedule.php?type=room")
+          .done(function( data ) {
+            var classes = data.classes,
+                classesWithoutRooms = data.classesWithoutRooms;
+
+                var template = function(model){
+            /**     return `<tr><td>${"Aula: " + model.classRoom.classroomNumber }</td><td>${"ID Cursada: " + model.class.id + " Comision: " + model.class.commission}</td><td>${"ID Cursada: " + model.class.id + " Comision: " + model.class.commission}</td><td>${"ID Cursada: " + model.class.id + " Comision: " + model.class.commission}</td><td>${"ID Cursada: " + model.class.id + " Comision: " + model.class.commission}</td><td>${"ID Cursada: " + model.class.id + " Comision: " + model.class.commission}</td></tr>`; */
+                    return `<tr><td>${model.career}</td><td>${model.descriptionSubject}</td><td>${model.commission}</td><td>${model.capacity}</td><td>${model.turn}</td></tr>`;
+              };
+
+
+                Object.entries(classesWithoutRooms).forEach(([nro, classesdata]) => {
+                    $tbody.append(template(classesdata));   
+                });
+
+
+                $('#table_listadoMNI').DataTable({
+                    "pagingType": "simple_numbers", // "simple" option for 'Previous' and 'Next' buttons only
+                    "pageLength" : 5,
+                    "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, 'Todos']],
+                    "bFilter": false,
+                    "searching": true,
+                    "ordering": false,
+                    "language": {
+                        "paginate": {
+                            "first": "Primera",
+                            "previous": "Anterior",
+                            "next":  "Siguiente",
+                            "last": "Ultima",
+                        },
+                        "info": "Mostrando entradas _START_ a _END_ de _TOTAL_",
+                        "lengthMenu": "Mostrar _MENU_ entradas",
+                        "emptyTable": "No hay datos en la tabla",
+                        "loadingRecords": "Cargando...",
+                        "processing":     "Procesando...",
+                        "search":         "Buscar:",
+                    }
+                });
+                  $('.dataTables_length').addClass('bs-select');
+          });
+    }
+
     loadTablaManana();
     loadTablaTarde();
     loadTablaNoche();
     loadListadoMaterias();
+    loadListadoMNI();
 })(jQuery);

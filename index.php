@@ -120,6 +120,22 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="col-12"><center><h2>Listado de materias no asignadas</h2><center>
+            <table class="table table-striped table-bordered col-10" id="table_listadoMNI">
+                <thead>
+                    <tr>
+                    <th scope="col">Carrera</th>
+                    <th scope="col">Materia</th>
+                    <th scope="col">Comision</th>
+                    <th scope="col">Capacidad</th>
+                    <th scope="col">Turno</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <div class="row d-none containerModule" id="abm_classroom">
