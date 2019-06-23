@@ -244,6 +244,14 @@ var SCHEDULE = (function ($) {
         });
 
     }
+
+    var RecargarTablas = () => {
+        loadTablaManana();
+        loadTablaTarde();
+        loadTablaNoche();
+        
+    }
+
     
     registerEvents();
     loadTablaManana();
@@ -251,4 +259,8 @@ var SCHEDULE = (function ($) {
     loadTablaNoche();
     loadListadoMaterias();
     loadListadoMNI();
+
+    return {
+        reload: RecargarTablas
+    }
 })(jQuery);

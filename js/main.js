@@ -15,7 +15,8 @@ var MAIN = (function ($) {
             //Oculto todos los div
             $(".containerModule").addClass("d-none");
             //Muestro el container correspondiente
-            containerSchedule.removeClass("d-none");         
+            containerSchedule.removeClass("d-none");
+            SCHEDULE.reload();         
         });
 
         
