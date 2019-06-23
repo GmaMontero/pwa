@@ -49,8 +49,9 @@
                     <label for="criterio" class="col-sm-1 col-form-label">Criterio:</label>
                     <div class="col-sm-2">
                     <select class="custom-select" name="criterio" id="criterio" onchange="myFunction()">
-                        <option value="Turno">Turno</option>
-                        <option value="Aula">Aula</option>
+                        <option value="Cronograma">Cronograma</option>
+                        <option value="Listado">Listado</option>
+                        <option value="MNI">Materias no incluidas</option>
                     </select>
                     </div>
                 </div>
@@ -97,6 +98,24 @@
                     <th scope="col">Miercoles</th>
                     <th scope="col">Jueves</th>
                     <th scope="col">Viernes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    <br />
+    
+    <div class="col-12"><center><h2>Listado de asignaciones</h2><center></div>
+        <div class="col-1"></div>
+            <table class="table table-striped table-bordered col-10" id="table_listado">
+                <thead>
+                    <tr>
+                    <th scope="col">Dia</th>
+                    <th scope="col">Turno</th>
+                    <th scope="col">Aula</th>
+                    <th scope="col">Materia</th>
+                    <th scope="col">Comision</th>
                     </tr>
                 </thead>
                 <tbody>

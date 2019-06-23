@@ -116,7 +116,57 @@ var SCHEDULE = (function ($) {
         });     
     }
 
+    var loadListadoMaterias = () => {
+
+        var $tbody = $("#table_listado tbody");
+
+        $tbody.empty();
+        $.get( "api/controller/schedule.php?type=room")
+          .done(function( data ) {
+            var classes = data.classes,
+                classesWithoutRooms = data.classesWithoutRooms;
+
+                var template = function(model, days, Nroaula){
+            /**     return `<tr><td>${"Aula: " + model.classRoom.classroomNumber }</td><td>${"ID Cursada: " + model.class.id + " Comision: " + model.class.commission}</td><td>${"ID Cursada: " + model.class.id + " Comision: " + model.class.commission}</td><td>${"ID Cursada: " + model.class.id + " Comision: " + model.class.commission}</td><td>${"ID Cursada: " + model.class.id + " Comision: " + model.class.commission}</td><td>${"ID Cursada: " + model.class.id + " Comision: " + model.class.commission}</td></tr>`; */
+                    return `<tr><td>${days}</td><td>${model.class.turn}</td><td>${model.classRoom.classroomNumber}</td><td>${model.class.id}</td><td>${model.class.commission}</td></tr>`;
+              };
+
+                Object.entries(classes).forEach(([days, grupoaulas]) => {
+
+                    Object.entries(grupoaulas).forEach(([Nroaula, classesAndRoomsData]) => {
+                        classesAndRoomsData.forEach((classAndRoomData) => {
+                            $tbody.append(template(classAndRoomData, days, Nroaula));                           
+                        });
+                    });
+                });
+
+                $('#table_listado').DataTable({
+                    "pagingType": "simple_numbers", // "simple" option for 'Previous' and 'Next' buttons only
+                    "pageLength" : 5,
+                    "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, 'Todos']],
+                    "bFilter": false,
+                    "searching": true,
+                    "ordering": false,
+                    "language": {
+                        "paginate": {
+                            "first": "Primera",
+                            "previous": "Anterior",
+                            "next":  "Siguiente",
+                            "last": "Ultima",
+                        },
+                        "info": "Mostrando entradas _START_ a _END_ de _TOTAL_",
+                        "lengthMenu": "Mostrar _MENU_ entradas",
+                        "emptyTable": "No hay datos en la tabla",
+                        "loadingRecords": "Cargando...",
+                        "processing":     "Procesando...",
+                    }
+                });
+                  $('.dataTables_length').addClass('bs-select');
+          });
+    }
+
     loadTablaManana();
     loadTablaTarde();
     loadTablaNoche();
+    loadListadoMaterias();
 })(jQuery);
