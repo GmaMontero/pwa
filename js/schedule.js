@@ -213,6 +213,36 @@ var SCHEDULE = (function ($) {
           });
     }
 
+
+    var registerEvents = () => {
+        /**
+         * Handler para evento click en opciones del menú
+         */
+
+
+        $("#criterio").on("change", function(e){
+            switch($(this).find(":checked").val()){
+                case "Cronograma":
+                    $("#cronogramas").removeClass("d-none");
+                    $("#Listado").addClass("d-none");
+                    $("#ListMNI").addClass("d-none");
+                    break;
+                case "Listado":
+                    $("#cronogramas").addClass("d-none");
+                    $("#Listado").removeClass("d-none");
+                    $("#ListMNI").addClass("d-none");
+                    break;
+                case "MNI":
+                    $("#cronogramas").addClass("d-none");
+                    $("#Listado").addClass("d-none");
+                    $("#ListMNI").removeClass("d-none");
+                    break;
+            }
+        });
+
+    }
+    
+    registerEvents();
     loadTablaManana();
     loadTablaTarde();
     loadTablaNoche();

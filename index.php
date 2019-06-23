@@ -49,7 +49,7 @@
                 <div class="form-group row">
                     <label for="criterio" class="col-sm-1 col-form-label">Criterio:</label>
                     <div class="col-sm-2">
-                    <select class="custom-select" name="criterio" id="criterio" onchange="myFunction()">
+                    <select class="custom-select" name="criterio" id="criterio">
                         <option value="Cronograma">Cronograma</option>
                         <option value="Listado">Listado</option>
                         <option value="MNI">Materias no incluidas</option>
