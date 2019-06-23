@@ -32,7 +32,8 @@ class ScheduleService {
             "commission" => $class["commission"],
             "nameSubject" => $class["nameSubject"],
             "turn" => $class["turn"],
-            "capacity" => $class["capacity"]
+            "capacity" => $class["capacity"],
+            "descriptionSubject" => $class["descriptionSubject"]
         ];
     }
 
