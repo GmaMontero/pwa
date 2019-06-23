@@ -159,6 +159,7 @@ var SCHEDULE = (function ($) {
                         "emptyTable": "No hay datos en la tabla",
                         "loadingRecords": "Cargando...",
                         "processing":     "Procesando...",
+                        "search":         "Buscar:",
                     }
                 });
                   $('.dataTables_length').addClass('bs-select');
