@@ -1,14 +1,15 @@
 var SCHEDULE = (function ($) {
-    tableManana= $("#table_cronograma_mañana");
-    tableTarde = $("#table_cronograma_tarde");
-    tableNoche = $("#table_cronograma_noche");
+    tableManana= $("#table_cronograma_mañana tbody");
+    tableTarde = $("#table_cronograma_tarde tbody");
+    tableNoche = $("#table_cronograma_noche tbody");
        
     var loadTablaManana = () => {
         
         var tr; 
+        tableManana.empty();
         $.get( "api/controller/schedule.php?type=turn")
           .done(function( data ) {
-            schedule =  data.classes;
+            schedule =  data.classes.byTurn;
             var arrayLength = [];
 
             if(schedule.Lunes.hasOwnProperty('M')==true){arrayLength[0]=schedule.Lunes.M.length;}else{arrayLength[0]=0;}
@@ -45,9 +46,10 @@ var SCHEDULE = (function ($) {
     var loadTablaTarde = () => {
         
         var tr; 
+        tableTarde.empty();
         $.get( "api/controller/schedule.php?type=turn")
           .done(function( data ) {
-            schedule =  data.classes;
+            schedule =  data.classes.byTurn;
             var arrayLength = [];
 
             if(schedule.Lunes.hasOwnProperty('T')==true){arrayLength[0]=schedule.Lunes.T.length;}else{arrayLength[0]=0;}
@@ -82,9 +84,10 @@ var SCHEDULE = (function ($) {
     var loadTablaNoche = () => {
         
         var tr; 
+        tableNoche.empty();
         $.get( "api/controller/schedule.php?type=turn")
           .done(function( data ) {
-            schedule =  data.classes;
+            schedule =  data.classes.byTurn;
             var arrayLength = [];
 
             if(schedule.Lunes.hasOwnProperty('N')==true){arrayLength[0]=schedule.Lunes.N.length;}else{arrayLength[0]=0;}
@@ -123,7 +126,7 @@ var SCHEDULE = (function ($) {
         $tbody.empty();
         $.get( "api/controller/schedule.php?type=room")
           .done(function( data ) {
-            var classes = data.classes,
+            var classes = data.classes.byRoomNumber,
                 classesWithoutRooms = data.classesWithoutRooms;
 
                 var template = function(model, days, Nroaula){
