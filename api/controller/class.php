@@ -13,7 +13,7 @@ $METHOD = $_SERVER['REQUEST_METHOD'];
 switch ($METHOD) {
     case "GET":
         $classService = new ClassService();
-        echo json_encode($classService->getAll([]));
+        echo json_encode($classService->getAll());
         http_response_code(200);
         break;
     case "POST":

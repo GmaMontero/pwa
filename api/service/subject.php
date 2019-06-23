@@ -11,14 +11,28 @@ class SubjectService {
         $this->db = new Database();
     }
 
-
-    public function getAll($filter){
+    public function getAll($filter=[]){
         $result = $this->db->getAll($this->collection, $filter);
         return $result;
     }
 
     public function delete($id){
         return $this->db->deleteOne(['id' => $id], $this->collection);
+    }
+
+    public function getSubjectDescription($subjects, $subjectId){
+        $subjectFiltered = array_filter(
+            $subjects,
+            function ($e) use ($subjectId) {
+                return $e->id === $subjectId;
+            }
+        );
+
+        if(count($subjectFiltered) === 1){
+            return array_values($subjectFiltered)[0]->name;
+        } else {
+            return null;
+        }
     }
 }
 

@@ -2,19 +2,28 @@
 
 require_once(dirname(__FILE__).'/../shared/utilities.php');
 require_once(dirname(__FILE__).'/../shared/database.php');
+require_once(dirname(__FILE__).'/subject.php');
 
 class ClassService {
     private $db;
     private $collection = "class";
     private $maxClasses = 5;
+    private $subjectService  = null;
+    private $subjects  = [];
 
     public function __construct(){
         $this->db = new Database();
+        $this->subjectService = new SubjectService();
+        $this->subjects = $this->subjectService->getAll();
     }
 
-    public function getAll($filter){
-        $result = $this->db->getAll($this->collection, $filter);
-        return $result;
+    public function getAll($filter=[]){
+        $classes = $this->db->getAll($this->collection, $filter);
+        $classes = array_map(function($subject){
+            $subject->descriptionSubject = $this->subjectService->getSubjectDescription($this->subjects, $subject->nameSubject);
+            return $subject;
+        }, $classes);
+        return $classes;
     }
 
     public function existsId($id){
