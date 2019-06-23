@@ -59,6 +59,7 @@
             </form>
         </div> 
         <br />
+        <div class="col-12" id="cronogramas"><center>
         <div class="col-12"><center><h2>Turno Mañana</h2><center></div>
         <div class="col-1"></div>
             <table class="table table-striped table-bordered col-10" id="table_cronograma_mañana">
@@ -104,7 +105,8 @@
                 <tbody>
                 </tbody>
             </table>
-
+        <center></div>
+        <div class="col-12 d-none" id="Listado"><center>
         <div class="col-12"><center><h2>Listado de asignaciones</h2><center>
             <table class="table table-striped table-bordered col-10" id="table_listado">
                 <thead>
@@ -120,7 +122,8 @@
                 </tbody>
             </table>
         </div>
-
+        <center></div>
+        <div class="col-12 d-none" id="ListMNI"><center>
         <div class="col-12"><center><h2>Listado de materias no asignadas</h2><center>
             <table class="table table-striped table-bordered col-10" id="table_listadoMNI">
                 <thead>
@@ -136,6 +139,7 @@
                 </tbody>
             </table>
         </div>
+        <center></div>
     </div>
 
     <div class="row d-none containerModule" id="abm_classroom">
