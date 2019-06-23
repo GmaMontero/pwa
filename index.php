@@ -104,8 +104,7 @@
                 </tbody>
             </table>
 
-        <div class="col-12"><center><h2>Listado de asignaciones</h2><center></div>
-        <div class="col-1"></div>
+        <div class="col-12"><center><h2>Listado de asignaciones</h2><center>
             <table class="table table-striped table-bordered col-10" id="table_listado">
                 <thead>
                     <tr>
@@ -119,6 +118,7 @@
                 <tbody>
                 </tbody>
             </table>
+        </div>
     </div>
 
     <div class="row d-none containerModule" id="abm_classroom">
