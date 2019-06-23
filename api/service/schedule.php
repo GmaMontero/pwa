@@ -79,7 +79,39 @@ class ScheduleService {
         return null;
     }
 
-    public function getSchedule($type="turn"){
+    private function groupByTurn($classes){
+        foreach ($this->days as $indexDay=>$day){
+            $classes[$day] = array_reduce($classes[$day], function($acc, $class){
+                $turn = $class["class"]["turn"];
+                if(!array_key_exists($turn, $acc)){
+                    $acc[$turn] = [];
+                }
+
+                array_push($acc[$turn], $class);
+                return $acc;
+            }, []);
+        }
+
+        return $classes;
+    }
+
+    private function groupByRoomNumber($classes){
+        foreach ($this->days as $indexDay=>$day){
+            $classes[$day] = array_reduce($classes[$day], function($acc, $class){
+                $classRoomNumber = $class["classRoom"]["classroomNumber"];
+                if(!array_key_exists($classRoomNumber, $acc)){
+                    $acc[$classRoomNumber] = [];
+                }
+
+                array_push($acc[$classRoomNumber], $class);
+                return $acc;
+            }, []);
+        }
+
+        return $classes;
+    }
+
+    public function getSchedule(){
         $classesWithoutRooms = [];
         $classesByType = [];
 
@@ -99,17 +131,7 @@ class ScheduleService {
                     $bestClassroom = $this->getBestClassRoomForCapacity($classRoomsByDay, $class["capacity"]);
 
                     if($bestClassroom !== null) {
-                        if($type === "turn"){
-                            $keyForType = $class["turn"];
-                        } else {
-                            $keyForType = $bestClassroom["classroom"]["number"];
-                        }
-
-                        if(!array_key_exists($keyForType, $classesByType[$dayOfWeek])){
-                            $classesByType[$dayOfWeek][$keyForType] = [];
-                        }
-
-                        $alreadyAssigned = $this->getClassWithCommissionCareerAndTurn($classesByType[$dayOfWeek][$keyForType], $class);
+                        $alreadyAssigned = $this->getClassWithCommissionCareerAndTurn($classesByType[$dayOfWeek], $class);
 
                         if($alreadyAssigned === null){
                             unset($classes[intval($indexClass)]);
@@ -120,7 +142,7 @@ class ScheduleService {
                                 "class" => $this->getClassModel($class)
                             ];
 
-                            array_push($classesByType[$dayOfWeek][$keyForType], $classWithRoom);
+                            array_push($classesByType[$dayOfWeek], $classWithRoom);
                         }
                     }
                 }
@@ -133,7 +155,10 @@ class ScheduleService {
         }
 
         return [
-            "classes" => $classesByType,
+            "classes" => [
+                "byTurn" => $this->groupByTurn($classesByType),
+                "byRoomNumber" => $this->groupByRoomNumber($classesByType)
+            ],
             "classesWithoutRooms" => $classesWithoutRooms
         ];
     }
