@@ -88,7 +88,7 @@ var CLASS = (function ($) {
             
             $('#table_class').DataTable({
                 "pagingType": "simple_numbers", // "simple" option for 'Previous' and 'Next' buttons only
-                "pageLength" : 10,
+                "pageLength" : 5,
                 "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, 'Todos']],
                 "bFilter": false,
                 "searching": false,
