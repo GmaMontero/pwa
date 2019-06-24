@@ -97,6 +97,11 @@ var SCHEDULE = (function ($) {
             });
         });
 
+        if ($.fn.DataTable.isDataTable("#table_listado")) {
+            $('#table_listado').DataTable().clear().draw();
+            $('#table_listado').dataTable().fnDestroy();
+        }
+
         $('#table_listado').DataTable({
             "pagingType": "simple_numbers", // "simple" option for 'Previous' and 'Next' buttons only
             "pageLength" : 5,
@@ -126,6 +131,11 @@ var SCHEDULE = (function ($) {
         Object.values(classesWithoutRooms).forEach((classWithoutRoom) => {
             tableMNI.append(getTemplateWithMNI(classWithoutRoom));
         });
+
+        if ($.fn.DataTable.isDataTable("#table_listadoMNI")) {
+            $('#table_listadoMNI').DataTable().clear().draw();
+            $('#table_listadoMNI').dataTable().fnDestroy();
+        }
 
         $('#table_listadoMNI').DataTable({
             "pagingType": "simple_numbers", // "simple" option for 'Previous' and 'Next' buttons only
