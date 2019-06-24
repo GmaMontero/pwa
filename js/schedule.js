@@ -20,7 +20,7 @@ var SCHEDULE = (function ($) {
     };
 
     var getTemplateWithClass = (objClass) => {
-        return `${objClass.class.descriptionSubject}<br />
+        return `${objClass.class.descriptionCareer}<br /> ${objClass.class.descriptionSubject}<br />
                     Comision: ${objClass.class.commission}<br />
                     Aula: ${objClass.classRoom.classroomNumber}`;
     };
