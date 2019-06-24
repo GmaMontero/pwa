@@ -3,26 +3,38 @@
 require_once(dirname(__FILE__).'/../shared/utilities.php');
 require_once(dirname(__FILE__).'/../shared/database.php');
 require_once(dirname(__FILE__).'/subject.php');
+require_once(dirname(__FILE__).'/career.php');
 
 class ClassService {
     private $db;
     private $collection = "class";
     private $maxClasses = 5;
     private $subjectService  = null;
+    private $careerService  = null;
     private $subjects  = [];
+    private $career = [];
 
     public function __construct(){
         $this->db = new Database();
         $this->subjectService = new SubjectService();
+        $this->careerService = new CareerService();
         $this->subjects = $this->subjectService->getAll();
+        $this->careers = $this->careerService->getAll();
     }
 
     public function getAll($filter=[]){
         $classes = $this->db->getAll($this->collection, $filter);
+        
         $classes = array_map(function($subject){
             $subject->descriptionSubject = $this->subjectService->getSubjectDescription($this->subjects, $subject->nameSubject);
             return $subject;
+        }, $classes); 
+
+        $classes = array_map(function($career){
+            $career->descriptionCareer = $this->careerService->getCareerDescription($this->careers, $career->career);
+            return $career;
         }, $classes);
+
         return $classes;
     }
 
