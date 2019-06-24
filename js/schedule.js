@@ -29,8 +29,15 @@ var SCHEDULE = (function ($) {
         tableByRoomNumber.find("tfoot").toggle(show);
     };
 
-    var getTemplateByRoomNumber = function(model, days, Nroaula){
-        return `<tr><td>${days}</td><td>${model.class.turn}</td><td>${model.classRoom.classroomNumber}</td><td>${model.class.descriptionSubject}</td><td>${model.class.commission}</td></tr>`;
+    var getTemplateByRoomNumber = function(model, day){
+        return `<tr>
+                    <td>${day}</td>
+                    <td>${model.class.turn}</td>
+                    <td>${model.class.descriptionCareer}</td>
+                    <td>${model.class.descriptionSubject}</td>
+                    <td>${model.class.commission}</td>
+                    <td>${model.classRoom.classroomNumber}</td>
+                </tr>`;
     };
 
     var getTemplateWithMNI = (objIMN) => {
@@ -109,7 +116,7 @@ var SCHEDULE = (function ($) {
         Object.entries(scheduleByRoomNumber).forEach(([days, grupoaulas]) => {
             Object.entries(grupoaulas).forEach(([Nroaula, classesAndRoomsData]) => {
                 classesAndRoomsData.forEach((classAndRoomData) => {
-                    tableByRoomNumber.find("tbody").append(getTemplateByRoomNumber(classAndRoomData, days, Nroaula));
+                    tableByRoomNumber.find("tbody").append(getTemplateByRoomNumber(classAndRoomData, days));
                 });
             });
         });

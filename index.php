@@ -138,11 +138,12 @@
             <table class="table table-striped table-bordered col-10" id="table_listado">
                 <thead>
                     <tr>
-                    <th scope="col">Dia</th>
-                    <th scope="col">Turno</th>
-                    <th scope="col">Aula</th>
-                    <th scope="col">Materia</th>
-                    <th scope="col">Comision</th>
+                        <th scope="col">Dia</th>
+                        <th scope="col">Turno</th>
+                        <th scope="col">Carrera</th>
+                        <th scope="col">Materia</th>
+                        <th scope="col">Comision</th>
+                        <th scope="col">Aula</th>
                     </tr>
                 </thead>
                 <tbody>
