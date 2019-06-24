@@ -1,14 +1,32 @@
 var SCHEDULE = (function ($) {
-    var tableManana= $("#table_cronograma_mañana tbody"),
-        tableTarde = $("#table_cronograma_tarde tbody"),
-        tableNoche = $("#table_cronograma_noche tbody"),
-        tableMNI = $("#table_listadoMNI tbody"),
-        tableByRoomNumber = $("#table_listado tbody");
+    var tableManana = $("#table_cronograma_mañana"),
+        tableTarde = $("#table_cronograma_tarde"),
+        tableNoche = $("#table_cronograma_noche"),
+        tableMNI = $("#table_listadoMNI"),
+        tableByRoomNumber = $("#table_listado");
 
     var drawResponse = function(){
+        showLoading(true);
         $.get( "api/controller/schedule.php").done(function(serviceResponse){
             loadTables(serviceResponse);
+            showLoading(false);
         });
+    };
+
+    var showLoading = (show) => {
+        if(show){
+            tableManana.find("tbody").empty();
+            tableTarde.find("tbody").empty();
+            tableNoche.find("tbody").empty();
+            tableMNI.find("tbody").empty();
+            tableByRoomNumber.find("tbody").empty();
+        }
+
+        tableManana.find("tfoot").toggle(show);
+        tableTarde.find("tfoot").toggle(show);
+        tableNoche.find("tfoot").toggle(show);
+        tableMNI.find("tfoot").toggle(show);
+        tableByRoomNumber.find("tfoot").toggle(show);
     };
 
     var getTemplateByRoomNumber = function(model, days, Nroaula){
@@ -20,9 +38,9 @@ var SCHEDULE = (function ($) {
     };
 
     var getTemplateWithClass = (objClass) => {
-        return `${objClass.class.descriptionSubject}<br />
-                    Comision: ${objClass.class.commission}<br />
-                    Aula: ${objClass.classRoom.classroomNumber}`;
+        return `<span style="font-size: 12px">${objClass.class.descriptionCareer}</span><br />
+                <span style="font-size: 14px; font-weight: bold">${objClass.class.descriptionSubject}</span><br />
+                <span style="font-size: 13px;">Aula: ${objClass.classRoom.classroomNumber} | Com: ${objClass.class.commission}</span><br />`;
     };
 
     var drawTrForQuantity = (elementToAppend, quantity) => {
@@ -44,12 +62,6 @@ var SCHEDULE = (function ($) {
             appendElement = null,
             lengthTrByTurn = {};
 
-        tableManana.empty();
-        tableTarde.empty();
-        tableNoche.empty();
-        tableMNI.empty();
-        tableByRoomNumber.empty();
-
         Object.entries(scheduleByTurn).forEach(([day, classesByDay]) => {
             Object.entries(classesByDay).forEach(([turn, classesByTurn]) => {
                 if(!lengthTrByTurn[turn]){
@@ -65,11 +77,11 @@ var SCHEDULE = (function ($) {
 
             Object.entries(classesByDay).forEach(([turn, classesByTurn]) => {
                 if (turn === "M"){
-                    appendElement = tableManana;
+                    appendElement = tableManana.find("tbody");
                 } else if (turn === "T"){
-                    appendElement = tableTarde;
+                    appendElement = tableTarde.find("tbody");
                 } else {
-                    appendElement = tableNoche;
+                    appendElement = tableNoche.find("tbody");
                 }
 
                 drawTrForQuantity(appendElement, lengthTrByTurn[turn]);
@@ -92,17 +104,17 @@ var SCHEDULE = (function ($) {
         Object.entries(scheduleByRoomNumber).forEach(([days, grupoaulas]) => {
             Object.entries(grupoaulas).forEach(([Nroaula, classesAndRoomsData]) => {
                 classesAndRoomsData.forEach((classAndRoomData) => {
-                    tableByRoomNumber.append(getTemplateByRoomNumber(classAndRoomData, days, Nroaula));
+                    tableByRoomNumber.find("tbody").append(getTemplateByRoomNumber(classAndRoomData, days, Nroaula));
                 });
             });
         });
 
         if ($.fn.DataTable.isDataTable("#table_listado")) {
-            $('#table_listado').DataTable().clear().draw();
-            $('#table_listado').dataTable().fnDestroy();
+            tableByRoomNumber.DataTable().clear().draw();
+            tableByRoomNumber.dataTable().fnDestroy();
         }
 
-        $('#table_listado').DataTable({
+        tableByRoomNumber.DataTable({
             "pagingType": "simple_numbers", // "simple" option for 'Previous' and 'Next' buttons only
             "pageLength" : 10,
             "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, 'Todos']],
@@ -129,15 +141,15 @@ var SCHEDULE = (function ($) {
 
     var drawClassesWithoutRooms = (classesWithoutRooms) => {
         Object.values(classesWithoutRooms).forEach((classWithoutRoom) => {
-            tableMNI.append(getTemplateWithMNI(classWithoutRoom));
+            tableMNI.find("tbody").append(getTemplateWithMNI(classWithoutRoom));
         });
 
         if ($.fn.DataTable.isDataTable("#table_listadoMNI")) {
-            $('#table_listadoMNI').DataTable().clear().draw();
-            $('#table_listadoMNI').dataTable().fnDestroy();
+            tableMNI.DataTable().clear().draw();
+            tableMNI.dataTable().fnDestroy();
         }
 
-        $('#table_listadoMNI').DataTable({
+        tableMNI.DataTable({
             "pagingType": "simple_numbers", // "simple" option for 'Previous' and 'Next' buttons only
             "pageLength" : 10,
             "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, 'Todos']],

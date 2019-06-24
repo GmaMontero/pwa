@@ -74,6 +74,15 @@
                 </thead>
                 <tbody>
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="5" style="text-align: center">
+                            <div class="spinner-border text-danger" role="status">
+                                <span class="sr-only">Cargando...</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
             </table>
         <div class="col-12"><center><h2>Turno Tarde</h2><center></div>
         <div class="col-1"></div>
@@ -89,6 +98,15 @@
                 </thead>
                 <tbody>
                 </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="5" style="text-align: center">
+                        <div class="spinner-border text-danger" role="status">
+                            <span class="sr-only">Cargando...</span>
+                        </div>
+                    </td>
+                </tr>
+                </tfoot>
             </table>
         <div class="col-12"><center><h2>Turno Noche</h2><center></div>
         <div class="col-1"></div>
@@ -104,6 +122,15 @@
                 </thead>
                 <tbody>
                 </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="5" style="text-align: center">
+                        <div class="spinner-border text-danger" role="status">
+                            <span class="sr-only">Cargando...</span>
+                        </div>
+                    </td>
+                </tr>
+                </tfoot>
             </table>
         <center></div>
         <div class="col-12 d-none" id="Listado"><center>
@@ -120,6 +147,15 @@
                 </thead>
                 <tbody>
                 </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="5" style="text-align: center">
+                        <div class="spinner-border text-danger" role="status">
+                            <span class="sr-only">Cargando...</span>
+                        </div>
+                    </td>
+                </tr>
+                </tfoot>
             </table>
         </div>
         <center></div>
@@ -137,6 +173,15 @@
                 </thead>
                 <tbody>
                 </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="5" style="text-align: center">
+                        <div class="spinner-border text-danger" role="status">
+                            <span class="sr-only">Cargando...</span>
+                        </div>
+                    </td>
+                </tr>
+                </tfoot>
             </table>
         </div>
         <center></div>
