@@ -12,7 +12,7 @@ class ClassService {
     private $subjectService  = null;
     private $careerService  = null;
     private $subjects  = [];
-    private $career = [];
+    private $careers = [];
 
     public function __construct(){
         $this->db = new Database();
@@ -26,14 +26,15 @@ class ClassService {
         $classes = $this->db->getAll($this->collection, $filter);
         
         $classes = array_map(function($subject){
+            $subject->descriptionCareer = $this->careerService->getCareerDescription($this->careers, $subject->career);
             $subject->descriptionSubject = $this->subjectService->getSubjectDescription($this->subjects, $subject->nameSubject);
             return $subject;
         }, $classes); 
 
-        $classes = array_map(function($career){
-            $career->descriptionCareer = $this->careerService->getCareerDescription($this->careers, $career->career);
-            return $career;
-        }, $classes);
+//        $classes = array_map(function($career){
+//            $career->descriptionCareer = $this->careerService->getCareerDescription($this->careers, $career->career);
+//            return $career;
+//        }, $classes);
 
         return $classes;
     }
