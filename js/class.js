@@ -66,8 +66,8 @@ var CLASS = (function ($) {
             for (var i = 0; i < classes.length; i++) {
                 tr = $('<tr/>');
                 tr.append("<td>" + classes[i].id + "</td>");
-                tr.append("<td>" + classes[i].career + "</td>");
-                tr.append("<td>" + classes[i].nameSubject + "</td>");
+                tr.append("<td>" + classes[i].descriptionCareer + "</td>");
+                tr.append("<td>" + classes[i].descriptionSubject + "</td>");
                 tr.append("<td>" + classes[i].capacity + "</td>");
                 tr.append("<td>" + classes[i].turn + "</td>");
                 tr.append("<td>" + classes[i].commission + "</td>");
