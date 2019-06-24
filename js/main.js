@@ -1,6 +1,6 @@
 var MAIN = (function ($) {
+    window.HAS_CHANGE = false;
     var containerSchedule = $("#schedule")
-
     var registerEvents = () => {
 
         /**
@@ -16,16 +16,17 @@ var MAIN = (function ($) {
             $(".containerModule").addClass("d-none");
             //Muestro el container correspondiente
             containerSchedule.removeClass("d-none");
-            SCHEDULE.reload();         
-        });
 
-        
-    }
+            if(window.HAS_CHANGE){
+                window.HAS_CHANGE = false;
+                SCHEDULE.reload();
+            }
+        });
+    };
 
     /**
      * Llamada a funciones al inicio
      */
     registerEvents();
-
 
 })(jQuery);

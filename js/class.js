@@ -59,10 +59,10 @@ var CLASS = (function ($) {
             $('#table_class tbody').empty();
         }
         //Hago la llamada
-        $.get( "api/controller/class.php")
-          .done(function( data ) {
-            classes = data;
-            var tr;
+        $.get( "api/controller/class.php").done(function( data ) {
+            var classes = data,
+                tr;
+
             for (var i = 0; i < classes.length; i++) {
                 tr = $('<tr/>');
                 tr.append("<td>" + classes[i].id + "</td>");
@@ -113,6 +113,7 @@ var CLASS = (function ($) {
                 data: _data,
                 type: 'DELETE',
                 complete: function(result) {
+                    window.HAS_CHANGE = true;
                     if (result.status==200) { 
                         showAlert("success", "Cursada borrada correctamente");
                         loadClasses();
@@ -206,7 +207,8 @@ var CLASS = (function ($) {
                             showAlert("error", "Error inesperado");
                     } 
                 },
-                complete:  function (xhr, statusText) {       
+                complete:  function (xhr, statusText) {
+                    window.HAS_CHANGE = true;
                     btnResetFormClass.click();
                     loadClasses();
                 }

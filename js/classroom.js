@@ -16,11 +16,12 @@ var CLASSROOM = (function ($) {
             $("#table_classroom").dataTable().fnDestroy();
             $('#table_classroom tbody').empty(); //esta línea queda igual
         }
+
         //Hago la llamada
-        $.get( "api/controller/classroom.php")
-          .done(function( data ) {
-            classrooms = data;
-            var tr;
+        $.get( "api/controller/classroom.php").done(function( data ) {
+            var classrooms = data,
+                tr;
+
             for (var i = 0; i < classrooms.length; i++) {
                 tr = $('<tr/>');
                 tr.append("<td>" + classrooms[i].id + "</td>");
@@ -31,6 +32,7 @@ var CLASSROOM = (function ($) {
                 tableClassroom.append(tr);
                 $("#table_classroom tr:last-child").attr("rowData", JSON.stringify(classrooms[i]));
             }
+
             $('#table_classroom').DataTable({
                 "pagingType": "simple_numbers", // "simple" option for 'Previous' and 'Next' buttons only
                 "pageLength" : 10,
@@ -53,7 +55,7 @@ var CLASSROOM = (function ($) {
                 }
             });
         });
-    }
+    };
 
     /**
     * Función para borrar Aulas desde DB
@@ -61,13 +63,15 @@ var CLASSROOM = (function ($) {
     function deleteClassroom (id) {
         var _data = "{\"id\":\"" + id + "\"}";
         var rta = confirm("¿Esta seguro que desea eliminar elemento con ID " + id + "?");
-        if (rta == true) {
+        if (rta === true) {
             $.ajax({
                 url: 'api/controller/classroom.php',
                 data: _data,
                 type: 'DELETE',
                 complete: function(result) {
-                    if (result.status==200) { 
+                    window.HAS_CHANGE = true;
+
+                    if (result.status === 200) {
                         showAlert("success","Aula borrada correctamente");
                         loadClassrooms();
                     } else {
@@ -161,6 +165,7 @@ var CLASSROOM = (function ($) {
                     } 
                 },
                 complete:  function (xhr, statusText) {
+                    window.HAS_CHANGE = true;
                     btnResetFormClassroom.click();
                     loadClassrooms();
                 }
@@ -170,8 +175,7 @@ var CLASSROOM = (function ($) {
         /**
          * Handler para click en modificar fila de tabla Aulas
          */
-        tableClassroom.on("click",  "button.editClassroom", function(e) 
-        {
+        tableClassroom.on("click",  "button.editClassroom", function(e) {
             event.preventDefault();
             //Completo el formulario con los datos de jsonRow
             var jsonRow = JSON.parse($(this).closest("tr").attr("rowData"));
