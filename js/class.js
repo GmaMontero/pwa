@@ -13,6 +13,16 @@ var CLASS = (function ($) {
     var jsonSubjects = '[{"id": 1, "name":"Programacion Web Avanzada"},{"id": 2, "name":"MetodologiasIII"},{"id": 3, "name":"Tecnologia de las Comunicaciones"},{"id": 4, "name":"Gestion de RRHH TI"},{"id": 5,  "name":"Gestion y Costos"},{"id": 6,  "name":"Programacion Estructurada"},{"id": 7, "name":"Matematica Discreta"},{"id": 8, "name":"Sistemas de Representacion"},{"id": 9, "name":"Etica y Deontologia Profesional"},{"id": 10, "name":"Introduccion a la Programacion Web"}]'; 
     var jsonCareers = '[{"id": 1, "name":"Lic en Gestion de Tecnologia Informatica"},{"id": 2, "name":"Ingenieria en Sistemas"}]';
 
+    var getTurnDescription = (turn) => {
+        if(turn === "M"){
+            return "Mañana";
+        } else if (turn === "N"){
+            return "Noche";
+        } else {
+            return "Tarde";
+        }
+    };
+
     /**
      * Función para cargar materias en combo
      */
@@ -69,7 +79,7 @@ var CLASS = (function ($) {
                 tr.append("<td>" + classes[i].descriptionCareer + "</td>");
                 tr.append("<td>" + classes[i].descriptionSubject + "</td>");
                 tr.append("<td>" + classes[i].capacity + "</td>");
-                tr.append("<td>" + classes[i].turn + "</td>");
+                tr.append("<td>" + getTurnDescription(classes[i].turn) + "</td>");
                 tr.append("<td>" + classes[i].commission + "</td>");
                 tr.append("<td><button id=\"edit" + classes[i].id + "\" class=\"editClass btn-success btn-sm fa fa-pencil\"></button><button id=\"" + classes[i].id + "\" style=\"margin-left: 10px;\" class=\"deleteClass btn-sm btn-danger fa fa-trash\"></button></td>");
                 tableClass.append(tr);

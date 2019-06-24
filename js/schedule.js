@@ -13,6 +13,16 @@ var SCHEDULE = (function ($) {
         });
     };
 
+    var getTurnDescription = (turn) => {
+        if(turn === "M"){
+            return "mañana";
+        } else if (turn === "N"){
+            return "noche";
+        } else {
+            return "tarde";
+        }
+    };
+
     var showLoading = (show) => {
         if(show){
             tableManana.find("tbody").empty();
@@ -32,16 +42,16 @@ var SCHEDULE = (function ($) {
     var getTemplateByRoomNumber = function(model, day){
         return `<tr>
                     <td>${day}</td>
-                    <td>${model.class.turn}</td>
+                    <td>Turno ${getTurnDescription(model.class.turn)}</td>
                     <td>${model.class.descriptionCareer}</td>
                     <td>${model.class.descriptionSubject}</td>
-                    <td>${model.class.commission}</td>
+                    <td>Comision ${model.class.commission}</td>
                     <td>${model.classRoom.classroomNumber}</td>
                 </tr>`;
     };
 
     var getTemplateWithMNI = (objIMN) => {
-        return `<tr><td>${objIMN.descriptionCareer}</td><td>${objIMN.descriptionSubject}</td><td>${objIMN.commission}</td><td>${objIMN.capacity}</td><td>${objIMN.turn}</td></tr>`;
+        return `<tr><td>${objIMN.descriptionCareer}</td><td>${objIMN.descriptionSubject}</td><td>Comision ${objIMN.commission}</td><td>${objIMN.capacity}</td><td>Turno ${getTurnDescription(objIMN.turn)}</td></tr>`;
     };
 
     var getTemplateWithClass = (objClass) => {
