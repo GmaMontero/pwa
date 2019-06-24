@@ -3,12 +3,10 @@ var SCHEDULE = (function ($) {
         tableTarde = $("#table_cronograma_tarde tbody"),
         tableNoche = $("#table_cronograma_noche tbody"),
         tableMNI = $("#table_listadoMNI tbody"),
-        tableByRoomNumber = $("#table_listado tbody"),
-        serviceResponse = null;
+        tableByRoomNumber = $("#table_listado tbody");
 
     var drawResponse = function(){
-        $.get( "api/controller/schedule.php").done(function(data){
-            serviceResponse = data;
+        $.get( "api/controller/schedule.php").done(function(serviceResponse){
             loadTables(serviceResponse);
         });
     };
