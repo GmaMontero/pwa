@@ -101,6 +101,11 @@ var SCHEDULE = (function ($) {
     };
 
     var drawScheduleByRoomNumber = (scheduleByRoomNumber) => {
+        if ($.fn.DataTable.isDataTable("#table_listado")) {
+            tableByRoomNumber.DataTable().clear().draw();
+            tableByRoomNumber.dataTable().fnDestroy();
+        }
+
         Object.entries(scheduleByRoomNumber).forEach(([days, grupoaulas]) => {
             Object.entries(grupoaulas).forEach(([Nroaula, classesAndRoomsData]) => {
                 classesAndRoomsData.forEach((classAndRoomData) => {
@@ -108,11 +113,6 @@ var SCHEDULE = (function ($) {
                 });
             });
         });
-
-        if ($.fn.DataTable.isDataTable("#table_listado")) {
-            tableByRoomNumber.DataTable().clear().draw();
-            tableByRoomNumber.dataTable().fnDestroy();
-        }
 
         tableByRoomNumber.DataTable({
             "pagingType": "simple_numbers", // "simple" option for 'Previous' and 'Next' buttons only
@@ -140,14 +140,14 @@ var SCHEDULE = (function ($) {
     };
 
     var drawClassesWithoutRooms = (classesWithoutRooms) => {
-        Object.values(classesWithoutRooms).forEach((classWithoutRoom) => {
-            tableMNI.find("tbody").append(getTemplateWithMNI(classWithoutRoom));
-        });
-
         if ($.fn.DataTable.isDataTable("#table_listadoMNI")) {
             tableMNI.DataTable().clear().draw();
             tableMNI.dataTable().fnDestroy();
         }
+
+        Object.values(classesWithoutRooms).forEach((classWithoutRoom) => {
+            tableMNI.find("tbody").append(getTemplateWithMNI(classWithoutRoom));
+        });
 
         tableMNI.DataTable({
             "pagingType": "simple_numbers", // "simple" option for 'Previous' and 'Next' buttons only
