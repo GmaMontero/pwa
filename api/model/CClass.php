@@ -14,7 +14,7 @@ class CClass {
         $this->id = (string) $json->id;
         $this->nameSubject = $json->nameSubject;
         $this->career = $json->career;
-        $this->nameCareer = $json->nameCareer;
+        
         $this->capacity = $json->capacity;
         $this->turn = $json->turn;
         $this->commission= $json->commission;
