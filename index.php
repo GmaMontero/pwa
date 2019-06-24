@@ -197,7 +197,7 @@
                 <div class="form-group row">
                     <label for="id" class="col-sm-2 col-form-label">Cod. Aula</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="id" id="id" placeholder="Ej. 045">
+                        <input type="text" class="form-control" name="id" id="id" placeholder="Ej. 045" required>
                     </div>
                 </div>
                 <div class="form-group row">
