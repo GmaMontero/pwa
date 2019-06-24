@@ -24,7 +24,7 @@ class SubjectService {
         $subjectFiltered = array_filter(
             $subjects,
             function ($e) use ($subjectId) {
-                return $e->id === $subjectId;
+                return $e->id === $subjectId ;
             }
         );
 

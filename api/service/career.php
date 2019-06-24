@@ -20,16 +20,16 @@ class CareerService {
         return $this->db->deleteOne(['id' => $id], $this->collection);
     }
 
-    public function getCareerDescription($Careers, $CareerId){
-        $CareerFiltered = array_filter(
+    public function getCareerDescription($careers, $careerId){
+        $careerFiltered = array_filter(
             $careers,
             function ($e) use ($careerId) {
                 return $e->id === $careerId;
             }
         );
 
-        if(count($CareerFiltered) === 1){
-            return array_values($CareerFiltered)[0]->name;
+        if(count($careerFiltered) === 1){
+            return array_values($careerFiltered)[0]->name;
         } else {
             return null;
         }

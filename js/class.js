@@ -35,10 +35,18 @@ var CLASS = (function ($) {
      * Función para cargar carreras en combo
      */
     var cargarCarreras = (careers) => {
-        careers = JSON.parse(careers);
-        for (var i = 0; i < careers.length; i++) {
-            selectCareer.append("<option value='"+careers[i].id+"'>"+careers[i].name+"</option>");
-        }
+        $.get( "api/controller/career.php")
+          .done(function( data) {
+            careers = data;
+          })
+          .fail(function() {
+            careers = JSON.parse(careers);
+          })
+          .always(function() {
+            for (var i = 0; i < careers.length; i++) {
+                selectCareer.append("<option value='"+careers[i].id+"'>"+careers[i].name+"</option>");
+            }   
+          })
     }
 
     /**
