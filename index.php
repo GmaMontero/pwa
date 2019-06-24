@@ -197,7 +197,7 @@
                 <div class="form-group row">
                     <label for="id" class="col-sm-2 col-form-label">Cod. Aula</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="id" id="id" placeholder="ID">
+                        <input type="text" class="form-control" name="id" id="id" placeholder="Ej. 045">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -222,19 +222,19 @@
                 <input type="reset" id="resetFormClassroom" class="btn btn-primary" value="Limpiar">
             </form>
             <br />
+            <!-- Div para mostrar alertas -->
             <div class="alert alert-success alert-dismissable alert_classroom" style="display: none;" role="alert">
                 <span id="classroomAlertText">...</span>
                 <button type="button" class="close" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-
         </div>  
         <div class="col-7">
             <table class="table table-striped table-bordered" id="table_classroom">
                 <thead>
                     <tr>
-                    <th scope="col">ID</th>
+                    <th scope="col">Cod.</th>
                     <th scope="col">Numero</th>
                     <th scope="col">Piso</th>
                     <th scope="col">Capacidad</th>
@@ -257,7 +257,7 @@
                 <div class="form-group row">
                     <label for="id" class="col-sm-2 col-form-label">Cod. Cursada</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="id" id="id" placeholder="ID" required>
+                        <input type="text" class="form-control" name="id" id="id" placeholder="Ej. 1200" required>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -320,7 +320,7 @@
             <table class="table table-striped table-bordered" id="table_class">
                 <thead>
                     <tr>
-                    <th scope="col">ID</th>
+                    <th scope="col">Cod.</th>
                     <th scope="col">Carrera</th>
                     <th scope="col">Materia</th>
                     <th scope="col">Capacidad</th>

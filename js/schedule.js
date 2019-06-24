@@ -137,7 +137,7 @@ var SCHEDULE = (function ($) {
             "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, 'Todos']],
             "bFilter": false,
             "searching": true,
-            "ordering": false,
+            "ordering": true,
             "language": {
                 "paginate": {
                     "first": "Primera",
