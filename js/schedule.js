@@ -16,7 +16,7 @@ var SCHEDULE = (function ($) {
     };
 
     var getTemplateWithMNI = (objIMN) => {
-        return `<tr><td>${objIMN.career}</td><td>${objIMN.descriptionSubject}</td><td>${objIMN.commission}</td><td>${objIMN.capacity}</td><td>${objIMN.turn}</td></tr>`;
+        return `<tr><td>${objIMN.descriptionCareer}</td><td>${objIMN.descriptionSubject}</td><td>${objIMN.commission}</td><td>${objIMN.capacity}</td><td>${objIMN.turn}</td></tr>`;
     };
 
     var getTemplateWithClass = (objClass) => {
