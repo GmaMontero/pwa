@@ -11,7 +11,7 @@ var CLASS = (function ($) {
 
     //JSONs de ejemplo
     var jsonSubjects = '[{"id": 1, "name":"Programacion Web Avanzada"},{"id": 2, "name":"MetodologiasIII"},{"id": 3, "name":"Tecnologia de las Comunicaciones"},{"id": 4, "name":"Gestion de RRHH TI"},{"id": 5,  "name":"Gestion y Costos"},{"id": 6,  "name":"Programacion Estructurada"},{"id": 7, "name":"Matematica Discreta"},{"id": 8, "name":"Sistemas de Representacion"},{"id": 9, "name":"Etica y Deontologia Profesional"},{"id": 10, "name":"Introduccion a la Programacion Web"}]'; 
-    var jsonCareers = '[{"id": 1, "name":"Lic. en Gestion de Tecnologia Informatica"},{"id": 2, "name":"Ingenieria en Sistemas"}]';
+    var jsonCareers = '[{"id": 1, "name":"Lic en Gestion de Tecnologia Informatica"},{"id": 2, "name":"Ingenieria en Sistemas"}]';
 
     /**
      * Función para cargar materias en combo
@@ -35,10 +35,18 @@ var CLASS = (function ($) {
      * Función para cargar carreras en combo
      */
     var cargarCarreras = (careers) => {
-        careers = JSON.parse(careers);
-        for (var i = 0; i < careers.length; i++) {
-            selectCareer.append("<option value='"+careers[i].id+"'>"+careers[i].name+"</option>");
-        }
+        $.get( "api/controller/career.php")
+          .done(function( data) {
+            careers = data;
+          })
+          .fail(function() {
+            careers = JSON.parse(careers);
+          })
+          .always(function() {
+            for (var i = 0; i < careers.length; i++) {
+                selectCareer.append("<option value='"+careers[i].id+"'>"+careers[i].name+"</option>");
+            }   
+          })
     }
 
     /**

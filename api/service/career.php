@@ -3,9 +3,9 @@
 require_once(dirname(__FILE__).'/../shared/utilities.php');
 require_once(dirname(__FILE__).'/../shared/database.php');
 
-class SubjectService {
+class CareerService {
     private $db;
-    private $collection = "subject";
+    private $collection = "career";
 
     public function __construct(){
         $this->db = new Database();
@@ -20,16 +20,16 @@ class SubjectService {
         return $this->db->deleteOne(['id' => $id], $this->collection);
     }
 
-    public function getSubjectDescription($subjects, $subjectId){
-        $subjectFiltered = array_filter(
-            $subjects,
-            function ($e) use ($subjectId) {
-                return $e->id === $subjectId ;
+    public function getCareerDescription($careers, $careerId){
+        $careerFiltered = array_filter(
+            $careers,
+            function ($e) use ($careerId) {
+                return $e->id === $careerId;
             }
         );
 
-        if(count($subjectFiltered) === 1){
-            return array_values($subjectFiltered)[0]->name;
+        if(count($careerFiltered) === 1){
+            return array_values($careerFiltered)[0]->name;
         } else {
             return null;
         }
