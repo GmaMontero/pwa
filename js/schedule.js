@@ -104,7 +104,7 @@ var SCHEDULE = (function ($) {
 
         $('#table_listado').DataTable({
             "pagingType": "simple_numbers", // "simple" option for 'Previous' and 'Next' buttons only
-            "pageLength" : 5,
+            "pageLength" : 10,
             "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, 'Todos']],
             "bFilter": false,
             "searching": true,
@@ -139,7 +139,7 @@ var SCHEDULE = (function ($) {
 
         $('#table_listadoMNI').DataTable({
             "pagingType": "simple_numbers", // "simple" option for 'Previous' and 'Next' buttons only
-            "pageLength" : 5,
+            "pageLength" : 10,
             "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, 'Todos']],
             "bFilter": false,
             "searching": true,
