@@ -2,6 +2,7 @@ var SCHEDULE = (function ($) {
     var tableManana= $("#table_cronograma_mañana tbody"),
         tableTarde = $("#table_cronograma_tarde tbody"),
         tableNoche = $("#table_cronograma_noche tbody"),
+        tableMNI = $("#table_listadoMNI tbody"),
         serviceResponse = null;
 
     var drawResponse = function(){
@@ -9,6 +10,10 @@ var SCHEDULE = (function ($) {
             serviceResponse = data;
             loadTables(serviceResponse);
         });
+    };
+
+    var getTemplateWithMNI = (objIMN) => {
+        return `<tr><td>${objIMN.career}</td><td>${objIMN.descriptionSubject}</td><td>${objIMN.commission}</td><td>${objIMN.capacity}</td><td>${objIMN.turn}</td></tr>`;
     };
 
     var getTemplateWithClass = (objClass) => {
@@ -39,6 +44,7 @@ var SCHEDULE = (function ($) {
         tableManana.empty();
         tableTarde.empty();
         tableNoche.empty();
+        tableMNI.empty();
 
         Object.entries(scheduleByTurn).forEach(([day, classesByDay]) => {
             Object.entries(classesByDay).forEach(([turn, classesByTurn]) => {
@@ -74,6 +80,7 @@ var SCHEDULE = (function ($) {
 
         });
 
+        loadListadoMNI(classesWithoutRooms);
     };
 
     var loadTablaManana = () => {
@@ -239,51 +246,34 @@ var SCHEDULE = (function ($) {
           });
     }
 
-    var loadListadoMNI = () => {
+    var loadListadoMNI = (classesWithoutRooms) => {
+        Object.values(classesWithoutRooms).forEach((classWithoutRoom) => {
+            tableMNI.append(getTemplateWithMNI(classWithoutRoom));
+        });
 
-        var $tbody = $("#table_listadoMNI tbody");
-
-        $tbody.empty();
-        $.get( "api/controller/schedule.php?type=room")
-          .done(function( data ) {
-            var classes = data.classes,
-                classesWithoutRooms = data.classesWithoutRooms;
-
-                var template = function(model){
-            /**     return `<tr><td>${"Aula: " + model.classRoom.classroomNumber }</td><td>${"ID Cursada: " + model.class.id + " Comision: " + model.class.commission}</td><td>${"ID Cursada: " + model.class.id + " Comision: " + model.class.commission}</td><td>${"ID Cursada: " + model.class.id + " Comision: " + model.class.commission}</td><td>${"ID Cursada: " + model.class.id + " Comision: " + model.class.commission}</td><td>${"ID Cursada: " + model.class.id + " Comision: " + model.class.commission}</td></tr>`; */
-                    return `<tr><td>${model.career}</td><td>${model.descriptionSubject}</td><td>${model.commission}</td><td>${model.capacity}</td><td>${model.turn}</td></tr>`;
-              };
-
-
-                Object.entries(classesWithoutRooms).forEach(([nro, classesdata]) => {
-                    $tbody.append(template(classesdata));   
-                });
-
-
-                $('#table_listadoMNI').DataTable({
-                    "pagingType": "simple_numbers", // "simple" option for 'Previous' and 'Next' buttons only
-                    "pageLength" : 5,
-                    "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, 'Todos']],
-                    "bFilter": false,
-                    "searching": true,
-                    "ordering": false,
-                    "language": {
-                        "paginate": {
-                            "first": "Primera",
-                            "previous": "Anterior",
-                            "next":  "Siguiente",
-                            "last": "Ultima",
-                        },
-                        "info": "Mostrando entradas _START_ a _END_ de _TOTAL_",
-                        "lengthMenu": "Mostrar _MENU_ entradas",
-                        "emptyTable": "No hay datos en la tabla",
-                        "loadingRecords": "Cargando...",
-                        "processing":     "Procesando...",
-                        "search":         "Buscar:",
-                    }
-                });
-                  $('.dataTables_length').addClass('bs-select');
-          });
+        $('#table_listadoMNI').DataTable({
+            "pagingType": "simple_numbers", // "simple" option for 'Previous' and 'Next' buttons only
+            "pageLength" : 5,
+            "lengthMenu": [[5, 10, 20, -1], [5, 10, 20, 'Todos']],
+            "bFilter": false,
+            "searching": true,
+            "ordering": false,
+            "language": {
+                "paginate": {
+                    "first": "Primera",
+                    "previous": "Anterior",
+                    "next":  "Siguiente",
+                    "last": "Ultima",
+                },
+                "info": "Mostrando entradas _START_ a _END_ de _TOTAL_",
+                "lengthMenu": "Mostrar _MENU_ entradas",
+                "emptyTable": "No hay datos en la tabla",
+                "loadingRecords": "Cargando...",
+                "processing":     "Procesando...",
+                "search":         "Buscar:",
+            }
+        });
+        $('.dataTables_length').addClass('bs-select');
     };
 
     var registerEvents = () => {
@@ -310,12 +300,6 @@ var SCHEDULE = (function ($) {
                     break;
             }
         });
-    };
-
-    var RecargarTablas = () => {
-        // loadTablaManana();
-        // loadTablaTarde();
-        // loadTablaNoche();
     };
 
     registerEvents();
