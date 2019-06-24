@@ -305,10 +305,16 @@
                         </select>
                     </div>
                 </div>
-
                 <button type="submit" class="btn btn-primary">Guardar</button>
                 <input type="reset" id="resetFormClass" class="btn btn-primary" value="Limpiar">
             </form>
+            <br />
+            <div class="alert alert-success alert-dismissable alert_class" style="display: none;" role="alert">
+                <span id="classAlertText">...</span>
+                <button type="button" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
         </div>  
         <div class="col-7">
             <table class="table table-striped table-bordered" id="table_class">
@@ -326,13 +332,6 @@
                 <tbody>
                 </tbody>
             </table>
-            <br />
-            <div class="alert alert-success alert-dismissable alert_class" style="display: none;" role="alert">
-                <span id="classAlertText">...</span>
-                <button type="button" class="close" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
         </div>
     </div>
 

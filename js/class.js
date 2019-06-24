@@ -81,7 +81,7 @@ var CLASS = (function ($) {
                 tr.append("<td>" + classes[i].capacity + "</td>");
                 tr.append("<td>" + getTurnDescription(classes[i].turn) + "</td>");
                 tr.append("<td>" + classes[i].commission + "</td>");
-                tr.append("<td><button id=\"edit" + classes[i].id + "\" class=\"editClass btn-success btn-sm fa fa-pencil\"></button><button id=\"" + classes[i].id + "\" style=\"margin-left: 10px;\" class=\"deleteClass btn-sm btn-danger fa fa-trash\"></button></td>");
+                tr.append("<td><button id=\"edit" + classes[i].id + "\" class=\"editClass btn-success btn-sm fa fa-pencil\"></button><button id=\"" + classes[i].id + "\" style=\"margin-left: 1px;\" class=\"deleteClass btn-sm btn-danger fa fa-trash\"></button></td>");
                 tableClass.append(tr);
                 $("#table_class tr:last-child").attr("rowData", JSON.stringify(classes[i]));
             }
@@ -203,12 +203,23 @@ var CLASS = (function ($) {
                     }
                 },
                 error: function (response) {
+                    var errorText = response.responseJSON.error;
                     switch (response.status) {
                         case 400: 
                             showAlert("error", "Error: Se debe enviar el ID de cursada"); 
                             break;
-                        case 409: 
-                            showAlert("error", "Error: ID de cursada duplicado"); 
+                        case 409:
+                            switch (errorText) {
+                                case 'ID_DUPLICATED':
+                                    showAlert("error", "Error: ID de cursada duplicado");
+                                    break;
+                                case 'CLASS_DUPLICATED':
+                                    showAlert("error", "Error: Ya existe la combinación de materia, turno y comisión");
+                                    break;
+                                case 'MAX_CLASS':
+                                    showAlert("error", "Error: Se alcanzaron las 5 materias para la misma carrera, comisión y turno");
+                                    break;
+                            } 
                             break;
                         case 500: 
                             showAlert("error", "Error en el servidor"); 
