@@ -1,0 +1,11 @@
+{ "_id" : { "$oid" : "5d09a3eb6e3a9208db3fcfb2" }, "id" : "1", "number" : "331", "floor" : "3", "capacity" : "30" }
+{ "_id" : { "$oid" : "5d0c45ec6e3a9227533e78d2" }, "id" : "2", "number" : "332", "floor" : "3", "capacity" : "40" }
+{ "_id" : { "$oid" : "5d0c45f36e3a9236c93a11b2" }, "id" : "3", "number" : "333", "floor" : "3", "capacity" : "40" }
+{ "_id" : { "$oid" : "5d0c45fe6e3a921d4c1c1a82" }, "id" : "4", "number" : "341", "floor" : "4", "capacity" : "30" }
+{ "_id" : { "$oid" : "5d0c46056e3a921d4b5a3f62" }, "id" : "5", "number" : "342", "floor" : "4", "capacity" : "35" }
+{ "_id" : { "$oid" : "5d0c46166e3a921d4d352e02" }, "id" : "6", "number" : "343", "floor" : "4", "capacity" : "45" }
+{ "_id" : { "$oid" : "5d0c461f6e3a921d496f47f2" }, "id" : "7", "number" : "351", "floor" : "5", "capacity" : "45" }
+{ "_id" : { "$oid" : "5d0c46276e3a921d4a04d742" }, "id" : "8", "number" : "352", "floor" : "5", "capacity" : "30" }
+{ "_id" : { "$oid" : "5d0c462e6e3a9227533e78d3" }, "id" : "9", "number" : "353", "floor" : "5", "capacity" : "60" }
+{ "_id" : { "$oid" : "5d1101a76e3a923e22590332" }, "id" : "10", "number" : "352", "floor" : "4", "capacity" : "20" }
+{ "_id" : { "$oid" : "5d114beb6e3a92599115f232" }, "id" : "1099", "number" : "1099", "floor" : "5", "capacity" : "100" }

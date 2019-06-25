@@ -1,0 +1,2 @@
+{ "_id" : { "$oid" : "5d0fff88ce221b8bd41bef87" }, "id" : "1", "name" : "Lic. en Gestion de Tecnologia Informatica" }
+{ "_id" : { "$oid" : "5d0fff88ce221b8bd41bef88" }, "id" : "2", "name" : "Ingenieria en Sistemas" }

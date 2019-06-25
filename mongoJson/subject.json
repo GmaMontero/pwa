@@ -1,0 +1,10 @@
+{ "_id" : { "$oid" : "5d0c39f6ceeab066c450cca6" }, "id" : "1", "name" : "Programacion Web Avanzada" }
+{ "_id" : { "$oid" : "5d0c3a65ceeab066c450cca7" }, "id" : "2", "name" : "Metodologias III" }
+{ "_id" : { "$oid" : "5d0c3a65ceeab066c450cca8" }, "id" : "3", "name" : "Tecnologia de las Comunicaciones" }
+{ "_id" : { "$oid" : "5d0c3a65ceeab066c450cca9" }, "id" : "4", "name" : "Gestion de RRHH TI" }
+{ "_id" : { "$oid" : "5d0c3a65ceeab066c450ccaa" }, "id" : "5", "name" : "Gestion y Costos" }
+{ "_id" : { "$oid" : "5d0c3a65ceeab066c450ccab" }, "id" : "6", "name" : "Programacion Estructurada" }
+{ "_id" : { "$oid" : "5d0c3a66ceeab066c450ccac" }, "id" : "7", "name" : "Matematica Discreta" }
+{ "_id" : { "$oid" : "5d0c3a66ceeab066c450ccad" }, "id" : "8", "name" : "Sistemas de Representacion" }
+{ "_id" : { "$oid" : "5d0c3a66ceeab066c450ccae" }, "id" : "9", "name" : "Etica y Deontologia Profesional" }
+{ "_id" : { "$oid" : "5d0c3a66ceeab066c450ccaf" }, "id" : "10", "name" : "Introduccion a la Programacion Web" }
